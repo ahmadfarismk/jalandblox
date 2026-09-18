@@ -18,12 +18,20 @@ import CheckinScreen from './core/CheckinScreen';
 import DebugMenuScreen from './core/DebugMenuScreen';
 import ComponentsSampleScreen from './guide/ComponentsSampleScreen';
 import BottomTabs from './shared/BottomTabs';
+import { getPrefs } from './core/settings';
+import { isWelcomeDone } from './guide/welcomePrefs';
 
 // Only built screens are wired up. The others in docs/PLAN.md section 4 get
 // their routes when their tasks are done.
 
 function TabLayout() {
   const { t } = useTranslation();
+
+  // First open: send the visitor to the Welcome questions before any tab (S2).
+  // The link and the QR code land on a tab, usually "/". Pages opened from a
+  // shared link (a landmark, a check-in, the privacy notice) are not redirected.
+  if (!isWelcomeDone(getPrefs())) return <Navigate to="/welcome" replace />;
+
   return (
     <div className="flex min-h-dvh flex-col bg-white text-slate-900">
       <header className="flex h-14 items-center justify-end px-2">

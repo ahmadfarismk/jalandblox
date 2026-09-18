@@ -10,16 +10,13 @@
  * functions in src/core/ and the helpers in src/data/.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { Navigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { getPlaces } from '@/data';
-import { getPrefs } from '@/core/settings';
 import { getProgress, onProgressChange } from '@/core/progress';
 import { distanceTo, getPermissionState, getPosition } from '@/core/location';
 import LocationExplainer from '@/core/LocationExplainer';
 import PlaceCard from './components/PlaceCard';
 import { formatDistance, shortNameKey, sortPlaces, stampKind } from './placeList';
-import { isWelcomeDone } from './welcomePrefs';
 
 export default function GuideHomeScreen() {
   const { t } = useTranslation();
@@ -64,10 +61,6 @@ export default function GuideHomeScreen() {
 
   const sorted = useMemo(() => sortPlaces(places, distances), [places, distances]);
   const byDistance = Object.values(distances).some((d) => Number.isFinite(d));
-
-  // First open: the visitor has not answered the Welcome questions yet (S2).
-  // Faris: this moves into App.jsx when you add the redirect there.
-  if (!isWelcomeDone(getPrefs())) return <Navigate to="/welcome" replace />;
 
   return (
     <section>
