@@ -2,10 +2,5 @@
  * Language, nationality and other preferences.
  * Preferences are stored inside the progress object (progress.prefs).
  */
-import { USE_MOCKS } from './useMocks';
-import * as mock from './mocks/settings.mock';
-import * as real from './real/settings.real';
-
-const impl = USE_MOCKS ? mock : real;
-
-export const { getPrefs, setPrefs } = impl;
+// Always the real version (since F4), for the same reason as progress.js.
+export { getPrefs, setPrefs } from './real/settings.real';

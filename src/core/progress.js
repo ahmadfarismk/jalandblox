@@ -1,6 +1,6 @@
 /**
  * Save and load the visitor's progress (stamps, journeys, reviews).
- * Screens import from here. This file only picks fake or real — see useMocks.js.
+ * Screens import from here.
  *
  * @typedef {'outline' | 'gold'} StampKind
  * @typedef {{ kind: StampKind, at: string, accuracy_m?: number }} Stamp
@@ -13,13 +13,11 @@
  *   reviewed: string[]
  * }} Progress
  */
-import { USE_MOCKS } from './useMocks';
-import * as mock from './mocks/progress.mock';
-import * as real from './real/progress.real';
-
-const impl = USE_MOCKS ? mock : real;
-
-export const {
+// Always the real version (since F4): it works everywhere, even with
+// VITE_USE_MOCKS=true, and unlike the old fake it survives a reload.
+// To get sample stamps while building screens, run jalankl.loadSampleProgress()
+// in the browser console (see core/devtools.js).
+export {
   getProgress,
   markOpened,
   addStamp,
@@ -28,4 +26,4 @@ export const {
   markReviewed,
   resetProgress,
   onProgressChange,
-} = impl;
+} from './real/progress.real';
