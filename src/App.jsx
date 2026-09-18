@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import GuideHomeScreen from './guide/GuideHomeScreen';
 import PlaceScreen from './guide/PlaceScreen';
 import JourneyScreen from './guide/JourneyScreen';
+import ArrivalScreen from './guide/ArrivalScreen';
+import LearnScreen from './guide/LearnScreen';
 import WelcomeScreen from './guide/WelcomeScreen';
 import MapScreen from './guide/MapScreen';
 import PassportScreen from './rewards/PassportScreen';
@@ -84,6 +86,8 @@ export default function App() {
         <Route path="checkin/:id" element={<CheckinScreen />} />
         <Route path="place/:id" element={<PlaceScreen />} />
         <Route path="journey/:routeId" element={<JourneyScreen />} />
+        <Route path="arrival" element={<ArrivalScreen />} />
+        <Route path="learn" element={<LearnScreen />} />
         {/* Hidden developer menu (F7): force check-in states, sample stamps, test pages. */}
         <Route path="debug" element={<DebugMenuScreen />} />
         {/* Hidden developer page for the outdoor GPS test (F6). Not linked in the app. */}

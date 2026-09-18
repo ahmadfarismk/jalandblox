@@ -42,9 +42,9 @@ export default function WelcomeScreen() {
   /** The last answer. Saves all three and leaves the Welcome screen behind. */
   function start(startedFrom) {
     setPrefs({ lang, startedFrom, ...(nationality ? { nationality } : {}) });
-    // Both choices open the Guide home for now. "Just landed" goes to /arrival
-    // once task S6 builds it.
-    navigate('/', { replace: true });
+    // Just landed: straight to the way into the city (S6). Already in KL: the
+    // landmark list. Replacing the entry means Back never returns to Welcome.
+    navigate(startedFrom === 'arrival' ? '/arrival' : '/', { replace: true });
   }
 
   return (
