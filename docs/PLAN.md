@@ -21,9 +21,11 @@ This section says what is done, what each person builds next, and anything that 
 
 **Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu, F11 install to phone and offline, F12 privacy page and consent tick box.
 
-**In progress:** F8 Supabase: pull request open with the tables, lock-down SQL and a check script (`npm run check:supabase`). Faris still has to create the Supabase project and run the SQL (steps in `supabase/README.md`). Done when the check prints "All blocked".
+**Waiting (postponed by Faris):** F8 Supabase. The SQL and `npm run check:supabase` are merged; the Supabase project itself is not created yet (steps in `supabase/README.md`). Done when the check prints "All blocked". Until then reviews stay fake.
 
-**Next:** F9 send-postcard function (needs an email service account and a sending address; adds a `postcard_place_id` column for Danial's postcard choice), then F10 connect the Review screen to it.
+**Done since:** real GPS and check-in on the live site and preview links (`.env.production`), and a fix for a check-in loop (see change 46).
+
+**Next:** F6 outdoor test on the live site, then F9 send-postcard function (needs an email service account and a sending address; adds a `postcard_place_id` column for Danial's postcard choice), then F10 connect the Review screen to it.
 
 **Before launch (blockers):**
 - Pick the team's contact email for data requests and put it in `src/core/privacy.js` (now `TBC`, and the Privacy page says "coming soon").
@@ -48,6 +50,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | F8 | Supabase SQL for the 3 tables and private `postcards` bucket, lock-down (RLS on, public key revoked), `npm run check:supabase`, setup guide in `supabase/README.md` |
 | 2026-09-18 | Integrate screens | One pull request bringing Syakir's S2–S7 (`guide/s7-map`) and Danial's D3, D8, D9, D12 (`rewards/passport`) into `main`. Their earlier pull requests had not reached `main`: Syakir's were stacked and open, and Danial's #13–#15 were merged into each other's branches. Resolved clashes in App.jsx (routes) and PLAN.md (change numbers). OK'd Danial's test libraries and `postcardPlaceId` |
 | 2026-09-18 | Welcome redirect | First-open check moved from Guide home into App.jsx, so all three tabs send a new visitor to `/welcome`; shared links still open directly. Test that loads the whole app (`src/App.test.jsx`) |
+| 2026-09-18 | Real GPS | `VITE_USE_MOCKS` per part; live site and previews use real GPS and check-in (only reviews stay fake). Fixed the Check-in screen checking in again and again. Tests for both |
 
 ### Syakir (guide and map)
 
@@ -98,7 +101,7 @@ This section says what is done, what each person builds next, and anything that 
 
 Add new lines at the end. Say who needs to know.
 
-1. **Progress and settings are always real.** `progress.js` and `settings.js` save on the phone (localStorage) even when `VITE_USE_MOCKS=true`. The switch now only picks fake or real for `location.js`, `checkin.js` and `api.js`.
+1. **Progress and settings are always real.** `progress.js` and `settings.js` save on the phone (localStorage) even when `VITE_USE_MOCKS=true`. The switch now only picks fake or real for `location.js`, `checkin.js` and `api.js`. **Update:** the switch now works per part, see change 45.
 2. **Sample stamps for building screens:** while `npm run dev` is running, type `jalankl.loadSampleProgress()` in the browser console. `jalankl.resetProgress()` clears them. Every core and data function is on `window.jalankl` for testing.
 3. **`resetProgress()` keeps preferences** (language, nationality). It clears stamps, journeys and reviews.
 4. **A gold stamp keeps its first date.** Checking in again does not change it.
@@ -142,6 +145,8 @@ Add new lines at the end. Say who needs to know.
 42. **`submitReview()` gets one more field: `postcardPlaceId`** (agreed by Faris; the `reviews` table gets a matching column in F9). It is the place whose postcard the visitor chose, or `null` when they have none unlocked yet (the review is still saved). The backend (F9, F10) should email **that** postcard, not always the reviewed place's. It should answer `{ ok: false, reason: 'invalid_postcard' }` if the id is not a postcard place. The server can't check the gold stamp (stamps live on the phone), so the screen enforces it. Other reasons the screen understands: `invalid_email`, `no_consent`, `rate_limited`; anything else shows "we'll try again" and keeps the form filled. (Faris.)
 43. **Journey screen shows the route at a glance** (Danial, in Syakir's screen: Syakir, please review). Under the title: every leg in one row (Walk → coloured line badge + stops → Walk → the landmark's icon). Board steps show the line as a badge in its own colour (`LineBadge`, readable on the light Monorail green); ride steps show a strip map from the boarding station to the stop you get off at. New files: `src/guide/components/LineBadge.jsx`, `RouteSummary.jsx`, `RideStops.jsx`, `LocalTips.jsx`, `src/guide/routeLegs.js` (with tests). `JourneyScreen.jsx` only gains the lines that place them. (Syakir.)
 44. **Route cards have `localTips`** (Danial): `[{ "textKey": "routes.<routeId>.tips.<n>", "by": "Danial" }]`, text in every language file. The Journey screen shows them as "What locals say" and hides the box while a route has none. **Only real tips from real locals, with their first name. Never write one on someone's behalf.** How to add one: `src/data/README.md`, "Adding a local tip". New text keys: `journey.atAGlance`, `journey.localsSay`, `journey.localsSayHint`, `journey.localBy`. (Everyone: add your own tips!)
+45. **The live site now uses real GPS and real check-in** (Faris). `VITE_USE_MOCKS` can list the parts that stay fake: `true` (all), `false` (none), or e.g. `api`. The live site and every preview link read `.env.production` (`VITE_USE_MOCKS=api`): real location and check-in, fake review sending until F10. Your own `.env` can stay `true`, so check-in still gives gold at your desk. Testing a real check-in now means being at the landmark (or use the debug menu's forced states). The debug menu at `/debug` shows which parts are fake. (Everyone.)
+46. **`getPlace()` returns a new copy every call** (since D1), so never put its result straight into a `useEffect` or `useCallback` dependency list: the effect would run on every render. Use `useMemo(() => getPlace(id), [id])`, like `PlaceScreen.jsx` does. This caused the Check-in screen to check in again and again with real GPS; fixed. (Everyone.)
 
 ## 1. MVP on a page
 

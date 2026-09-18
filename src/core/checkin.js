@@ -12,10 +12,10 @@
  * @typedef {'gold' | 'too_far' | 'poor_signal' | 'no_permission' | 'too_soon' | 'error'} CheckinResult
  * @typedef {{ result: CheckinResult, distance_m?: number, accuracy_m?: number }} CheckinAnswer
  */
-import { USE_MOCKS } from './useMocks';
+import { isMocked } from './useMocks';
 import * as mock from './mocks/checkin.mock';
 import * as real from './real/checkin.real';
 
-const impl = USE_MOCKS ? mock : real;
+const impl = isMocked('checkin') ? mock : real;
 
 export const { checkIn } = impl;

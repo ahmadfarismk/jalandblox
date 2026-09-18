@@ -10,7 +10,7 @@ import { Link } from 'react-router';
 import { getPlaces } from '@/data';
 import { CHECKIN_STATES } from './checkinStates';
 import { addStamp, markOpened, resetProgress, setJourneyStep } from './progress';
-import { USE_MOCKS } from './useMocks';
+import { MOCKABLE_PARTS, isMocked } from './useMocks';
 import ConsentCheckbox from './ConsentCheckbox';
 
 const linkClass =
@@ -35,7 +35,12 @@ export default function DebugMenuScreen() {
       <div>
         <h1 className="text-2xl font-semibold">Debug menu</h1>
         <p className="text-slate-500">
-          Developer page. Fake functions: <b>{USE_MOCKS ? 'on' : 'off'}</b>
+          Developer page.{' '}
+          {MOCKABLE_PARTS.map((part) => (
+            <span key={part} className="mr-2 whitespace-nowrap">
+              {part}: <b>{isMocked(part) ? 'fake' : 'real'}</b>
+            </span>
+          ))}
         </p>
       </div>
 

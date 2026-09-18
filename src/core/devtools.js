@@ -9,7 +9,7 @@ import * as checkin from './checkin';
 import * as settings from './settings';
 import * as api from './api';
 import * as data from '@/data';
-import { USE_MOCKS } from './useMocks';
+import { MOCKED_PARTS, USE_MOCKS } from './useMocks';
 
 /**
  * Replaces your saved progress with sample data: one gold stamp, one outline
@@ -34,5 +34,8 @@ export function installDevtools() {
     ...data,
     loadSampleProgress,
   };
-  console.info(`[JalanKL] ${USE_MOCKS ? 'FAKE' : 'REAL'} core functions ready: window.jalankl`);
+  const fake = [...MOCKED_PARTS];
+  console.info(
+    `[JalanKL] core functions ready on window.jalankl. Fake: ${fake.length ? fake.join(', ') : 'none'}`,
+  );
 }
