@@ -15,6 +15,7 @@ import { checkIn } from './checkin';
 import { getPermissionState } from './location';
 import { addStamp } from './progress';
 import LocationExplainer from './LocationExplainer';
+import InstallHint from './InstallHint';
 import { CHECKIN_STATES } from './checkinStates';
 
 /** Sample numbers for forced states, so the text reads naturally. */
@@ -135,6 +136,10 @@ function Checkin() {
         >
           {toPassport}
           {toGuide}
+          {/* After a gold stamp: suggest saving the app so stamps are kept (F11) */}
+          <div className="pt-4">
+            <InstallHint />
+          </div>
         </Result>
       );
       break;

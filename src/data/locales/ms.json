@@ -153,5 +153,13 @@
       "title": "Ada masalah",
       "body": "Kami tidak dapat mendaftar masuk anda kali ini. Sila cuba lagi."
     }
+  },
+  "install": {
+    "title": "Simpan setem anda dengan selamat",
+    "body": "Simpan JalanKL di skrin utama anda. Ia dibuka seperti aplikasi, berfungsi tanpa isyarat, dan membantu menyimpan setem anda pada telefon ini.",
+    "button": "Tambah ke skrin utama",
+    "ios": "Tekan butang Kongsi, kemudian \"Tambah ke Skrin Utama\".",
+    "other": "Buka menu pelayar anda dan pilih \"Tambah ke skrin utama\" atau \"Pasang aplikasi\".",
+    "later": "Bukan sekarang"
   }
 }

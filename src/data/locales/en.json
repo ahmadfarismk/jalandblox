@@ -153,5 +153,13 @@
       "title": "Something went wrong",
       "body": "We couldn't check you in this time. Please try again."
     }
+  },
+  "install": {
+    "title": "Keep your stamps safe",
+    "body": "Save JalanKL to your home screen. It opens like an app, works without signal, and helps keep your stamps on this phone.",
+    "button": "Add to home screen",
+    "ios": "Tap the Share button, then \"Add to Home Screen\".",
+    "other": "Open your browser menu and choose \"Add to Home screen\" or \"Install app\".",
+    "later": "Not now"
   }
 }
