@@ -5,19 +5,20 @@
  * drawn icons arrive with task D12; when they exist the pin shows the right
  * one, and until then it is a plain drawn pin, so the map is never broken.
  *
- * The pin stands upright even though the map behind it is tilted, the way pins
- * do on a real map, and the whole pin is one 44px tap target.
+ * The whole pin, name and all, is one tap target at least 44px tall.
  *
  * @param {object} props
  * @param {string} props.name already translated
  * @param {boolean} props.collected true once there is a gold stamp
+ * @param {boolean} [props.justUnlocked] the stamp arrived a moment ago: the pin
+ *   gives one quiet ring so the visitor sees which icon changed (task S8)
  * @param {string} [props.icon] path to Danial's icon, grey or colour
  * @param {{left: number, top: number}} props.at where on the map, in percent
  * @param {() => void} props.onSelect
  */
 import { useState } from 'react';
 
-export default function MapPin({ name, collected, icon, at, onSelect }) {
+export default function MapPin({ name, collected, justUnlocked, icon, at, onSelect }) {
   const [iconOk, setIconOk] = useState(false);
 
   return (
@@ -29,6 +30,15 @@ export default function MapPin({ name, collected, icon, at, onSelect }) {
       // coordinate, the way a pin does on a paper map.
       className="absolute flex min-h-11 -translate-x-1/2 -translate-y-full flex-col items-center px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
     >
+      {/* A ring around the pin that has just been earned. Phones set to reduce
+          motion get the colour change on its own, with no animation. */}
+      {justUnlocked ? (
+        <span
+          aria-hidden="true"
+          className="absolute bottom-0 size-8 animate-ping rounded-full bg-amber-400 opacity-75 motion-reduce:hidden"
+        />
+      ) : null}
+
       <span
         className={`max-w-24 truncate rounded-full border px-2 py-0.5 text-xs font-medium shadow-sm ${
           collected

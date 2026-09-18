@@ -1,7 +1,7 @@
 /**
  * Map screen (task S7, docs/PLAN.md section 4).
  *
- * A tilted view of the City Centre with the seven check-in spots on it. Each
+ * An overview of the City Centre with the seven check-in spots on it. Each
  * icon is grey until its gold stamp is earned, then it turns gold, and it does
  * that live: the screen listens for progress changes (task S8). Tapping an
  * icon opens the landmark.
@@ -19,7 +19,7 @@
  *
  * When the team picks a tile service, this screen is the only file to change.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { getPlaces } from '@/data';
@@ -27,7 +27,7 @@ import { getProgress, onProgressChange } from '@/core/progress';
 import { getPermissionState, watchPosition } from '@/core/location';
 import MapPin from './components/MapPin';
 import { boundsFor, projectPoint } from './mapProjection';
-import { shortNameKey, stampKind } from './placeList';
+import { isCollected, newlyGold, shortNameKey } from './placeList';
 
 export default function MapScreen() {
   const { t } = useTranslation();
@@ -36,8 +36,29 @@ export default function MapScreen() {
   const [position, setPosition] = useState(null);
   const [locationOn, setLocationOn] = useState(true);
 
-  // Gold stamps colour the icons in, with no reload (task S8).
-  useEffect(() => onProgressChange((progress) => setStamps(progress.stamps)), []);
+  /** Places whose icon has just turned gold, so the map can mark the change. */
+  const [justUnlocked, setJustUnlocked] = useState([]);
+  const stampsRef = useRef(stamps);
+
+  // Gold stamps colour the icons in, with no reload (task S8). A check-in on
+  // another screen, or in another tab, arrives here the same way.
+  useEffect(
+    () =>
+      onProgressChange((progress) => {
+        const unlocked = newlyGold(stampsRef.current, progress.stamps);
+        stampsRef.current = progress.stamps;
+        setStamps(progress.stamps);
+        if (unlocked.length > 0) setJustUnlocked(unlocked);
+      }),
+    [],
+  );
+
+  // The mark is a moment, not a state: it fades after a few seconds.
+  useEffect(() => {
+    if (justUnlocked.length === 0) return undefined;
+    const timer = setTimeout(() => setJustUnlocked([]), 4000);
+    return () => clearTimeout(timer);
+  }, [justUnlocked]);
 
   // A live position while this screen is open. watchPosition() pauses itself
   // when the app is hidden and gives back the function that stops it.
@@ -85,12 +106,13 @@ export default function MapScreen() {
             {places.map((place) => {
               const at = projectPoint(place.coords, bounds);
               if (!at) return null; // coordinates still TBC
-              const collected = stampKind(stamps[place.id]) === 'gold';
+              const collected = isCollected(stamps[place.id]);
               return (
                 <MapPin
                   key={place.id}
                   name={t(shortNameKey(place), t(place.nameKey))}
                   collected={collected}
+                  justUnlocked={justUnlocked.includes(place.id)}
                   icon={collected ? place.iconColour : place.iconGrey}
                   at={at}
                   onSelect={() => navigate(`/place/${place.id}`)}

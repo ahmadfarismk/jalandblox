@@ -47,11 +47,11 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Syakir (guide and map)
 
-**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 30).
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 37). S8 colour unlock.
 
-**In progress:** S8 colour unlock.
+**In progress:** S9 Learn screens.
 
-**Next:** S9 Learn, S10 phone polish. S11 field-test fixes waits for Danial's test day (D13).
+**Next:** S10 phone polish. S11 field-test fixes waits for Danial's test day (D13).
 
 **Notes from Faris:** S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
@@ -67,6 +67,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | S5 | Journey screen: step checklist with icons, saved step, "I'm Here" opens the check-in on the last step |
 | 2026-09-18 | S6 | Arrival screen at `/arrival`: recommended way large, others small. "Just landed" on Welcome now goes here. Routes `/arrival` and `/learn` added |
 | 2026-09-18 | S7 | Map tab: all 7 landmarks in their real positions, live position, tap to open. No street tiles and no tilt yet |
+| 2026-09-18 | S8 | Colour unlock: a gold stamp colours its map icon with no reload, and the icon that just changed gives one ring |
 
 ### Danial (rewards and content)
 
