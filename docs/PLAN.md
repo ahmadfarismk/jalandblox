@@ -6,9 +6,9 @@
 
 This section is updated with every push to GitHub. It says what is done, what each person does next, and anything that changed from the plan below.
 
-**Last updated:** 2026-09-18 by Faris, after merging F5 (Settings screen and language switching).
+**Last updated:** 2026-09-18 by Faris: App.jsx now uses Syakir's `<BottomTabs />`, and his sample page has its own address. F6 is waiting for the outdoor test; F7 is next.
 
-**Where we are:** Faris's Phase 0 work is done. Phase 0 is finished when Syakir's S1 and Danial's D1 and D2 are merged. The live site and preview links work.
+**Where we are:** Faris's and Syakir's Phase 0 work is done. Phase 0 is finished when Danial's D1 and D2 are merged. The live site and preview links work.
 
 ### Task status
 
@@ -19,7 +19,9 @@ This section is updated with every push to GitHub. It says what is done, what ea
 | F3 Fake versions of every section 8 function | Faris | ✅ Done |
 | F4 Real `progress.js` with tests | Faris | ✅ Done (early, planned for week 1) |
 | F5 `settings.js` and Settings screen | Faris | ✅ Done (early, planned for week 1) |
-| S1 Shared components: Button, Card, StampBadge, Avatar | Syakir | ⏳ Not started. **Phase 0, do this first** |
+| F6 Real `location.js`, permission explainer, stop when hidden | Faris | 🟡 Pull request open. Waiting for the outdoor phone test |
+| F7 Real `checkin.js` and Check-in screen | Faris | ⏳ Next |
+| S1 Shared components: Button, Card, StampBadge, Avatar, BottomTabs | Syakir | ✅ Done. Bottom tabs wired into App.jsx by Faris |
 | D1 `places.json` and `data/index.js` | Danial | 🟡 Starter files made by Faris. Danial reviews them |
 | D2 `en.json` and `ms.json` | Danial | 🟡 Starter files made by Faris, plus Settings text. Danial finishes them and checks the Malay |
 
@@ -27,8 +29,8 @@ This section is updated with every push to GitHub. It says what is done, what ea
 
 | Person | Next task | Notes |
 | --- | --- | --- |
-| Faris | F6 real `location.js`, then F7 check-in screen | F6 needs a real phone outdoors, using a preview link (GPS needs https) |
-| Syakir | S1 shared components, then S2 Welcome screen | S2: save choices with `setPrefs()`, list languages with `getLanguages()` |
+| Faris | Finish F6 (outdoor test), then F7 check-in screen with a debug menu | F7 adds a 6th check-in result, `too_soon`, for the "impossible jumps" rule |
+| Syakir | S2 Welcome screen, S3 Guide home, S4 Landmark detail | First, put `GuideHomeScreen.jsx` back to a placeholder: the sample page now lives at `/debug/components`. S2: save choices with `setPrefs()`, list languages with `getLanguages()` |
 | Danial | D1 and D2, then D3 Passport screen | D3: read stamps with `getProgress()` and refresh with `onProgressChange()`. Use `jalankl.loadSampleProgress()` for test data |
 
 ### Changes from the plan below (read before coding)
@@ -40,10 +42,11 @@ This section is updated with every push to GitHub. It says what is done, what ea
 5. **New function `getLanguages()`** in `core/settings.js` returns `[{ code: 'en', name: 'English' }, { code: 'ms', name: 'Bahasa Melayu' }]`, one entry per file in `locales/`.
 6. **Showing text:** `const { t } = useTranslation()` from `react-i18next`, then `t('ui.takeMeThere')`. The language switches everywhere when `setPrefs({ lang })` is called. Missing Malay text falls back to English.
 7. **New keys in the language files:** `meta.languageName`, `ui.comingSoon`, `ui.openSettings`, `ui.back`, `settings.*` and `privacy.*`. Keep them when editing `en.json` and `ms.json`.
-8. **Routes that exist now:** `/`, `/map`, `/passport`, `/settings`, `/privacy`. `App.jsx` is Faris's file. When your screen needs a route, add the one line in your pull request and ask Faris to review it.
+8. **Routes that exist now:** `/`, `/map`, `/passport`, `/settings`, `/privacy`, and the hidden `/debug/components` (S1 sample page). `App.jsx` is Faris's file. When your screen needs a route, add the one line in your pull request and ask Faris to review it.
 9. **Settings is opened from the ⚙ button** at the top of the tab screens, not from a tab.
 10. **Checks on every pull request:** lint, formatting, tests (`npm test`) and build. Run `npm run format`, `npm run lint` and `npm test` before opening one. Each pull request gets a Cloudflare preview link to try on a phone.
 11. **Hosting** is Cloudflare, set up by `wrangler.jsonc`. Do not rename or delete that file.
+12. **The bottom tab bar is `shared/BottomTabs.jsx`** (Syakir). App.jsx uses it, so change the tabs there, by pull request.
 
 ### Push log
 
@@ -54,6 +57,8 @@ This section is updated with every push to GitHub. It says what is done, what ea
 | 2026-09-18 | #2 F2 | Cloudflare deploy config (`wrangler.jsonc`) |
 | 2026-09-18 | #3 F5 | Translations (react-i18next), Settings screen, `getLanguages()`, placeholder Privacy page |
 | 2026-09-18 | Plan status | Added this section 0 |
+| 2026-09-18 | #4 S1 | Shared Button, Card, StampBadge, Avatar, BottomTabs and sample page (Syakir) |
+| 2026-09-18 | App shell | App.jsx uses `<BottomTabs />`; sample page moved to `/debug/components` |
 
 ## 1. MVP on a page
 
