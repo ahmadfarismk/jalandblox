@@ -1,0 +1,39 @@
+[
+  {
+    "id": "kelana-jaya",
+    "code": "KJ",
+    "kind": "LRT",
+    "colour": "#E0115F",
+    "nameKey": "lines.kelana-jaya"
+  },
+  { "id": "ampang", "code": "AG", "kind": "LRT", "colour": "#FE8E10", "nameKey": "lines.ampang" },
+  {
+    "id": "sri-petaling",
+    "code": "SP",
+    "kind": "LRT",
+    "colour": "#721422",
+    "nameKey": "lines.sri-petaling"
+  },
+  { "id": "kajang", "code": "KG", "kind": "MRT", "colour": "#11753A", "nameKey": "lines.kajang" },
+  {
+    "id": "monorail",
+    "code": "MR",
+    "kind": "Monorail",
+    "colour": "#7DBA00",
+    "nameKey": "lines.monorail"
+  },
+  {
+    "id": "klia-ekspres",
+    "code": null,
+    "kind": "ERL",
+    "colour": "#8C238F",
+    "nameKey": "lines.klia-ekspres"
+  },
+  {
+    "id": "klia-transit",
+    "code": null,
+    "kind": "ERL",
+    "colour": "#33A8B5",
+    "nameKey": "lines.klia-transit"
+  }
+]

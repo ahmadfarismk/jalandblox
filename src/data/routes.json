@@ -3,36 +3,151 @@
     "id": "klia__kl-sentral",
     "from": "klia",
     "to": "kl-sentral",
-    "mode": "TBC",
+    "mode": "train",
     "why": "routes.klia__kl-sentral.why",
-    "totalMinutes": "TBC",
+    "totalMinutes": 33,
     "steps": [
-      {
-        "type": "walk",
-        "textKey": "routes.klia__kl-sentral.s1",
-        "photo": null
-      },
+      { "type": "walk", "textKey": "routes.klia__kl-sentral.s1", "photo": "TBC" },
       {
         "type": "board",
         "textKey": "routes.klia__kl-sentral.s2",
-        "line": "TBC",
-        "lineColour": "TBC",
-        "towards": "TBC"
+        "line": "klia-ekspres",
+        "lineColour": "#8C238F",
+        "towards": "KL Sentral",
+        "at": "KLIA T1 / KLIA T2"
       },
       {
         "type": "ride",
         "textKey": "routes.klia__kl-sentral.s3",
-        "stops": "TBC"
+        "stops": null,
+        "alightAt": "KL Sentral"
+      },
+      { "type": "exit", "textKey": "routes.klia__kl-sentral.s4", "photo": "TBC" },
+      { "type": "arrive", "textKey": "routes.klia__kl-sentral.s5", "checkinPlace": "kl-sentral" }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.134283,101.686385&travelmode=transit",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://www.kliaekspres.com/products-fares/klia-ekspres/",
+      "https://www.kliaekspres.com/plan-your-trip/plan/faq-on-airport-transfer-by-train-to-kuala-lumpur-city/"
+    ]
+  },
+  {
+    "id": "kl-sentral__merdeka-118",
+    "from": "kl-sentral",
+    "to": "merdeka-118",
+    "mode": "train",
+    "why": "routes.kl-sentral__merdeka-118.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      { "type": "walk", "textKey": "routes.kl-sentral__merdeka-118.s1", "photo": "TBC" },
+      {
+        "type": "board",
+        "textKey": "routes.kl-sentral__merdeka-118.s2",
+        "line": "kajang",
+        "lineColour": "#11753A",
+        "towards": "Kajang",
+        "at": "KG15 Muzium Negara"
       },
       {
+        "type": "ride",
+        "textKey": "routes.kl-sentral__merdeka-118.s3",
+        "stops": 2,
+        "alightAt": "KG17 Merdeka"
+      },
+      { "type": "exit", "textKey": "routes.kl-sentral__merdeka-118.s4", "photo": "TBC" },
+      {
         "type": "arrive",
-        "textKey": "routes.klia__kl-sentral.s4",
-        "checkinPlace": "kl-sentral"
+        "textKey": "routes.kl-sentral__merdeka-118.s5",
+        "checkinPlace": "merdeka-118"
       }
     ],
-    "googleMapsUrl": "TBC",
-    "verified": "TBC",
-    "sources": ["TBC"]
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.14167,101.70072&travelmode=transit",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/MRT_Kajang_Line",
+      "https://en.wikipedia.org/wiki/Muzium_Negara_MRT_station",
+      "https://en.wikipedia.org/wiki/Merdeka_MRT_station",
+      "https://www.kliaekspres.com/plan-your-trip/plan/faq-on-airport-transfer-by-train-to-kuala-lumpur-city/",
+      "OpenStreetMap station positions + routing.openstreetmap.de foot routing (walk estimates)"
+    ]
+  },
+  {
+    "id": "kl-sentral__petaling-street",
+    "from": "kl-sentral",
+    "to": "petaling-street",
+    "mode": "train",
+    "why": "routes.kl-sentral__petaling-street.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      { "type": "walk", "textKey": "routes.kl-sentral__petaling-street.s1", "photo": "TBC" },
+      {
+        "type": "board",
+        "textKey": "routes.kl-sentral__petaling-street.s2",
+        "line": "kelana-jaya",
+        "lineColour": "#E0115F",
+        "towards": "Gombak",
+        "at": "KJ15 KL Sentral"
+      },
+      {
+        "type": "ride",
+        "textKey": "routes.kl-sentral__petaling-street.s3",
+        "stops": 1,
+        "alightAt": "KJ14 Pasar Seni"
+      },
+      { "type": "exit", "textKey": "routes.kl-sentral__petaling-street.s4", "photo": "TBC" },
+      {
+        "type": "arrive",
+        "textKey": "routes.kl-sentral__petaling-street.s5",
+        "checkinPlace": "petaling-street"
+      }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.144444,101.6975&travelmode=transit",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Kelana_Jaya_Line",
+      "https://en.wikipedia.org/wiki/Pasar_Seni_station",
+      "https://www.kliaekspres.com/plan-your-trip/plan/faq-on-airport-transfer-by-train-to-kuala-lumpur-city/",
+      "OpenStreetMap station positions + routing.openstreetmap.de foot routing (walk estimates)"
+    ]
+  },
+  {
+    "id": "kl-sentral__abdul-samad",
+    "from": "kl-sentral",
+    "to": "abdul-samad",
+    "mode": "train",
+    "why": "routes.kl-sentral__abdul-samad.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      { "type": "walk", "textKey": "routes.kl-sentral__abdul-samad.s1", "photo": "TBC" },
+      {
+        "type": "board",
+        "textKey": "routes.kl-sentral__abdul-samad.s2",
+        "line": "kelana-jaya",
+        "lineColour": "#E0115F",
+        "towards": "Gombak",
+        "at": "KJ15 KL Sentral"
+      },
+      {
+        "type": "ride",
+        "textKey": "routes.kl-sentral__abdul-samad.s3",
+        "stops": 2,
+        "alightAt": "KJ13 Masjid Jamek"
+      },
+      { "type": "exit", "textKey": "routes.kl-sentral__abdul-samad.s4", "photo": "TBC" },
+      {
+        "type": "arrive",
+        "textKey": "routes.kl-sentral__abdul-samad.s5",
+        "checkinPlace": "abdul-samad"
+      }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.14861,101.69444&travelmode=transit",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Kelana_Jaya_Line",
+      "https://en.wikipedia.org/wiki/Masjid_Jamek_LRT_station",
+      "OpenStreetMap station positions + routing.openstreetmap.de foot routing (walk estimates)"
+    ]
   },
   {
     "id": "kl-sentral__petronas",
@@ -42,36 +157,222 @@
     "why": "routes.kl-sentral__petronas.why",
     "totalMinutes": "TBC",
     "steps": [
-      {
-        "type": "walk",
-        "textKey": "routes.kl-sentral__petronas.s1",
-        "photo": null
-      },
+      { "type": "walk", "textKey": "routes.kl-sentral__petronas.s1", "photo": "TBC" },
       {
         "type": "board",
         "textKey": "routes.kl-sentral__petronas.s2",
-        "line": "TBC",
-        "lineColour": "TBC",
-        "towards": "TBC"
+        "line": "kelana-jaya",
+        "lineColour": "#E0115F",
+        "towards": "Gombak",
+        "at": "KJ15 KL Sentral"
       },
       {
         "type": "ride",
         "textKey": "routes.kl-sentral__petronas.s3",
-        "stops": "TBC"
+        "stops": 5,
+        "alightAt": "KJ10 KLCC"
+      },
+      { "type": "exit", "textKey": "routes.kl-sentral__petronas.s4", "photo": "TBC" },
+      { "type": "arrive", "textKey": "routes.kl-sentral__petronas.s5", "checkinPlace": "petronas" }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.1578,101.7117&travelmode=transit",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Kelana_Jaya_Line",
+      "https://en.wikipedia.org/wiki/KLCC_LRT_station",
+      "OpenStreetMap station positions + routing.openstreetmap.de foot routing (walk estimates)"
+    ]
+  },
+  {
+    "id": "kl-sentral__klcc-park",
+    "from": "kl-sentral",
+    "to": "klcc-park",
+    "mode": "train",
+    "why": "routes.kl-sentral__klcc-park.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      { "type": "walk", "textKey": "routes.kl-sentral__klcc-park.s1", "photo": "TBC" },
+      {
+        "type": "board",
+        "textKey": "routes.kl-sentral__klcc-park.s2",
+        "line": "kelana-jaya",
+        "lineColour": "#E0115F",
+        "towards": "Gombak",
+        "at": "KJ15 KL Sentral"
       },
       {
-        "type": "exit",
-        "textKey": "routes.kl-sentral__petronas.s4",
-        "photo": "/signage/TBC.jpg"
+        "type": "ride",
+        "textKey": "routes.kl-sentral__klcc-park.s3",
+        "stops": 5,
+        "alightAt": "KJ10 KLCC"
       },
+      { "type": "exit", "textKey": "routes.kl-sentral__klcc-park.s4", "photo": "TBC" },
       {
         "type": "arrive",
-        "textKey": "routes.kl-sentral__petronas.s5",
-        "checkinPlace": "petronas"
+        "textKey": "routes.kl-sentral__klcc-park.s5",
+        "checkinPlace": "klcc-park"
       }
     ],
-    "googleMapsUrl": "TBC",
-    "verified": "TBC",
-    "sources": ["TBC"]
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.15558,101.71478&travelmode=transit",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Kelana_Jaya_Line",
+      "https://en.wikipedia.org/wiki/KLCC_LRT_station",
+      "https://www.suriaklcc.com.my/attractions/esplanade-lake-symphony/",
+      "OpenStreetMap station positions + routing.openstreetmap.de foot routing (walk estimates)"
+    ]
+  },
+  {
+    "id": "kl-sentral__kl-tower",
+    "from": "kl-sentral",
+    "to": "kl-tower",
+    "mode": "train",
+    "why": "routes.kl-sentral__kl-tower.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      { "type": "walk", "textKey": "routes.kl-sentral__kl-tower.s1", "photo": "TBC" },
+      {
+        "type": "board",
+        "textKey": "routes.kl-sentral__kl-tower.s2",
+        "line": "monorail",
+        "lineColour": "#7DBA00",
+        "towards": "Titiwangsa",
+        "at": "MR1 KL Sentral"
+      },
+      {
+        "type": "ride",
+        "textKey": "routes.kl-sentral__kl-tower.s3",
+        "stops": 7,
+        "alightAt": "MR8 Bukit Nanas"
+      },
+      { "type": "exit", "textKey": "routes.kl-sentral__kl-tower.s4", "photo": "TBC" },
+      { "type": "arrive", "textKey": "routes.kl-sentral__kl-tower.s5", "checkinPlace": "kl-tower" }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.152859,101.70376&travelmode=transit",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/KL_Monorail",
+      "https://en.wikipedia.org/wiki/Muzium_Negara_MRT_station",
+      "https://en.wikipedia.org/wiki/Kuala_Lumpur_Tower",
+      "OpenStreetMap station positions + routing.openstreetmap.de foot routing (walk estimates)"
+    ]
+  },
+  {
+    "id": "merdeka-118__petaling-street",
+    "from": "merdeka-118",
+    "to": "petaling-street",
+    "mode": "walk",
+    "why": "routes.merdeka-118__petaling-street.why",
+    "totalMinutes": 10,
+    "steps": [
+      { "type": "walk", "textKey": "routes.merdeka-118__petaling-street.s1", "photo": null },
+      {
+        "type": "arrive",
+        "textKey": "routes.merdeka-118__petaling-street.s2",
+        "checkinPlace": "petaling-street"
+      }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.144444,101.6975&travelmode=walking",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "routing.openstreetmap.de foot routing: 770 m, about 10 min",
+      "https://en.wikipedia.org/wiki/Petaling_Street"
+    ]
+  },
+  {
+    "id": "petaling-street__abdul-samad",
+    "from": "petaling-street",
+    "to": "abdul-samad",
+    "mode": "walk",
+    "why": "routes.petaling-street__abdul-samad.why",
+    "totalMinutes": 10,
+    "steps": [
+      { "type": "walk", "textKey": "routes.petaling-street__abdul-samad.s1", "photo": null },
+      {
+        "type": "arrive",
+        "textKey": "routes.petaling-street__abdul-samad.s2",
+        "checkinPlace": "abdul-samad"
+      }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.14861,101.69444&travelmode=walking",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "routing.openstreetmap.de foot routing: 720 m, about 10 min",
+      "https://en.wikipedia.org/wiki/Sultan_Abdul_Samad_Building"
+    ]
+  },
+  {
+    "id": "abdul-samad__petronas",
+    "from": "abdul-samad",
+    "to": "petronas",
+    "mode": "train",
+    "why": "routes.abdul-samad__petronas.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      { "type": "walk", "textKey": "routes.abdul-samad__petronas.s1", "photo": "TBC" },
+      {
+        "type": "board",
+        "textKey": "routes.abdul-samad__petronas.s2",
+        "line": "kelana-jaya",
+        "lineColour": "#E0115F",
+        "towards": "Gombak",
+        "at": "KJ13 Masjid Jamek"
+      },
+      {
+        "type": "ride",
+        "textKey": "routes.abdul-samad__petronas.s3",
+        "stops": 3,
+        "alightAt": "KJ10 KLCC"
+      },
+      { "type": "exit", "textKey": "routes.abdul-samad__petronas.s4", "photo": "TBC" },
+      { "type": "arrive", "textKey": "routes.abdul-samad__petronas.s5", "checkinPlace": "petronas" }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.1578,101.7117&travelmode=transit",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Kelana_Jaya_Line",
+      "https://en.wikipedia.org/wiki/Masjid_Jamek_LRT_station",
+      "https://en.wikipedia.org/wiki/KLCC_LRT_station",
+      "routing.openstreetmap.de foot routing: walking the whole way is 2.7 km, about 36 min"
+    ]
+  },
+  {
+    "id": "petronas__klcc-park",
+    "from": "petronas",
+    "to": "klcc-park",
+    "mode": "walk",
+    "why": "routes.petronas__klcc-park.why",
+    "totalMinutes": 6,
+    "steps": [
+      { "type": "walk", "textKey": "routes.petronas__klcc-park.s1", "photo": null },
+      { "type": "arrive", "textKey": "routes.petronas__klcc-park.s2", "checkinPlace": "klcc-park" }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.15558,101.71478&travelmode=walking",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "routing.openstreetmap.de foot routing: 440 m, about 6 min",
+      "https://www.suriaklcc.com.my/attractions/esplanade-lake-symphony/"
+    ]
+  },
+  {
+    "id": "klcc-park__kl-tower",
+    "from": "klcc-park",
+    "to": "kl-tower",
+    "mode": "car",
+    "why": "routes.klcc-park__kl-tower.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      { "type": "walk", "textKey": "routes.klcc-park__kl-tower.s1", "photo": null },
+      { "type": "board", "textKey": "routes.klcc-park__kl-tower.s2" },
+      { "type": "ride", "textKey": "routes.klcc-park__kl-tower.s3", "stops": null },
+      { "type": "arrive", "textKey": "routes.klcc-park__kl-tower.s4", "checkinPlace": "kl-tower" }
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.152859,101.70376&travelmode=driving",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "routing.openstreetmap.de foot routing: walking is 1.9 km, about 25 min",
+      "routing.openstreetmap.de foot routing: from KJ12 Dang Wangi 21 min, from MR8 Bukit Nanas 17 min",
+      "https://en.wikipedia.org/wiki/Kuala_Lumpur_Tower"
+    ]
   }
 ]

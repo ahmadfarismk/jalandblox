@@ -63,18 +63,21 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Danial (rewards and content)
 
-**Done:** nothing merged yet. Faris made starter files for D1 (`places.json`, `data/index.js`) and D2 (`en.json`, `ms.json`).
+**Done:** D1 `places.json` (7 spots, desk-checked coordinates and sources) and `data/index.js`. D2 `en.json` / `ms.json` with keys for all 12 screens. D4 stories and hours notes. D5 12 route cards. D6 arrival options and Learn content. Facts come from desk research; exits, photos and ride times stay TBC for the field day (D7).
 
-**In progress:** D1 review `places.json`; D2 finish the language files and check the Malay Faris wrote.
+**In progress:** D3 Passport screen, D12 landmark icons.
 
-**Next:** D3 Passport screen: read stamps with `getProgress()`, refresh with `onProgressChange()`, test data from `jalankl.loadSampleProgress()` or the debug menu at `/debug`.
+**Next:** D8 Review screen and D9 Postcard sent. Field day (D7) and photographer (D10) are physical tasks.
 
-**Notes from Faris:** check-in only works at a landmark once its `coords` are filled in `places.json` (only `abdul-samad` has them now). For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
+**Notes from Faris:** thanks for the coordinates: check-in now works at all 7 landmarks. Please confirm them and `radius_m` on the field day. For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
+
+**Notes from Danial:** research findings that change assumptions are in `src/data/README.md` (Merdeka 118 renamed and mostly closed; Sultan Abdul Samad reopened; Rapid KL gates don't take bank cards yet; KL Tower is a long uphill walk). The Malay still needs a native speaker's read, including Faris's `privacy.*` and `consent.*`.
 
 **Push log**
 
 | Date | Pull request | What changed |
 | --- | --- | --- |
+| 2026-09-18 | D1 D2 D4 D5 D6 | All data: places, routes, arrival, learn, lines, nationalities, both language files, data tests |
 
 ### Changes from the plan below (read before coding)
 
@@ -107,7 +110,14 @@ Add new lines at the end. Say who needs to know.
 25. **`<InstallHint />`** from `core/InstallHint.jsx` shows "Keep your stamps safe: add to home screen". It is on the Check-in gold screen now. The Passport screen (D3) could show it too. New text keys: `install.*`.
 26. **`<ConsentCheckbox />`** (F12) from `core/ConsentCheckbox.jsx` is the consent tick box for the Review form: unticked to start, plain sentence, link to `/privacy` (opens in a new tab so the review is not lost). Danial, D8.
 27. **New automatic test: every language file must have exactly the same keys as `en.json`, and no empty text.** If you add a key to one language, add it to the other in the same pull request, or the checks go red.
-28. **The database is locked to the app** (F8). The app never reads or writes Supabase tables directly, not even with the public key: everything goes through `submitReview()` in `core/api.js` (F10). New tables must get the same lock-down, see `supabase/README.md`.
+28. **Data helpers return copies, and `"TBC"` comes back as `null`** (D1). Screens can check `if (place.coords)` or `if (step.photo)` without comparing to the string "TBC". `isTBC(value)` is there if you need it. (Everyone.)
+29. **New data helpers** in `src/data/index.js`: `getRoutesTo(placeId)`, `getLearnTopic(id)`, `getLines()`, `getLine(id)` (name and colour for each rail line), `getPostcards()`, `getPostcardPreview(placeId)` and `getNationalities()` (ISO codes; show names with `Intl.DisplayNames`). (Syakir.)
+30. **New data fields:** places have `hoursKey`. Route `board` steps have `line`, `lineColour`, `towards`, `at`; `ride` steps have `stops` and `alightAt`. Arrival options have `mode` (`train`/`bus`/`car`), `whyKey`, `tagKey`, `payKey`, `priceShortKey`. Learn topics can hold a `{ "type": "lines" }` block: draw the list from `getLines()` there. (Syakir.)
+31. **Arrival option ids are real now:** `klia-ekspres` (recommended, route `klia__kl-sentral`), `klia-transit`, `airport-bus`, `e-hailing`. Their text is under `arrivalOptions.<id>.*`, and `arrival.*` holds the Arrival screen's own labels. (Syakir.)
+32. **Visiting order changed:** KL Sentral 1, Merdeka 118 2, Petaling Street 3, Sultan Abdul Samad 4, Petronas 5, KLCC Park 6, KL Tower 7. The route cards follow it, so Merdeka Square → Petronas is one card. KLCC Park → KL Tower is a `car` card (the walk is 17–25 minutes uphill). (Everyone.)
+33. **Every place has coordinates now** (desk-checked from Wikipedia/OpenStreetMap, to confirm on the field day), so check-in works at all 7. Two core tests used Petronas as "a place with no coordinates"; they now use a made-up place instead. (Faris.)
+34. **Text keys added** for every screen (`welcome.*`, `arrival.*`, `guide.*`, `place.*`, `journey.*`, `map.*`, `learn.*`, `passport.*`, `review.*`, `postcard.*`, `postcardPick.*`, `categories.*`, `lines.*`) plus `meta.dateLocale` for dates, and `ui.stamp.none` / `ui.stamp.outline` / `ui.stamp.gold` ("No stamp", "Outline stamp", "Gold stamp") for `StampBadge` labels. The `welcome.*` keys use the names Syakir's S2 screen already asks for (`welcome.title`, `welcome.intro`, `welcome.language.title`, `welcome.nationality.title` / `.hint` / `.placeholder` / `.skip`, `welcome.start.title` / `.arrival` / `.arrivalHint` / `.city` / `.cityHint`), so its English defaults are replaced by the real text in both languages once both are merged. For a nationality list, use `getNationalities()` with `Intl.DisplayNames` for the country names (no keys needed). Faris's keys are unchanged. Use them instead of adding your own where they fit. (Syakir.)
+35. **The database is locked to the app** (F8). The app never reads or writes Supabase tables directly, not even with the public key: everything goes through `submitReview()` in `core/api.js` (F10). New tables must get the same lock-down, see `supabase/README.md`.
 
 ## 1. MVP on a page
 

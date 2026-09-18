@@ -1,154 +1,434 @@
 {
   "meta": {
+    "dateLocale": "en-GB",
     "languageName": "English"
   },
-  "places": {
-    "kl-sentral": {
-      "name": "KL Sentral",
-      "story": "TBC"
-    },
-    "petaling-street": {
-      "name": "Petaling Street",
-      "story": "TBC"
-    },
-    "abdul-samad": {
-      "name": "Sultan Abdul Samad Building",
-      "story": "TBC"
-    },
-    "merdeka-118": {
-      "name": "Merdeka 118",
-      "story": "TBC"
-    },
-    "kl-tower": {
-      "name": "KL Tower",
-      "story": "TBC"
-    },
-    "petronas": {
-      "name": "Petronas Twin Towers",
-      "story": "TBC"
-    },
-    "klcc-park": {
-      "name": "KLCC Park",
-      "story": "TBC"
-    }
-  },
-  "routes": {
-    "klia__kl-sentral": {
-      "why": "TBC",
-      "s1": "TBC",
-      "s2": "TBC",
-      "s3": "TBC",
-      "s4": "TBC"
-    },
-    "kl-sentral__petronas": {
-      "why": "TBC",
-      "s1": "TBC",
-      "s2": "TBC",
-      "s3": "TBC",
-      "s4": "TBC",
-      "s5": "TBC"
-    }
-  },
-  "arrival": {
-    "option-a": {
-      "name": "TBC",
-      "price": "TBC",
-      "minutes": "TBC"
-    },
-    "option-b": {
-      "name": "TBC",
-      "price": "TBC",
-      "minutes": "TBC"
-    }
-  },
-  "learn": {
-    "touch-n-go": {
-      "title": "TBC",
-      "intro": "TBC"
-    },
-    "line-colours": {
-      "title": "TBC",
-      "intro": "TBC"
-    },
-    "reading-signs": {
-      "title": "TBC",
-      "intro": "TBC"
-    }
-  },
   "ui": {
+    "appName": "JalanKL",
+    "imHere": "I'm Here",
+    "takeMeThere": "Take me there",
+    "openInGoogleMaps": "Open in Google Maps",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "cancel": "Cancel",
+    "close": "Close",
+    "retry": "Try again",
+    "done": "Done",
+    "loading": "Loading…",
+    "estimate": "estimate",
+    "minutes_one": "{{count}} min",
+    "minutes_other": "{{count}} min",
+    "aboutMinutes": "About {{count}} min (estimate)",
+    "metresAway": "{{count}} m away",
+    "kmAway": "{{km}} km away",
+    "notFound": "We couldn't find that page.",
+    "goHome": "Back to the guide",
+    "offline": "You're offline. Some things may not load until you reconnect.",
     "tabs": {
       "guide": "Guide",
       "map": "Map",
       "passport": "Passport"
     },
-    "imHere": "I'm Here",
-    "takeMeThere": "Take me there",
-    "openInGoogleMaps": "Open in Google Maps",
     "comingSoon": "Coming soon.",
     "openSettings": "Settings",
-    "back": "Back"
-  },
-  "settings": {
-    "title": "Settings",
-    "language": "Language",
-    "reset": {
-      "title": "Reset progress",
-      "body": "This deletes all your stamps and journey steps on this phone. Your language stays the same.",
-      "button": "Reset progress",
-      "confirm": "Yes, delete everything",
-      "cancel": "Cancel",
-      "done": "Your progress has been reset."
-    },
-    "privacy": {
-      "title": "Privacy",
-      "note": "Your stamps and settings are saved only on this phone. We never save where you are.",
-      "link": "Read the privacy notice"
+    "stamp": {
+      "none": "No stamp",
+      "outline": "Outline stamp",
+      "gold": "Gold stamp"
     }
   },
-  "privacy": {
-    "title": "Privacy",
-    "intro": "JalanKL is a free guide to Kuala Lumpur, made by a small team. This page explains, in plain words, what we collect and why.",
-    "updated": "Last updated: {{date}}",
-    "phone": {
-      "title": "What stays on your phone",
-      "body": "Your stamps, journey progress, language and nationality are saved only on this phone. When you check in, we read your location for a few seconds to see if you are near the landmark. We never save or send your location: we only keep how accurate the GPS was. You can delete everything on this phone in Settings, \"Reset progress\"."
+  "welcome": {
+    "title": "Welcome to KL",
+    "intro": "Step-by-step help from the airport to the city's best-known places. Collect a stamp at each one.",
+    "language": {
+      "title": "Choose your language"
     },
-    "review": {
-      "title": "What we collect if you send a review",
-      "body": "Only if you choose to write a review, we receive: your email address, your nationality (if you gave it), your language, your star rating and review text, and the time you agreed to this notice."
+    "nationality": {
+      "title": "Where are you from?",
+      "hint": "Optional. It helps us understand who uses JalanKL.",
+      "placeholder": "Choose your country",
+      "skip": "Skip"
     },
-    "why": {
-      "title": "Why we collect it",
-      "body": "To email you your postcard, and to learn how to make the guide better. We do not use your email for marketing, and we do not sell your data."
-    },
-    "visible": {
-      "title": "Who can see your review",
-      "body": "Only the JalanKL team. Reviews are not shown publicly."
-    },
-    "services": {
-      "title": "Services that help us",
-      "body": "A database service (Supabase) stores reviews. An email service sends your postcard. Cloudflare runs this website. They use your data only to provide these services to us."
-    },
-    "keep": {
-      "title": "How long we keep it",
-      "body": "We keep reviews and email addresses for 12 months, then delete them. You can ask us to delete them sooner."
-    },
-    "rights": {
-      "title": "Your rights",
-      "body": "Under Malaysia's Personal Data Protection Act 2010, you can ask to see, correct or delete your data, and you can withdraw your consent at any time. Write to us and we will reply within 21 days."
-    },
-    "contact": {
-      "title": "Contact",
-      "body": "Email us at",
-      "tbc": "Our contact email will be added here soon."
+    "start": {
+      "title": "Where are you right now?",
+      "arrival": "Just landed",
+      "arrivalHint": "At KLIA and heading into the city",
+      "city": "Already in KL",
+      "cityHint": "Show me the landmarks"
     }
   },
-  "location": {
-    "explainer": "We use your location only to show how far places are and to confirm your check-ins. It is never saved.",
-    "allow": "Allow location",
-    "asking": "Finding you…",
-    "denied": "Location is turned off for this site. You can still use the guide. To collect gold stamps, turn location on in your browser settings.",
-    "unavailable": "We could not find your location. Try again outside, away from tall buildings."
+  "arrival": {
+    "title": "From KLIA to KL Sentral",
+    "recommended": "Our pick",
+    "why": "Why this way",
+    "otherOptions": "Other ways",
+    "start": "Start the steps",
+    "learnBasics": "New to KL trains? Learn the basics",
+    "estimateNote": "Times and prices are estimates. Check the operator before you travel.",
+    "pickup": "KLIA arrival hall",
+    "pickupHint": "Terminal 1 or 2",
+    "dropoffHint": "City transport hub",
+    "schematic": "Diagram, not to scale",
+    "startWith": "Start with {{option}}",
+    "howToPay": "How to pay",
+    "optionsLabel": "Ways to KL Sentral"
+  },
+  "guide": {
+    "title": "City Centre",
+    "subtitle": "Pick a place. We'll show you the way.",
+    "sortedByDistance": "Nearest first",
+    "sortedByOrder": "In our suggested order",
+    "locationOffHint": "Turn on location to sort by distance.",
+    "empty": "No places to show."
+  },
+  "place": {
+    "hours": "Opening hours",
+    "story": "The story",
+    "noRoute": "We don't have step-by-step directions from here yet. Google Maps can show you the way.",
+    "category": "Type",
+    "stampHint": "Check in here with GPS to earn a gold stamp."
+  },
+  "journey": {
+    "title": "Your route",
+    "why": "Why this way",
+    "stepOf": "Step {{current}} of {{total}}",
+    "towards": "Towards {{station}}",
+    "boardAt": "Board at {{station}}",
+    "alightAt": "Get off at {{station}}",
+    "stops_one": "{{count}} stop",
+    "stops_other": "{{count}} stops",
+    "total": "About {{count}} min in total (estimate)",
+    "liveTimes": "For live times, open Google Maps.",
+    "resume": "Pick up where you left off",
+    "finished": "You made it!",
+    "stepType": {
+      "walk": "Walk",
+      "board": "Get on",
+      "ride": "Ride",
+      "exit": "Get out",
+      "arrive": "Arrive"
+    },
+    "mode": {
+      "train": "Train",
+      "walk": "Walk",
+      "car": "Car"
+    }
+  },
+  "map": {
+    "title": "Map",
+    "you": "You are here",
+    "legendGrey": "Not collected yet",
+    "legendColour": "Gold stamp collected",
+    "locationOff": "Location is off, so we can't show where you are."
+  },
+  "learn": {
+    "title": "Learn the basics",
+    "subtitle": "Three quick guides to getting around by train."
+  },
+  "passport": {
+    "title": "Passport",
+    "holder": "JalanKL passport",
+    "nationality": "Nationality",
+    "nationalityNotSet": "Not set",
+    "count": "{{count}} of {{total}} stamps",
+    "goldCount_one": "{{count}} gold",
+    "goldCount_other": "{{count}} gold",
+    "progressLabel": "Gold stamps collected",
+    "status": {
+      "none": "Not visited yet",
+      "outline": "Outline stamp",
+      "gold": "Gold stamp"
+    },
+    "goldOn": "Confirmed {{date}}",
+    "outlineOn": "Opened {{date}}",
+    "outlineHint": "Check in with GPS to turn it gold.",
+    "empty": "Your passport is empty. Open a place or check in to start collecting stamps.",
+    "viewOnMap": "See your stamps on the map",
+    "writeReview": "Write a review",
+    "reviewed": "Review sent",
+    "stampAlt": "{{place}}: {{status}}",
+    "collectionTitle": "City Centre",
+    "collectionHint": "Check in with GPS at all 7 places to fill your passport.",
+    "filterLabel": "Show",
+    "filters": {
+      "all": "All",
+      "gold": "Gold",
+      "toVisit": "To visit"
+    },
+    "heroStrong": "Collect stamps.",
+    "heroLight": "Unlock postcards.",
+    "nextStamp": "Find your next stamp",
+    "noneInFilter": "No stamps here yet."
+  },
+  "review": {
+    "title": "Review {{place}}",
+    "heading": "How was {{place}}?",
+    "introPostcard": "Tell us how it went and we'll email you a free postcard of {{place}}.",
+    "introNoPostcard": "Tell us how it went. Postcards for {{place}} are coming soon.",
+    "alreadyReviewed": "You already sent a review for {{place}}. Sending again will re-send your postcard link.",
+    "starsLabel": "Your rating",
+    "star_one": "{{count}} star",
+    "star_other": "{{count}} stars",
+    "textLabel": "Your review (optional)",
+    "textPlaceholder": "What did you like? Anything we should fix?",
+    "textCount": "{{count}}/{{max}}",
+    "emailLabel": "Email address",
+    "emailHint": "We only use it to send your postcard.",
+    "emailPlaceholder": "name@example.com",
+    "send": "Send review",
+    "sending": "Sending…",
+    "errorSummary": "Please fix the highlighted items.",
+    "errors": {
+      "stars": "Choose 1 to 5 stars.",
+      "email": "Enter a valid email address, like name@example.com.",
+      "text": "Please keep your review under {{max}} characters.",
+      "consent": "Tick the box to agree before sending.",
+      "rateLimited": "Too many tries from this phone. Please wait a while and try again.",
+      "failed": "We couldn't send your review just now. We'll try again when you tap Send. Your answers are still here."
+    },
+    "lockedTitle": "Get your gold stamp first",
+    "lockedBody": "Reviews open after you check in at {{place}} with GPS.",
+    "lockedAction": "Go to {{place}}",
+    "step": "Step {{current}} of {{total}}",
+    "next": "Next: choose your postcard"
+  },
+  "postcard": {
+    "sentTitle": "Check your email",
+    "sentBody": "We've sent you a link to download your {{place}} postcard. It can take a few minutes. Check your spam folder too.",
+    "previewAlt": "Postcard of {{place}}",
+    "previewPending": "Postcard preview",
+    "comingSoonTitle": "Thanks for your review!",
+    "comingSoonBody": "Your review is saved. Postcards for {{place}} are coming soon.",
+    "nextStop": "Next stop: {{place}}",
+    "allDone": "You've collected every gold stamp. Well done!",
+    "backToPassport": "Back to passport",
+    "backToGuide": "Back to the guide"
+  },
+  "postcardPick": {
+    "title": "Choose your postcard",
+    "heading": "Pick one postcard",
+    "intro": "Choose one postcard from a place you've checked in at with GPS. We'll email it to you.",
+    "optionsLabel": "Postcards",
+    "visited": "Visited {{date}}",
+    "locked": "Visit {{place}} to unlock",
+    "selected": "Selected",
+    "comingSoon": "No postcard yet for: {{places}}. More are coming soon.",
+    "noneAvailable": "You haven't checked in at a postcard place yet, so there's nothing to choose. Your review will still be saved.",
+    "send": "Send to my email",
+    "chosen": "Postcard: {{place}}",
+    "errorChoice": "Choose a postcard."
+  },
+  "categories": {
+    "transport": "Transport hub",
+    "modern": "Skyline",
+    "heritage": "Heritage",
+    "culture": "Culture and food",
+    "nature": "Park"
+  },
+  "lines": {
+    "kelana-jaya": "LRT Kelana Jaya Line",
+    "ampang": "LRT Ampang Line",
+    "sri-petaling": "LRT Sri Petaling Line",
+    "kajang": "MRT Kajang Line",
+    "monorail": "KL Monorail",
+    "klia-ekspres": "KLIA Ekspres",
+    "klia-transit": "KLIA Transit"
+  },
+  "places": {
+    "kl-sentral": {
+      "name": "KL Sentral",
+      "short": "KL Sentral",
+      "story": "Opened in 2001, KL Sentral is Malaysia's largest railway station and the city's main transport hub. The airport trains, the LRT Kelana Jaya Line, KTM commuter and intercity trains all stop here, and the monorail and MRT are a short walk away. Most JalanKL routes start here.",
+      "hours": "The station is open every day. KLIA Ekspres trains to the airport run from 5:00 am to midnight."
+    },
+    "merdeka-118": {
+      "name": "Merdeka 118",
+      "short": "Merdeka 118",
+      "story": "At 678.9 metres, Merdeka 118 is the second-tallest building in the world, after the Burj Khalifa in Dubai. Its name comes from Stadium Merdeka next door, where Malaya's independence was declared on 31 August 1957. In July 2026 it was officially renamed Menara Merdeka Maybank, after its main tenant.",
+      "hours": "Most of the tower is not open to visitors yet (as of July 2026). An observation deck and a mall are planned, so check before you go. You can see the tower from outside at any time."
+    },
+    "petaling-street": {
+      "name": "Petaling Street",
+      "short": "Petaling St",
+      "story": "Petaling Street is the heart of Kuala Lumpur's Chinatown. Its Cantonese name, Chee Cheong Kai, means \"starch factory street\", after the tapioca mill that Kapitan Yap Ah Loy opened here in the 19th century. Since a makeover in 2003, the street has a green roof and a Chinese arch at each end.",
+      "hours": "The street is for pedestrians only and you can walk through it at any time. Stalls and shops keep their own hours."
+    },
+    "abdul-samad": {
+      "name": "Sultan Abdul Samad Building",
+      "short": "Abdul Samad",
+      "story": "Finished in 1897, this red-brick building with copper domes first housed the British colonial government offices. Its 41-metre clock tower faces Dataran Merdeka, where the British flag was lowered and the Malayan flag raised at midnight on 31 August 1957. After a restoration, it reopened in February 2026 with galleries and cafés.",
+      "hours": "Open every day, 8 am to 10 pm. Some galleries inside charge for tickets and keep their own hours."
+    },
+    "petronas": {
+      "name": "Petronas Twin Towers",
+      "short": "Petronas",
+      "story": "At 451.9 metres and 88 storeys, the Petronas Twin Towers were the world's tallest buildings from 1998 to 2004, and they are still the tallest twin towers. Each tower's floor plan is based on the Rub el Hizb, an eight-pointed Islamic star. A two-storey skybridge joins the towers at the 41st and 42nd floors.",
+      "hours": "Skybridge and observation deck: Tuesday to Sunday and public holidays, 9 am to 10:30 pm (last entry 9:30 pm). Also open on the 2nd, 4th and 5th Monday of the month, 9 am to 8 pm. Tickets for non-Malaysian adults start at RM127. Book online and check the official site for closed days."
+    },
+    "klcc-park": {
+      "name": "KLCC Park",
+      "short": "KLCC Park",
+      "story": "This 50-acre park at the foot of the Petronas Twin Towers was designed by the Brazilian landscape architect Roberto Burle Marx. Its trees were chosen to attract birds, and some old trees were saved from the racecourse that once stood here. In the evening, the Lake Symphony fountains put on a show of water, light and music.",
+      "hours": "Fountain shows at Lake Symphony, outside Suria KLCC, run in the evening between 8 pm and about 10 pm. Check suriaklcc.com.my for park opening hours."
+    },
+    "kl-tower": {
+      "name": "KL Tower",
+      "short": "KL Tower",
+      "story": "Opened in 1996, the 421-metre KL Tower (Menara Kuala Lumpur) is a telecommunications tower on Bukit Nanas. Its position was moved during construction to protect a jelutong tree over 100 years old that still stands near the entrance plaza. The tower is also used as an observatory for sighting the new moon that starts Ramadan and the two Eid celebrations.",
+      "hours": "Check opening hours and ticket prices on kltower.com.my before you go."
+    }
+  },
+  "routes": {
+    "klia__kl-sentral": {
+      "why": "The fastest way into the city: a non-stop train with no traffic.",
+      "s1": "After you collect your bags, follow the signs for KLIA Ekspres to the train station.",
+      "s2": "Tap a credit card or Touch 'n Go card at the gate, or buy a ticket at the counter or machine first. Get on the KLIA Ekspres to KL Sentral.",
+      "s3": "The train runs non-stop to KL Sentral: about 28 minutes from Terminal 1, or 33 minutes from Terminal 2 (it stops at Terminal 1 first). Trains leave about every 20 minutes.",
+      "s4": "At KL Sentral, leave the platform and follow the signs into the main station hall.",
+      "s5": "You're at KL Sentral! Tap I'm Here to collect your stamp."
+    },
+    "kl-sentral__merdeka-118": {
+      "why": "The MRT takes you straight to Merdeka station, a few minutes' walk from the tower.",
+      "s1": "Follow the signs for the MRT Muzium Negara station. A covered walkway of about 240 metres takes you there from KL Sentral.",
+      "s2": "Tap your Touch 'n Go card at the gate and take the MRT Kajang Line towards Kajang.",
+      "s3": "Ride 2 stops and get off at Merdeka (KG17).",
+      "s4": "Tap out and take an exit up to Jalan Hang Jebat.",
+      "s5": "Walk about 5 minutes to the foot of Merdeka 118. You can't miss it! Tap I'm Here."
+    },
+    "kl-sentral__petaling-street": {
+      "why": "It's just 1 stop on the LRT, then a short walk.",
+      "s1": "Inside KL Sentral, follow the signs for the LRT Kelana Jaya Line.",
+      "s2": "Tap your Touch 'n Go card at the gate and take a train towards Gombak.",
+      "s3": "Ride 1 stop and get off at Pasar Seni (KJ14).",
+      "s4": "Tap out and go down to street level on the Jalan Tun Tan Cheng Lock side.",
+      "s5": "Walk about 6 minutes to the covered market street of Petaling Street. Tap I'm Here."
+    },
+    "kl-sentral__abdul-samad": {
+      "why": "Two stops on the LRT bring you almost to the door.",
+      "s1": "Inside KL Sentral, follow the signs for the LRT Kelana Jaya Line.",
+      "s2": "Tap your Touch 'n Go card at the gate and take a train towards Gombak.",
+      "s3": "Ride 2 stops and get off at Masjid Jamek (KJ13).",
+      "s4": "Tap out and go up to street level.",
+      "s5": "Walk about 5 minutes to the long red-brick building with the clock tower, facing Dataran Merdeka. Tap I'm Here."
+    },
+    "kl-sentral__petronas": {
+      "why": "The LRT goes straight to KLCC station, linked underground to the towers.",
+      "s1": "Inside KL Sentral, follow the signs for the LRT Kelana Jaya Line.",
+      "s2": "Tap your Touch 'n Go card at the gate and take a train towards Gombak.",
+      "s3": "Ride 5 stops and get off at KLCC (KJ10).",
+      "s4": "Tap out and take the underground walkway to Suria KLCC, the mall at the foot of the towers.",
+      "s5": "Walk through Suria KLCC to the towers, about 5 minutes. Tap I'm Here."
+    },
+    "kl-sentral__klcc-park": {
+      "why": "The LRT goes straight to KLCC station, a short walk from the park.",
+      "s1": "Inside KL Sentral, follow the signs for the LRT Kelana Jaya Line.",
+      "s2": "Tap your Touch 'n Go card at the gate and take a train towards Gombak.",
+      "s3": "Ride 5 stops and get off at KLCC (KJ10).",
+      "s4": "Tap out and take the underground walkway to Suria KLCC.",
+      "s5": "Walk through Suria KLCC and out to the lake with the fountains, about 7 minutes. Tap I'm Here."
+    },
+    "kl-sentral__kl-tower": {
+      "why": "The monorail stops at Bukit Nanas, the closest station to the tower. The last part is an uphill walk.",
+      "s1": "From KL Sentral, walk through the NU Sentral mall to the KL Monorail station.",
+      "s2": "Tap your Touch 'n Go card at the gate and take the monorail towards Titiwangsa.",
+      "s3": "Ride 7 stops and get off at Bukit Nanas (MR8).",
+      "s4": "Tap out and go down to Jalan Sultan Ismail.",
+      "s5": "Walk up Bukit Nanas to the tower on Jalan Puncak, about 17 minutes uphill. Tap I'm Here at the tower."
+    },
+    "merdeka-118__petaling-street": {
+      "why": "It's about a 10-minute walk, quicker than taking a train.",
+      "s1": "From the foot of Merdeka 118, walk north-west towards Chinatown, about 770 metres. Google Maps can show you the exact streets.",
+      "s2": "Look for the Chinese arch at the entrance to Petaling Street's covered market. Tap I'm Here."
+    },
+    "petaling-street__abdul-samad": {
+      "why": "It's about a 10-minute walk, quicker than taking a train.",
+      "s1": "From Petaling Street, walk north-west towards Dataran Merdeka, about 720 metres. Google Maps can show you the exact streets.",
+      "s2": "The long red-brick building with the clock tower is the Sultan Abdul Samad Building. Tap I'm Here."
+    },
+    "abdul-samad__petronas": {
+      "why": "Walking takes over 30 minutes. The LRT takes you 3 stops straight to the towers.",
+      "s1": "Walk back to Masjid Jamek station, about 5 minutes.",
+      "s2": "Three lines meet here. Tap in on the LRT Kelana Jaya Line (KJ) side and take a train towards Gombak.",
+      "s3": "Ride 3 stops and get off at KLCC (KJ10).",
+      "s4": "Tap out and take the underground walkway to Suria KLCC, the mall at the foot of the towers.",
+      "s5": "Walk through Suria KLCC to the towers, about 5 minutes. Tap I'm Here."
+    },
+    "petronas__klcc-park": {
+      "why": "The park is right next to the towers, about a 6-minute walk.",
+      "s1": "Walk through Suria KLCC to the park side, where the Lake Symphony fountains are.",
+      "s2": "You're in KLCC Park. Tap I'm Here."
+    },
+    "klcc-park__kl-tower": {
+      "why": "There's no quick train and the walk is about 25 minutes uphill, so a short car ride is easiest.",
+      "s1": "Open an e-hailing app such as Grab and set the destination to KL Tower (Menara Kuala Lumpur). Walk to the pick-up point the app shows.",
+      "s2": "Check the car's plate number matches the app before you get in.",
+      "s3": "The car takes you up Bukit Nanas to the tower.",
+      "s4": "You're at KL Tower. Tap I'm Here."
+    }
+  },
+  "arrivalOptions": {
+    "klia-ekspres": {
+      "name": "KLIA Ekspres train",
+      "price": "RM55 one way (adult)",
+      "minutes": "28 min from Terminal 1, 33 min from Terminal 2",
+      "why": "Non-stop to KL Sentral, trains about every 20 minutes, and no traffic.",
+      "tag": "Non-stop",
+      "pay": "Tap a credit card or Touch 'n Go at the gate",
+      "priceShort": "RM55"
+    },
+    "klia-transit": {
+      "name": "KLIA Transit train",
+      "price": "RM55 one way (adult)",
+      "minutes": "39 min from Terminal 2",
+      "why": "Same fare as KLIA Ekspres but slower: it stops at 3 stations on the way.",
+      "tag": "3 stops on the way",
+      "pay": "Buy tickets online at kliaekspres.com",
+      "priceShort": "RM55"
+    },
+    "airport-bus": {
+      "name": "Airport bus",
+      "price": "TBC",
+      "minutes": "TBC",
+      "why": "TBC",
+      "tag": "TBC",
+      "pay": "TBC",
+      "priceShort": "TBC"
+    },
+    "e-hailing": {
+      "name": "E-hailing car (e.g. Grab)",
+      "price": "Price shown in the app",
+      "minutes": "Depends on traffic",
+      "why": "Door to door, but it can take longer in traffic.",
+      "tag": "Door to door",
+      "pay": "Pay in the app",
+      "priceShort": "In app"
+    }
+  },
+  "learnTopics": {
+    "touch-n-go": {
+      "title": "Paying with Touch 'n Go",
+      "t1": "LRT, MRT and monorail stations have gates. Tap your card when you go in, and tap again when you leave.",
+      "t2": "The easiest way to pay is a Touch 'n Go card. You can buy one at the Rapid KL customer service counter in LRT, MRT and monorail stations, and top it up at stations.",
+      "p1": "A Touch 'n Go card at a station gate",
+      "t3": "No card? Buy a single-journey token from the ticket machine in the station.",
+      "t4": "Tapping a credit or debit card at Rapid KL gates is not available yet (planned as of May 2026). Station counters do take cards for buying tokens and topping up Touch 'n Go.",
+      "t5": "The KLIA Ekspres airport train is different: you can tap a credit card or a Touch 'n Go card right at its gate."
+    },
+    "line-colours": {
+      "title": "Train lines and colours",
+      "t1": "Every train line has a name, a colour and a short code. Station numbers use the code: KJ10 is KLCC station on the Kelana Jaya Line.",
+      "t2": "Our route cards show the line colour on each step, so you can match it to the signs in the station.",
+      "p1": "Line colours on a station sign"
+    },
+    "reading-signs": {
+      "title": "Reading the signs",
+      "t1": "Each station has a code and a name, like KJ13 Masjid Jamek: station 13 on the Kelana Jaya Line.",
+      "t2": "Trains are signed by direction: the last station of the line. Our route cards tell you which one to follow, for example \"towards Gombak\".",
+      "p1": "A platform sign showing the direction",
+      "t3": "At Masjid Jamek, three lines meet. The Kelana Jaya Line (KJ) platform is separate from the Ampang and Sri Petaling lines (AG and SP), so check the code before you tap in.",
+      "t4": "Useful Malay words on signs: Keluar = Exit, Masuk = Entrance, Tandas = Toilet, Stesen = Station, Laluan = Line."
+    }
   },
   "checkin": {
     "reading": "Checking where you are…",
@@ -188,6 +468,30 @@
       "body": "We couldn't check you in this time. Please try again."
     }
   },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "reset": {
+      "title": "Reset progress",
+      "body": "This deletes all your stamps and journey steps on this phone. Your language stays the same.",
+      "button": "Reset progress",
+      "confirm": "Yes, delete everything",
+      "cancel": "Cancel",
+      "done": "Your progress has been reset."
+    },
+    "privacy": {
+      "title": "Privacy",
+      "note": "Your stamps and settings are saved only on this phone. We never save where you are.",
+      "link": "Read the privacy notice"
+    }
+  },
+  "location": {
+    "explainer": "We use your location only to show how far places are and to confirm your check-ins. It is never saved.",
+    "allow": "Allow location",
+    "asking": "Finding you…",
+    "denied": "Location is turned off for this site. You can still use the guide. To collect gold stamps, turn location on in your browser settings.",
+    "unavailable": "We could not find your location. Try again outside, away from tall buildings."
+  },
   "install": {
     "title": "Keep your stamps safe",
     "body": "Save JalanKL to your home screen. It opens like an app, works without signal, and helps keep your stamps on this phone.",
@@ -195,6 +499,44 @@
     "ios": "Tap the Share button, then \"Add to Home Screen\".",
     "other": "Open your browser menu and choose \"Add to Home screen\" or \"Install app\".",
     "later": "Not now"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "intro": "JalanKL is a free guide to Kuala Lumpur, made by a small team. This page explains, in plain words, what we collect and why.",
+    "updated": "Last updated: {{date}}",
+    "phone": {
+      "title": "What stays on your phone",
+      "body": "Your stamps, journey progress, language and nationality are saved only on this phone. When you check in, we read your location for a few seconds to see if you are near the landmark. We never save or send your location: we only keep how accurate the GPS was. You can delete everything on this phone in Settings, \"Reset progress\"."
+    },
+    "review": {
+      "title": "What we collect if you send a review",
+      "body": "Only if you choose to write a review, we receive: your email address, your nationality (if you gave it), your language, your star rating and review text, and the time you agreed to this notice."
+    },
+    "why": {
+      "title": "Why we collect it",
+      "body": "To email you your postcard, and to learn how to make the guide better. We do not use your email for marketing, and we do not sell your data."
+    },
+    "visible": {
+      "title": "Who can see your review",
+      "body": "Only the JalanKL team. Reviews are not shown publicly."
+    },
+    "services": {
+      "title": "Services that help us",
+      "body": "A database service (Supabase) stores reviews. An email service sends your postcard. Cloudflare runs this website. They use your data only to provide these services to us."
+    },
+    "keep": {
+      "title": "How long we keep it",
+      "body": "We keep reviews and email addresses for 12 months, then delete them. You can ask us to delete them sooner."
+    },
+    "rights": {
+      "title": "Your rights",
+      "body": "Under Malaysia's Personal Data Protection Act 2010, you can ask to see, correct or delete your data, and you can withdraw your consent at any time. Write to us and we will reply within 21 days."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "Email us at",
+      "tbc": "Our contact email will be added here soon."
+    }
   },
   "consent": {
     "label": "I agree that JalanKL may use my email, nationality and review to send my postcard and improve the guide. They are kept for 12 months, and I can ask for them to be deleted at any time.",
