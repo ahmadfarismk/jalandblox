@@ -47,9 +47,9 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Syakir (guide and map)
 
-**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`.
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`.
 
-**In progress:** S2 Welcome screen at `/welcome` (route added by Faris).
+**In progress:** S3 Guide home.
 
 **Next:** S3 Guide home, S4 Landmark detail.
 
@@ -61,6 +61,7 @@ This section says what is done, what each person builds next, and anything that 
 | --- | --- | --- |
 | 2026-09-18 | #4 S1 | Shared Button, Card, StampBadge, Avatar, BottomTabs and sample page |
 | 2026-09-18 | S3 cleanup | Guide tab back to a placeholder. The S1 sample page stays at `/debug/components` |
+| 2026-09-18 | S2 | Welcome screen: language, nationality picker, start choice, all saved with `setPrefs()` |
 
 ### Danial (rewards and content)
 
@@ -111,6 +112,8 @@ Add new lines at the end. Say who needs to know.
 25. **`<InstallHint />`** from `core/InstallHint.jsx` shows "Keep your stamps safe: add to home screen". It is on the Check-in gold screen now. The Passport screen (D3) could show it too. New text keys: `install.*`.
 26. **`<ConsentCheckbox />`** (F12) from `core/ConsentCheckbox.jsx` is the consent tick box for the Review form: unticked to start, plain sentence, link to `/privacy` (opens in a new tab so the review is not lost). Danial, D8.
 27. **New automatic test: every language file must have exactly the same keys as `en.json`, and no empty text.** If you add a key to one language, add it to the other in the same pull request, or the checks go red.
+28. **`prefs.nationality` is an ISO 3166 country code** (S2), for example `JP`, not a country name. The Welcome picker fills it from `getNationalities()` and shows names with `Intl.DisplayNames`, so country names need no translation file. Danial: send the code to `submitReview({ nationality })`, and use the same `Intl.DisplayNames` trick if a screen has to show it.
+29. **First open goes to `/welcome` from `GuideHomeScreen.jsx`** (S2), because `/` is where the link and the QR code land. Faris: move this into `App.jsx` when you add the redirect there, and delete the three lines at the top of my screen.
 28. **Data helpers return copies, and `"TBC"` comes back as `null`** (D1). Screens can check `if (place.coords)` or `if (step.photo)` without comparing to the string "TBC". `isTBC(value)` is there if you need it. (Everyone.)
 29. **New data helpers** in `src/data/index.js`: `getRoutesTo(placeId)`, `getLearnTopic(id)`, `getLines()`, `getLine(id)` (name and colour for each rail line), `getPostcards()`, `getPostcardPreview(placeId)` and `getNationalities()` (ISO codes; show names with `Intl.DisplayNames`). (Syakir.)
 30. **New data fields:** places have `hoursKey`. Route `board` steps have `line`, `lineColour`, `towards`, `at`; `ride` steps have `stops` and `alightAt`. Arrival options have `mode` (`train`/`bus`/`car`), `whyKey`, `tagKey`, `payKey`, `priceShortKey`. Learn topics can hold a `{ "type": "lines" }` block: draw the list from `getLines()` there. (Syakir.)
