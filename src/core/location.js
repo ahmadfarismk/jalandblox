@@ -5,10 +5,10 @@
  *   | { ok: false, reason: 'no_permission' | 'unavailable' | 'timeout' | 'error' }} Position
  * @typedef {'granted' | 'prompt' | 'denied' | 'unknown'} PermissionState
  */
-import { USE_MOCKS } from './useMocks';
+import { isMocked } from './useMocks';
 import * as mock from './mocks/location.mock';
 import * as real from './real/location.real';
 
-const impl = USE_MOCKS ? mock : real;
+const impl = isMocked('location') ? mock : real;
 
 export const { getPosition, distanceTo, watchPosition, getPermissionState } = impl;

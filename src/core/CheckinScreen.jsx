@@ -5,7 +5,7 @@
  * Debug: /checkin/:id?debug=<state> shows a state without GPS and without
  * saving anything. The debug menu at /debug links to every state.
  */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { getPlace } from '@/data';
@@ -46,7 +46,10 @@ function Checkin() {
     ? searchParams.get('debug')
     : null;
   const { t } = useTranslation();
-  const place = getPlace(id);
+  // getPlace() returns a fresh copy on every call, so keep one per id. Without
+  // this, the effect below sees a "new" place on every render and checks in
+  // again and again.
+  const place = useMemo(() => getPlace(id), [id]);
 
   /** 'starting' until we know the permission, then one of CHECKIN_STATES */
   const [state, setState] = useState(forced ?? 'starting');

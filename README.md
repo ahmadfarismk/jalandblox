@@ -51,12 +51,21 @@ live in `src/core/real/`, fake ones in `src/core/mocks/`.
 **Always real (switch has no effect):** progress and settings. They save on the phone
 (localStorage), so stamps and language survive a reload. Built in task F4.
 
-**Switched by `VITE_USE_MOCKS` in `.env`:** location, check-in and the backend.
-The real location (F6) and check-in (F7) are built. The backend (F10) is not yet.
+**Switched by `VITE_USE_MOCKS`:** three parts, `location` (GPS), `checkin` (check-in
+rules) and `api` (sending reviews). The real location (F6) and check-in (F7) are built;
+the real `api` is not yet (F10).
 
-- `VITE_USE_MOCKS=true` uses the fakes. This is the default and what you want for now.
-- `VITE_USE_MOCKS=false` uses the real versions. They are not built yet and will throw a
-  "not built yet" error until task F10 is done.
+| `VITE_USE_MOCKS=` | Fake                            | Real               |
+| ----------------- | ------------------------------- | ------------------ |
+| `true` (default)  | location, check-in, api         | none               |
+| `api`             | api                             | location, check-in |
+| `location,api`    | location, api (any list)        | the rest           |
+| `false`           | none (breaks reviews until F10) | everything         |
+
+- **On your laptop** (`.env`): `true` is easiest, so check-in works at your desk.
+- **Live site and preview links** (`.env.production`, committed): `api`, so GPS and
+  check-in are real. After F10, change it to `false`.
+- The debug menu at `/debug` shows which parts are fake in the build you are looking at.
 
 Restart `npm run dev` after changing `.env`.
 
@@ -113,7 +122,7 @@ GPS only works on https, so use a Cloudflare preview link (or the live site) on 
 not the laptop address.
 
 1. Open `<preview link>/debug/location` on your phone. This hidden page always uses the
-   real GPS, even when `VITE_USE_MOCKS=true`.
+   real GPS, even when `VITE_USE_MOCKS` fakes the location.
 2. Tap **Start live GPS** and allow location.
 3. Stand on a spot and tap **Save this spot as my test point** (or paste coordinates from
    Google Maps, like `3.14861, 101.69444`).
@@ -149,11 +158,11 @@ goes into GitHub.
 
 The site is deployed by Cloudflare from this GitHub repo. Settings in the Cloudflare project:
 
-| Setting        | Value                 |
-| -------------- | --------------------- |
-| Build command  | `npm run build`       |
-| Deploy command | `npx wrangler deploy` |
-| Variables      | `VITE_USE_MOCKS=true` |
+| Setting        | Value                                    |
+| -------------- | ---------------------------------------- |
+| Build command  | `npm run build`                          |
+| Deploy command | `npx wrangler deploy`                    |
+| Variables      | none (the build reads `.env.production`) |
 
 `wrangler.jsonc` tells Cloudflare to serve the built `dist/` folder, and to send links
 like `/passport` to the app. Its `name` must match the project name in Cloudflare.

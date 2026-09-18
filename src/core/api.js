@@ -7,10 +7,10 @@
  * }} Review
  * @typedef {{ ok: true, postcardQueued: boolean } | { ok: false, reason: string }} ReviewResult
  */
-import { USE_MOCKS } from './useMocks';
+import { isMocked } from './useMocks';
 import * as mock from './mocks/api.mock';
 import * as real from './real/api.real';
 
-const impl = USE_MOCKS ? mock : real;
+const impl = isMocked('api') ? mock : real;
 
 export const { submitReview } = impl;

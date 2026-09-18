@@ -1,7 +1,7 @@
 /**
  * Hidden developer page at /debug/location (not linked anywhere in the app).
  * Used for the F6 outdoor test: shows the live GPS reading and the distance to
- * a test point you choose. Always uses the REAL GPS, even with VITE_USE_MOCKS=true.
+ * a test point you choose. Always uses the REAL GPS, even when VITE_USE_MOCKS fakes the location.
  *
  * English only on purpose: tourists never see this page.
  * The test point is kept in this phone's localStorage so it survives a reload.
