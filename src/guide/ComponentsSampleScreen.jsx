@@ -6,8 +6,8 @@
  * visible text comes from the locale files. The components themselves hold no
  * text of their own — every word comes from the screen that uses them.
  *
- * Delete this file (and the temporary line in GuideHomeScreen.jsx) once the
- * team has checked the components on a phone.
+ * It has its own hidden route at /debug/components. Nothing in the app links
+ * to it, so tourists never see it.
  */
 import { useState } from 'react';
 import Avatar from '@/shared/Avatar';

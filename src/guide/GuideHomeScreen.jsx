@@ -1,9 +1,12 @@
-// Placeholder for task S3.
-// TEMPORARY: until Faris adds a route for it in App.jsx, this tab shows the S1
-// sample page, so the shared components can be checked on a phone. Delete these
-// two lines and the sample file when S3 starts.
-import ComponentsSampleScreen from './ComponentsSampleScreen';
+// Placeholder. Built in task S3.
+import { useTranslation } from 'react-i18next';
 
 export default function GuideHomeScreen() {
-  return <ComponentsSampleScreen />;
+  const { t } = useTranslation();
+  return (
+    <section>
+      <h1 className="text-2xl font-semibold">{t('ui.tabs.guide')}</h1>
+      <p className="mt-2 text-slate-500">{t('ui.comingSoon')}</p>
+    </section>
+  );
 }
