@@ -31,22 +31,32 @@
       "passport": "Pasport"
     },
     "comingSoon": "Akan datang.",
-    "openSettings": "Tetapan"
+    "openSettings": "Tetapan",
+    "stamp": {
+      "none": "Tiada cop",
+      "outline": "Cop garis",
+      "gold": "Cop emas"
+    }
   },
   "welcome": {
     "title": "Selamat datang ke KL",
-    "subtitle": "Panduan langkah demi langkah dari lapangan terbang ke tempat paling terkenal di bandar ini. Kumpul cop di setiap satunya.",
-    "languageLabel": "Bahasa",
-    "nationalityLabel": "Anda dari mana?",
-    "nationalityHint": "Pilihan. Ia membantu kami memahami siapa yang menggunakan JalanKL.",
-    "nationalityPlaceholder": "Pilih negara anda",
-    "nationalitySkip": "Langkau",
-    "whereAreYou": "Anda di mana sekarang?",
-    "justLanded": "Baru mendarat",
-    "justLandedHint": "Di KLIA dan menuju ke bandar",
-    "alreadyInKL": "Sudah di KL",
-    "alreadyInKLHint": "Tunjukkan mercu tanda",
-    "start": "Jom mula"
+    "intro": "Panduan langkah demi langkah dari lapangan terbang ke tempat paling terkenal di bandar ini. Kumpul cop di setiap satunya.",
+    "language": {
+      "title": "Pilih bahasa anda"
+    },
+    "nationality": {
+      "title": "Anda dari mana?",
+      "hint": "Pilihan. Ia membantu kami memahami siapa yang menggunakan JalanKL.",
+      "placeholder": "Pilih negara anda",
+      "skip": "Langkau"
+    },
+    "start": {
+      "title": "Anda di mana sekarang?",
+      "arrival": "Baru mendarat",
+      "arrivalHint": "Di KLIA dan menuju ke bandar",
+      "city": "Sudah di KL",
+      "cityHint": "Tunjukkan mercu tanda"
+    }
   },
   "arrival": {
     "title": "Dari KLIA ke KL Sentral",
@@ -208,11 +218,6 @@
     "send": "Hantar ke e-mel saya",
     "chosen": "Poskad: {{place}}",
     "errorChoice": "Pilih satu poskad."
-  },
-  "stamps": {
-    "none": "Tiada cop",
-    "outline": "Garis",
-    "gold": "Emas"
   },
   "categories": {
     "transport": "Hab pengangkutan",

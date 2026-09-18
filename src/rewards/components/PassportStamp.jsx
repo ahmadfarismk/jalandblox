@@ -48,7 +48,7 @@ export default function PassportStamp({ place, stamp, reviewed }) {
         {kind !== 'none' && (
           <span className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-slate-700">
             <StampBadge kind={kind} size="sm" />
-            {t(`stamps.${kind}`)}
+            {t(`ui.stamp.${kind}`)}
           </span>
         )}
         {(kind === 'none' || date) && (
