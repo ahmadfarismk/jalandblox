@@ -47,11 +47,11 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Syakir (guide and map)
 
-**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home.
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail.
 
-**In progress:** S4 Landmark detail.
+**In progress:** S5 Journey screen.
 
-**Next:** S5 Journey, S6 Arrival, S7 Map, S8 colour unlock, S9 Learn, S10 phone polish.
+**Next:** S6 Arrival, S7 Map, S8 colour unlock, S9 Learn, S10 phone polish.
 
 **Notes from Faris:** S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
@@ -63,6 +63,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | S3 cleanup | Guide tab back to a placeholder. The S1 sample page stays at `/debug/components` |
 | 2026-09-18 | S2 | Welcome screen: language, nationality picker, start choice, all saved with `setPrefs()` |
 | 2026-09-18 | S3 | Guide home: landmark list, distance sorting, stamp status. Route `/place/:id` added |
+| 2026-09-18 | S4 | Landmark detail: photo, story, hours, "Take me there", outline stamp on open. Route `/journey/:routeId` added |
 
 ### Danial (rewards and content)
 
