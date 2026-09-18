@@ -1,4 +1,4 @@
-import { Link, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router';
+import { Link, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import GuideHomeScreen from './guide/GuideHomeScreen';
 import PlaceScreen from './guide/PlaceScreen';
@@ -20,17 +20,23 @@ import ComponentsSampleScreen from './guide/ComponentsSampleScreen';
 import BottomTabs from './shared/BottomTabs';
 import { getPrefs } from './core/settings';
 import { isWelcomeDone } from './guide/welcomePrefs';
+import LandingScreen from './core/LandingScreen';
 
 // Only built screens are wired up. The others in docs/PLAN.md section 4 get
 // their routes when their tasks are done.
 
 function TabLayout() {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
 
-  // First open: send the visitor to the Welcome questions before any tab (S2).
-  // The link and the QR code land on a tab, usually "/". Pages opened from a
-  // shared link (a landmark, a check-in, the privacy notice) are not redirected.
-  if (!isWelcomeDone(getPrefs())) return <Navigate to="/welcome" replace />;
+  // First open: "/" is the front door. A new visitor sees the landing page,
+  // whose Start button leads to the Welcome questions (S2), then the app.
+  // Other tabs send a new visitor to that front door first. Returning visitors
+  // go straight to the tabs. Pages opened from a shared link (a landmark, a
+  // check-in, the privacy notice) are not redirected.
+  if (!isWelcomeDone(getPrefs())) {
+    return pathname === '/' ? <LandingScreen /> : <Navigate to="/" replace />;
+  }
 
   return (
     <div className="flex min-h-dvh flex-col bg-white text-slate-900">
@@ -111,6 +117,8 @@ export default function App() {
         {/* Hidden page showing every shared component (S1). Not linked in the app. */}
         <Route path="debug/components" element={<ComponentsSampleScreen />} />
       </Route>
+      {/* The landing page for anyone, e.g. a link shared with people not travelling now. */}
+      <Route path="about" element={<LandingScreen />} />
       <Route element={<FullScreenLayout />}>
         <Route path="welcome" element={<WelcomeScreen />} />
       </Route>

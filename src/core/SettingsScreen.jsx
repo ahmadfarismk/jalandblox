@@ -92,6 +92,12 @@ export default function SettingsScreen() {
         >
           {t('settings.privacy.link')}
         </Link>
+        <Link
+          to="/about"
+          className="ml-4 inline-flex min-h-11 items-center font-medium text-teal-700 underline"
+        >
+          {t('settings.about')}
+        </Link>
       </div>
     </section>
   );
