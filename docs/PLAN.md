@@ -13,6 +13,8 @@ This section says what is done, what each person builds next, and anything that 
 >
 > Only edit your own block, so two pull requests rarely touch the same lines. If you still get a merge conflict in this file, keep both sides. The reviewer checks this section before approving (see section 13).
 
+> **Merge into `main`, not into another branch.** When a pull request is built on top of another (stacked), GitHub may set its base to that other branch. Check the line "wants to merge … into `main`" before you click Merge. If it says another branch, click **Edit** next to the title and change the base to `main`. Code merged anywhere else does not reach the live site. (This happened on 2026-09-18 and hid a day of screens.)
+
 **Where we are (2026-09-18):** Phase 0 is done for Faris and Syakir. It is finished for everyone when Danial's D1 and D2 are merged. The live site and a preview link for every pull request work.
 
 ### Faris (core and backend)
@@ -21,7 +23,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **In progress:** F8 Supabase: pull request open with the tables, lock-down SQL and a check script (`npm run check:supabase`). Faris still has to create the Supabase project and run the SQL (steps in `supabase/README.md`). Done when the check prints "All blocked".
 
-**Next:** F9 send-postcard function (needs an email service account and a sending address), then F10 connect the Review screen to it.
+**Next:** move the "first open goes to /welcome" check into App.jsx (Syakir asked), then F9 send-postcard function (needs an email service account and a sending address; adds a `postcard_place_id` column for Danial's postcard choice), then F10 connect the Review screen to it.
 
 **Before launch (blockers):**
 - Pick the team's contact email for data requests and put it in `src/core/privacy.js` (now `TBC`, and the Privacy page says "coming soon").
@@ -44,6 +46,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | F11 | Install to phone (vite-plugin-pwa), offline app shell, placeholder icons, install hint after a gold stamp |
 | 2026-09-18 | F12 | Real Privacy page (PDPA: what, why, who, how long, rights, contact TBC), `<ConsentCheckbox />` for the Review form, test that all languages have the same keys |
 | 2026-09-18 | F8 | Supabase SQL for the 3 tables and private `postcards` bucket, lock-down (RLS on, public key revoked), `npm run check:supabase`, setup guide in `supabase/README.md` |
+| 2026-09-18 | Integrate screens | One pull request bringing Syakir's S2–S7 (`guide/s7-map`) and Danial's D3, D8, D9, D12 (`rewards/passport`) into `main`. Their earlier pull requests had not reached `main`: Syakir's were stacked and open, and Danial's #13–#15 were merged into each other's branches. Resolved clashes in App.jsx (routes) and PLAN.md (change numbers). OK'd Danial's test libraries and `postcardPlaceId` |
 
 ### Syakir (guide and map)
 
@@ -132,9 +135,9 @@ Add new lines at the end. Say who needs to know.
 37. **The Map tab has no street tiles and no tilt yet** (S7). MapLibre GL JS needs a hosted tile service, and picking one is still an open question (section 16), so the Map screen draws the seven landmarks from their own coordinates: right positions, no streets. Tilting that drawn map in CSS squashed the icons to about 30px tall, under the 44px a thumb needs, so it is flat. Faris: when the team picks a tile service, `MapScreen.jsx` is the only file that changes, and adding `maplibre-gl` to package.json needs your say-so. The plan already lists the tilt as the first thing to cut (section 12).
 38. **The database is locked to the app** (F8). The app never reads or writes Supabase tables directly, not even with the public key: everything goes through `submitReview()` in `core/api.js` (F10). New tables must get the same lock-down, see `supabase/README.md`.
 39. **Landmark icons are in** (D12): `public/landmarks/<id>-grey.png` and `<id>-colour.png`, 256 × 256 with a transparent background, anchored at the bottom centre (the ground shadow sits at y ≈ 238). Use `place.iconGrey` / `place.iconColour`. The landmark photos (`place.photo`) come later from the photographer (D10). (Syakir, for the Map.)
-40. **New dev-only test libraries (please OK):** `jsdom`, `@testing-library/react`, `@testing-library/dom` and `@testing-library/jest-dom`, so screen tests can render a screen and click it. Nothing ships to phones. A test file opts in with `// @vitest-environment jsdom` on its first line, so the other tests still run in plain Node. (Faris, Syakir.)
+40. **New dev-only test libraries (OK'd by Faris):** `jsdom`, `@testing-library/react`, `@testing-library/dom` and `@testing-library/jest-dom`, so screen tests can render a screen and click it. Nothing ships to phones. A test file opts in with `// @vitest-environment jsdom` on its first line, so the other tests still run in plain Node. (Faris, Syakir.)
 41. **The review has two steps** (D8). `/review/:id` asks for stars and text. `/review/:id/postcard` lets the visitor choose **one** postcard, from places they have a **gold** stamp for (the others are shown locked), then asks for email and consent (Faris's `<ConsentCheckbox />`; the send button stays disabled until it is ticked) and sends. Then `/postcard/<chosen place>`. The three routes are added in `App.jsx` under the page layout. (Faris, please review those lines.)
-42. **`submitReview()` gets one more field: `postcardPlaceId`** (please agree, Faris). It is the place whose postcard the visitor chose, or `null` when they have none unlocked yet (the review is still saved). The backend (F9, F10) should email **that** postcard, not always the reviewed place's. It should answer `{ ok: false, reason: 'invalid_postcard' }` if the id is not a postcard place. The server can't check the gold stamp (stamps live on the phone), so the screen enforces it. Other reasons the screen understands: `invalid_email`, `no_consent`, `rate_limited`; anything else shows "we'll try again" and keeps the form filled. (Faris.)
+42. **`submitReview()` gets one more field: `postcardPlaceId`** (agreed by Faris; the `reviews` table gets a matching column in F9). It is the place whose postcard the visitor chose, or `null` when they have none unlocked yet (the review is still saved). The backend (F9, F10) should email **that** postcard, not always the reviewed place's. It should answer `{ ok: false, reason: 'invalid_postcard' }` if the id is not a postcard place. The server can't check the gold stamp (stamps live on the phone), so the screen enforces it. Other reasons the screen understands: `invalid_email`, `no_consent`, `rate_limited`; anything else shows "we'll try again" and keeps the form filled. (Faris.)
 
 ## 1. MVP on a page
 
