@@ -1,9 +1,16 @@
 import { Link, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import GuideHomeScreen from './guide/GuideHomeScreen';
+import PlaceScreen from './guide/PlaceScreen';
+import JourneyScreen from './guide/JourneyScreen';
+import ArrivalScreen from './guide/ArrivalScreen';
+import LearnScreen from './guide/LearnScreen';
 import WelcomeScreen from './guide/WelcomeScreen';
 import MapScreen from './guide/MapScreen';
 import PassportScreen from './rewards/PassportScreen';
+import ReviewScreen from './rewards/ReviewScreen';
+import PostcardPickScreen from './rewards/PostcardPickScreen';
+import PostcardSentScreen from './rewards/PostcardSentScreen';
 import SettingsScreen from './core/SettingsScreen';
 import PrivacyScreen from './core/PrivacyScreen';
 import DebugLocationScreen from './core/DebugLocationScreen';
@@ -80,6 +87,14 @@ export default function App() {
         <Route path="settings" element={<SettingsScreen />} />
         <Route path="privacy" element={<PrivacyScreen />} />
         <Route path="checkin/:id" element={<CheckinScreen />} />
+        <Route path="place/:id" element={<PlaceScreen />} />
+        <Route path="journey/:routeId" element={<JourneyScreen />} />
+        <Route path="arrival" element={<ArrivalScreen />} />
+        <Route path="learn" element={<LearnScreen />} />
+        {/* Review in two steps, then the postcard page (D8, D9). */}
+        <Route path="review/:id" element={<ReviewScreen />} />
+        <Route path="review/:id/postcard" element={<PostcardPickScreen />} />
+        <Route path="postcard/:id" element={<PostcardSentScreen />} />
         {/* Hidden developer menu (F7): force check-in states, sample stamps, test pages. */}
         <Route path="debug" element={<DebugMenuScreen />} />
         {/* Hidden developer page for the outdoor GPS test (F6). Not linked in the app. */}
