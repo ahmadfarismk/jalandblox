@@ -87,7 +87,8 @@
     "story": "Kisahnya",
     "noRoute": "Kami belum ada arah langkah demi langkah dari sini. Google Maps boleh tunjukkan jalannya.",
     "category": "Jenis",
-    "stampHint": "Daftar masuk di sini dengan GPS untuk dapatkan cop emas."
+    "stampHint": "Daftar masuk di sini dengan GPS untuk dapatkan cop emas.",
+    "photoCredit": "Foto: {{author}}, {{licence}}"
   },
   "journey": {
     "title": "Laluan anda",

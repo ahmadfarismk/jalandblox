@@ -8,6 +8,12 @@
     "coords": [3.134283, 101.686385],
     "radius_m": 120,
     "photo": "/landmarks/kl-sentral.jpg",
+    "photoCredit": {
+      "author": "Wiki Farazi",
+      "licence": "CC0",
+      "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:KL_Sentral,_Kuala_Lumpur_20221229_150139.jpg"
+    },
     "iconGrey": "/landmarks/kl-sentral-grey.png",
     "iconColour": "/landmarks/kl-sentral-colour.png",
     "nearestStation": "kl-sentral",
@@ -29,6 +35,12 @@
     "coords": [3.14167, 101.70072],
     "radius_m": 150,
     "photo": "/landmarks/merdeka-118.jpg",
+    "photoCredit": {
+      "author": "Sam Hidayat",
+      "licence": "CC BY-SA 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Kuala_Lumpur_skyline,_the_tallest_building_there_is_visible,_The_Merdeka_118.jpg"
+    },
     "iconGrey": "/landmarks/merdeka-118-grey.png",
     "iconColour": "/landmarks/merdeka-118-colour.png",
     "nearestStation": "merdeka",
@@ -51,6 +63,12 @@
     "coords": [3.144444, 101.6975],
     "radius_m": 120,
     "photo": "/landmarks/petaling-street.jpg",
+    "photoCredit": {
+      "author": "Shesmax",
+      "licence": "CC BY-SA 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Kuala_Lumpur._Jalan_Petaling._2019-12-07_15-24-13.jpg"
+    },
     "iconGrey": "/landmarks/petaling-street-grey.png",
     "iconColour": "/landmarks/petaling-street-colour.png",
     "nearestStation": "pasar-seni",
@@ -71,6 +89,12 @@
     "coords": [3.14861, 101.69444],
     "radius_m": 120,
     "photo": "/landmarks/abdul-samad.jpg",
+    "photoCredit": {
+      "author": "CEphoto, Uwe Aranas",
+      "licence": "CC BY-SA 3.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Kuala_Lumpur_Malaysia_Sultan-Abdul-Samad-Building-02.jpg"
+    },
     "iconGrey": "/landmarks/abdul-samad-grey.png",
     "iconColour": "/landmarks/abdul-samad-colour.png",
     "nearestStation": "masjid-jamek",
@@ -93,6 +117,12 @@
     "coords": [3.1578, 101.7117],
     "radius_m": 150,
     "photo": "/landmarks/petronas.jpg",
+    "photoCredit": {
+      "author": "CEphoto, Uwe Aranas",
+      "licence": "CC BY-SA 3.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Kuala_Lumpur_Malaysia_Petronas-Twin-Towers-01.jpg"
+    },
     "iconGrey": "/landmarks/petronas-grey.png",
     "iconColour": "/landmarks/petronas-colour.png",
     "nearestStation": "klcc",
@@ -114,6 +144,12 @@
     "coords": [3.15558, 101.71478],
     "radius_m": 200,
     "photo": "/landmarks/klcc-park.jpg",
+    "photoCredit": {
+      "author": "Marcin Konsek",
+      "licence": "CC BY-SA 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:2016_Kuala_Lumpur,_Park_KLCC_i_Suria_KLCC.jpg"
+    },
     "iconGrey": "/landmarks/klcc-park-grey.png",
     "iconColour": "/landmarks/klcc-park-colour.png",
     "nearestStation": "klcc",
@@ -135,6 +171,12 @@
     "coords": [3.152859, 101.70376],
     "radius_m": 90,
     "photo": "/landmarks/kl-tower.jpg",
+    "photoCredit": {
+      "author": "xiquinhosilva",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:21039-Kuala-Lumpur_(35282191983).jpg"
+    },
     "iconGrey": "/landmarks/kl-tower-grey.png",
     "iconColour": "/landmarks/kl-tower-colour.png",
     "nearestStation": "bukit-nanas",
