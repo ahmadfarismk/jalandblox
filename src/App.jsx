@@ -8,6 +8,9 @@ import LearnScreen from './guide/LearnScreen';
 import WelcomeScreen from './guide/WelcomeScreen';
 import MapScreen from './guide/MapScreen';
 import PassportScreen from './rewards/PassportScreen';
+import ReviewScreen from './rewards/ReviewScreen';
+import PostcardPickScreen from './rewards/PostcardPickScreen';
+import PostcardSentScreen from './rewards/PostcardSentScreen';
 import SettingsScreen from './core/SettingsScreen';
 import PrivacyScreen from './core/PrivacyScreen';
 import DebugLocationScreen from './core/DebugLocationScreen';
@@ -89,6 +92,10 @@ export default function App() {
         <Route path="arrival" element={<ArrivalScreen />} />
         <Route path="learn" element={<LearnScreen />} />
         <Route path="learn/:topic" element={<LearnScreen />} />
+        {/* Review in two steps, then the postcard page (D8, D9). */}
+        <Route path="review/:id" element={<ReviewScreen />} />
+        <Route path="review/:id/postcard" element={<PostcardPickScreen />} />
+        <Route path="postcard/:id" element={<PostcardSentScreen />} />
         {/* Hidden developer menu (F7): force check-in states, sample stamps, test pages. */}
         <Route path="debug" element={<DebugMenuScreen />} />
         {/* Hidden developer page for the outdoor GPS test (F6). Not linked in the app. */}
