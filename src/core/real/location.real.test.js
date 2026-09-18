@@ -1,6 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { distanceTo, getPermissionState, getPosition, watchPosition } from './location.real';
 
+// A made-up place whose coordinates are still TBC (every real place has them now).
+vi.mock('@/data', async (importOriginal) => {
+  const data = await importOriginal();
+  const noCoords = { ...data.getPlace('petronas'), id: 'no-coords-yet', coords: null };
+  return { ...data, getPlace: (id) => (id === noCoords.id ? noCoords : data.getPlace(id)) };
+});
+
 /** A pretend phone GPS we control from the tests. */
 function fakeGps() {
   const watchers = new Map();
@@ -107,7 +114,7 @@ describe('distanceTo', () => {
   });
 
   it('is null when the place has no coordinates yet', () => {
-    expect(distanceTo('petronas', { lat: 3.1, lng: 101.6 })).toBeNull();
+    expect(distanceTo('no-coords-yet', { lat: 3.1, lng: 101.6 })).toBeNull();
   });
 
   it('is null for an unknown place or a failed reading', () => {
