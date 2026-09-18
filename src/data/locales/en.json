@@ -115,5 +115,43 @@
     "asking": "Finding you…",
     "denied": "Location is turned off for this site. You can still use the guide. To collect gold stamps, turn location on in your browser settings.",
     "unavailable": "We could not find your location. Try again outside, away from tall buildings."
+  },
+  "checkin": {
+    "reading": "Checking where you are…",
+    "readingHint": "This can take up to 10 seconds. Hold your phone still.",
+    "tryAgain": "Try again",
+    "toPassport": "See my passport",
+    "toGuide": "Back to the guide",
+    "unknownPlace": "We could not find this place.",
+    "gold": {
+      "title": "Gold stamp collected!",
+      "body": "{{place}} is now in your passport."
+    },
+    "too_far": {
+      "title": "Not there yet",
+      "body": "You are about {{distance}} m away. Get within {{radius}} m and try again."
+    },
+    "poor_signal": {
+      "title": "Weak GPS signal",
+      "body": "Step outside, away from tall buildings, and try again.",
+      "accuracy": "Accuracy right now: about {{accuracy}} m."
+    },
+    "no_permission": {
+      "title": "Location is off",
+      "body": "Without location we can't confirm you are here. You can still get an outline stamp. To earn a gold one, turn location on in your browser settings and try again.",
+      "continue": "Continue without GPS"
+    },
+    "outline": {
+      "title": "Outline stamp added",
+      "body": "Come back with location on to turn it gold."
+    },
+    "too_soon": {
+      "title": "Just a moment",
+      "body": "You collected a gold stamp very recently. Please wait a minute and try again."
+    },
+    "error": {
+      "title": "Something went wrong",
+      "body": "We couldn't check you in this time. Please try again."
+    }
   }
 }

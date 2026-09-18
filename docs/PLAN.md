@@ -6,7 +6,7 @@
 
 This section is updated with every push to GitHub. It says what is done, what each person does next, and anything that changed from the plan below.
 
-**Last updated:** 2026-09-18 by Faris: App.jsx now uses Syakir's `<BottomTabs />`, and his sample page has its own address. F6 is waiting for the outdoor test; F7 is next.
+**Last updated:** 2026-09-18 by Faris, F7 pushed (check-in rules, Check-in screen, debug menu at `/debug`). F6 is still waiting for the outdoor test.
 
 **Where we are:** Faris's and Syakir's Phase 0 work is done. Phase 0 is finished when Danial's D1 and D2 are merged. The live site and preview links work.
 
@@ -20,7 +20,7 @@ This section is updated with every push to GitHub. It says what is done, what ea
 | F4 Real `progress.js` with tests | Faris | ✅ Done (early, planned for week 1) |
 | F5 `settings.js` and Settings screen | Faris | ✅ Done (early, planned for week 1) |
 | F6 Real `location.js`, permission explainer, stop when hidden | Faris | 🟡 Pull request open. Waiting for the outdoor phone test |
-| F7 Real `checkin.js` and Check-in screen | Faris | ⏳ Next |
+| F7 Real `checkin.js` and Check-in screen | Faris | 🟡 Pull request open (planned for week 2). Merge after F6 |
 | S1 Shared components: Button, Card, StampBadge, Avatar, BottomTabs | Syakir | ✅ Done. Bottom tabs wired into App.jsx by Faris |
 | D1 `places.json` and `data/index.js` | Danial | 🟡 Starter files made by Faris. Danial reviews them |
 | D2 `en.json` and `ms.json` | Danial | 🟡 Starter files made by Faris, plus Settings text. Danial finishes them and checks the Malay |
@@ -29,7 +29,7 @@ This section is updated with every push to GitHub. It says what is done, what ea
 
 | Person | Next task | Notes |
 | --- | --- | --- |
-| Faris | Finish F6 (outdoor test), then F7 check-in screen with a debug menu | F7 adds a 6th check-in result, `too_soon`, for the "impossible jumps" rule |
+| Faris | Outdoor test for F6, then a real check-in test; then F8 Supabase tables | Real check-in only works at abdul-samad until Danial fills in the other coordinates |
 | Syakir | S2 Welcome screen, S3 Guide home, S4 Landmark detail | First, put `GuideHomeScreen.jsx` back to a placeholder: the sample page now lives at `/debug/components`. S2: save choices with `setPrefs()`, list languages with `getLanguages()` |
 | Danial | D1 and D2, then D3 Passport screen | D3: read stamps with `getProgress()` and refresh with `onProgressChange()`. Use `jalankl.loadSampleProgress()` for test data |
 
@@ -52,6 +52,10 @@ This section is updated with every push to GitHub. It says what is done, what ea
 15. **`distanceTo()` returns `null`** when a place's coordinates are still TBC. Screens must handle that (for example, show no distance and sort by `order`).
 16. **Use `<LocationExplainer />`** from `core/LocationExplainer.jsx` before asking for location. It shows the "why we need your location" sentence and an Allow button, shows nothing if location is already allowed, and explains how to turn it on if denied. New text keys: `location.*`.
 17. **Hidden developer page `/debug/location`** shows live GPS, accuracy and distance to a test point. English only, not linked in the app.
+18. **Check-in has a 6th result, `too_soon`** (F7): a gold less than 2 minutes after a gold at another landmark is refused (the "impossible jumps" rule). `checkIn()` also returns `distance_m` and `accuracy_m` when known. See section 8.
+19. **Opening check-in:** the last Journey step ("I'm Here" on a step with `checkinPlace`) should go to `/checkin/<placeId>`, for example `navigate('/checkin/petronas')`. The Check-in screen does the rest, including the location explainer and the outline stamp when location is off. (Syakir, S5.)
+20. **A place with no coordinates yet** (still TBC) answers `error` without asking for GPS. Danial: check-in only works once `coords` are filled in `places.json`.
+21. **Debug menu at `/debug`** (hidden): force any Check-in state, load or reset sample stamps, and links to the other test pages. Forced states never save anything.
 
 ### Push log
 
@@ -65,6 +69,7 @@ This section is updated with every push to GitHub. It says what is done, what ea
 | 2026-09-18 | #4 S1 | Shared Button, Card, StampBadge, Avatar, BottomTabs and sample page (Syakir) |
 | 2026-09-18 | App shell | App.jsx uses `<BottomTabs />`; sample page moved to `/debug/components` |
 | 2026-09-18 | F6 | Real GPS: best-of-3 `getPosition()`, `watchPosition()`, `getPermissionState()`, `LocationExplainer`, `/debug/location` test page |
+| 2026-09-18 | F7 | Real check-in rules with `too_soon`, Check-in screen at `/checkin/:id` with all states, debug menu at `/debug` |
 
 ## 1. MVP on a page
 
@@ -374,7 +379,7 @@ These are the only doors between the three parts of the app. Faris ships fake ve
 | `distanceTo(placeId, position)` | `core/location.js` | place id, position | Metres as a number, or `null` if the place has no coordinates yet |
 | `watchPosition(callback)` (added in F6) | `core/location.js` | a function | Calls it with each new position. Returns a stop function. Pauses while the app is hidden |
 | `getPermissionState()` (added in F6) | `core/location.js` | nothing | `'granted'`, `'prompt'`, `'denied'` or `'unknown'` |
-| `checkIn(placeId)` | `core/checkin.js` | place id | `{ result }` where result is `gold`, `too_far`, `poor_signal`, `no_permission` or `error` |
+| `checkIn(placeId)` | `core/checkin.js` | place id | `{ result, distance_m?, accuracy_m? }` where result is `gold`, `too_far`, `poor_signal`, `no_permission`, `too_soon` (added in F7) or `error`. Only `gold` saves a stamp |
 | `getPrefs()` and `setPrefs(changes)` | `core/settings.js` | changes object | Current preferences |
 | `getLanguages()` (added in F5) | `core/settings.js` | nothing | `[{ code, name }]`, one per file in `locales/` |
 | `submitReview(review)` | `core/api.js` | `{ placeId, stars, text, email, nationality, lang, consent }` | `{ ok, postcardQueued }` or `{ ok: false, reason }` |

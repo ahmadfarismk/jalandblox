@@ -9,25 +9,29 @@
  * - Not asked yet: shows the sentence and an "Allow location" button. Tapping it
  *   makes the phone ask, then calls onResult(position) with the first reading.
  * - Denied: shows how to turn it back on. The app still works without it.
+ *
+ * `alwaysShow` skips the permission check and shows the box (debug menu only).
  */
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getPermissionState, getPosition } from './location';
 
-export default function LocationExplainer({ onResult }) {
+export default function LocationExplainer({ onResult, alwaysShow = false }) {
   const { t } = useTranslation();
   /** null = still checking, then 'granted' | 'prompt' | 'denied' | 'unknown' | 'asking' | 'unavailable' */
-  const [state, setState] = useState(null);
+  const [state, setState] = useState(alwaysShow ? 'prompt' : null);
 
   useEffect(() => {
+    if (alwaysShow) return undefined;
     let active = true;
     getPermissionState().then((s) => active && setState(s));
     return () => {
       active = false;
     };
-  }, []);
+  }, [alwaysShow]);
 
   async function allow() {
+    if (alwaysShow) return onResult?.({ ok: false, reason: 'error' });
     setState('asking');
     const position = await getPosition({ readings: 1 });
     if (position.ok) setState('granted');

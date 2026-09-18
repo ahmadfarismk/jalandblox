@@ -51,24 +51,24 @@ live in `src/core/real/`, fake ones in `src/core/mocks/`.
 (localStorage), so stamps and language survive a reload. Built in task F4.
 
 **Switched by `VITE_USE_MOCKS` in `.env`:** location, check-in and the backend.
-The real location (F6) is built. Check-in (F7) and the backend (F10) are not yet.
+The real location (F6) and check-in (F7) are built. The backend (F10) is not yet.
 
 - `VITE_USE_MOCKS=true` uses the fakes. This is the default and what you want for now.
 - `VITE_USE_MOCKS=false` uses the real versions. They are not built yet and will throw a
-  "not built yet" error until tasks F7 and F10 are done.
+  "not built yet" error until task F10 is done.
 
 Restart `npm run dev` after changing `.env`.
 
 How the fakes behave:
 
-| Function                        | Fake behaviour                                                   |
-| ------------------------------- | ---------------------------------------------------------------- |
-| `getPosition()`                 | After 0.8 s, a fixed spot near Sultan Abdul Samad, 18 m accuracy |
-| `distanceTo(placeId, position)` | Real maths. Returns `null` if the place has no coordinates yet   |
-| `checkIn(placeId)`              | After 2 s, saves a gold stamp and returns `{ result: 'gold' }`   |
-| `submitReview(review)`          | After 1 s, returns `{ ok: true, postcardQueued: true }`          |
-| `watchPosition(callback)`       | Sends the same fake spot now and every 3 s                       |
-| `getPermissionState()`          | Always `'granted'`                                               |
+| Function                        | Fake behaviour                                                                                 |
+| ------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `getPosition()`                 | After 0.8 s, a fixed spot near Sultan Abdul Samad, 18 m accuracy                               |
+| `distanceTo(placeId, position)` | Real maths. Returns `null` if the place has no coordinates yet                                 |
+| `checkIn(placeId)`              | After 2 s, saves a gold stamp and returns `{ result: 'gold', distance_m: 12, accuracy_m: 18 }` |
+| `submitReview(review)`          | After 1 s, returns `{ ok: true, postcardQueued: true }`                                        |
+| `watchPosition(callback)`       | Sends the same fake spot now and every 3 s                                                     |
+| `getPermissionState()`          | Always `'granted'`                                                                             |
 
 **Try them in the browser console.** While `npm run dev` is running, every core and data
 function is available on `window.jalankl`, for example:
@@ -80,6 +80,16 @@ jalankl.getPlaces();
 jalankl.loadSampleProgress(); // fills in sample stamps to build screens with
 jalankl.resetProgress(); // back to a fresh start (keeps language)
 ```
+
+## Debug menu
+
+Open `/debug` (on your laptop or a preview link). It is hidden: nothing in the app links to it.
+
+- **Check-in screen:** pick a landmark and open any of the 9 states (asking, reading, gold,
+  too far, poor signal, no permission, outline, too soon, error). Forced states never read
+  GPS or save stamps. "Real check-in" runs the normal flow.
+- **Stamps:** load the sample stamps, or reset progress.
+- Links to the GPS test (`/debug/location`) and Syakir's component page (`/debug/components`).
 
 ## Testing real GPS outdoors
 
