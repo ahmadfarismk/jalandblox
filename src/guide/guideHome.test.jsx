@@ -23,10 +23,6 @@ vi.mock('@/core/progress', () => ({
   },
 }));
 
-vi.mock('@/core/settings', () => ({
-  getPrefs: () => state.progress.prefs,
-}));
-
 vi.mock('@/core/location', () => ({
   getPermissionState: async () => state.permission,
   getPosition: async () => state.position,
@@ -138,13 +134,5 @@ describe('S3 Guide home', () => {
     });
 
     expect(screen.getByRole('img', { name: 'Gold stamp' })).toBeInTheDocument();
-  });
-
-  it('sends a first-time visitor to the Welcome screen instead', async () => {
-    setProgress();
-    state.progress.prefs.startedFrom = null;
-    await renderList();
-
-    expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 });

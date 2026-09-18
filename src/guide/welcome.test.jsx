@@ -23,7 +23,6 @@ vi.mock('@/core/settings', () => ({
 }));
 
 const { default: WelcomeScreen } = await import('./WelcomeScreen');
-const { default: GuideHomeScreen } = await import('./GuideHomeScreen');
 
 const files = import.meta.glob('../data/locales/*.json', { eager: true, import: 'default' });
 const resources = Object.fromEntries(
@@ -46,7 +45,6 @@ function renderAt(path = '/welcome') {
     <MemoryRouter initialEntries={[path]}>
       <Routes>
         <Route path="/welcome" element={<WelcomeScreen />} />
-        <Route path="/" element={<GuideHomeScreen />} />
         <Route path="*" element={<ShowPath />} />
       </Routes>
     </MemoryRouter>,
@@ -108,17 +106,10 @@ describe('S2 Welcome', () => {
     state.prefs = { lang: 'en', nationality: null, startedFrom: null };
     renderAt();
     fireEvent.click(screen.getByRole('button', { name: /Already in KL/ }));
-    // '/' is the Guide home, which renders instead of showing the path.
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('City Centre');
+    expect(screen.getByTestId('path')).toHaveTextContent(/^\/$/);
   });
 
-  it('is shown on a fresh phone and skipped once a start is saved', () => {
-    renderAt('/');
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Welcome to KL');
-
-    cleanup();
-    state.prefs = { lang: 'en', nationality: 'JP', startedFrom: 'city' };
-    renderAt('/');
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('City Centre');
-  });
+  // Being sent here on a first open, and not on later ones, is App.jsx's job
+  // since Faris moved the check there (his App.test.jsx covers it). What this
+  // screen owes that check is a saved startedFrom, which the tests above show.
 });
