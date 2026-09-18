@@ -47,11 +47,11 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Syakir (guide and map)
 
-**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen.
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 30).
 
-**In progress:** S7 Map screen.
+**In progress:** S8 colour unlock.
 
-**Next:** S8 colour unlock, S9 Learn, S10 phone polish.
+**Next:** S9 Learn, S10 phone polish. S11 field-test fixes waits for Danial's test day (D13).
 
 **Notes from Faris:** S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
@@ -66,6 +66,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | S4 | Landmark detail: photo, story, hours, "Take me there", outline stamp on open. Route `/journey/:routeId` added |
 | 2026-09-18 | S5 | Journey screen: step checklist with icons, saved step, "I'm Here" opens the check-in on the last step |
 | 2026-09-18 | S6 | Arrival screen at `/arrival`: recommended way large, others small. "Just landed" on Welcome now goes here. Routes `/arrival` and `/learn` added |
+| 2026-09-18 | S7 | Map tab: all 7 landmarks in their real positions, live position, tap to open. No street tiles and no tilt yet |
 
 ### Danial (rewards and content)
 
@@ -118,6 +119,7 @@ Add new lines at the end. Say who needs to know.
 27. **New automatic test: every language file must have exactly the same keys as `en.json`, and no empty text.** If you add a key to one language, add it to the other in the same pull request, or the checks go red.
 28. **`prefs.nationality` is an ISO 3166 country code** (S2), for example `JP`, not a country name. The Welcome picker fills it from `getNationalities()` and shows names with `Intl.DisplayNames`, so country names need no translation file. Danial: send the code to `submitReview({ nationality })`, and use the same `Intl.DisplayNames` trick if a screen has to show it.
 29. **First open goes to `/welcome` from `GuideHomeScreen.jsx`** (S2), because `/` is where the link and the QR code land. Faris: move this into `App.jsx` when you add the redirect there, and delete the three lines at the top of my screen.
+30. **The Map tab has no street tiles and no tilt yet** (S7). MapLibre GL JS needs a hosted tile service, and picking one is still an open question (section 16), so the Map screen draws the seven landmarks from their own coordinates: right positions, no streets. Tilting that drawn map in CSS squashed the icons to about 30px tall, under the 44px a thumb needs, so it is flat. Faris: when the team picks a tile service, `MapScreen.jsx` is the only file that changes, and adding `maplibre-gl` to package.json needs your say-so. The plan already lists the tilt as the first thing to cut (section 12).
 28. **Data helpers return copies, and `"TBC"` comes back as `null`** (D1). Screens can check `if (place.coords)` or `if (step.photo)` without comparing to the string "TBC". `isTBC(value)` is there if you need it. (Everyone.)
 29. **New data helpers** in `src/data/index.js`: `getRoutesTo(placeId)`, `getLearnTopic(id)`, `getLines()`, `getLine(id)` (name and colour for each rail line), `getPostcards()`, `getPostcardPreview(placeId)` and `getNationalities()` (ISO codes; show names with `Intl.DisplayNames`). (Syakir.)
 30. **New data fields:** places have `hoursKey`. Route `board` steps have `line`, `lineColour`, `towards`, `at`; `ride` steps have `stops` and `alightAt`. Arrival options have `mode` (`train`/`bus`/`car`), `whyKey`, `tagKey`, `payKey`, `priceShortKey`. Learn topics can hold a `{ "type": "lines" }` block: draw the list from `getLines()` there. (Syakir.)
