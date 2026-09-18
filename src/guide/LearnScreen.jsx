@@ -47,7 +47,12 @@ function TopicBlock({ block }) {
   if (block.type === 'photo') {
     return (
       <figure>
-        <img src={block.src} alt="" loading="lazy" className="w-full rounded-xl" />
+        <img
+          src={block.src}
+          alt=""
+          loading="lazy"
+          className="max-h-72 w-full rounded-xl object-cover"
+        />
         <figcaption className="mt-1 text-sm text-slate-500">{t(block.captionKey)}</figcaption>
       </figure>
     );
