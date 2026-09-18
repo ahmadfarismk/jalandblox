@@ -17,16 +17,15 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Faris (core and backend)
 
-**Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu, F11 install to phone and offline (merged).
+**Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu, F11 install to phone and offline, F12 privacy page and consent tick box.
 
-**In progress:** F12 privacy page and consent tick box: pull request open.
+**In progress:** F8 Supabase: pull request open with the tables, lock-down SQL and a check script (`npm run check:supabase`). Faris still has to create the Supabase project and run the SQL (steps in `supabase/README.md`). Done when the check prints "All blocked".
 
-**Postponed:** F8 Supabase tables. This also holds back F9 (postcard email) and F10 (Review screen sends for real). Must restart by the start of week 3 for the postcard demo. Until then `submitReview()` stays fake.
-
-**Next:** F8 Supabase tables, then F9 postcard email and F10.
+**Next:** F9 send-postcard function (needs an email service account and a sending address), then F10 connect the Review screen to it.
 
 **Before launch (blockers):**
 - Pick the team's contact email for data requests and put it in `src/core/privacy.js` (now `TBC`, and the Privacy page says "coming soon").
+- Delete reviews older than 12 months automatically (the Privacy page promises it).
 - Have someone qualified check the privacy and consent wording (`privacy.*` and `consent.*` in the language files). This is not legal advice (section 9).
 
 **Push log**
@@ -44,6 +43,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | Welcome route | `/welcome` route (full screen, no tabs) for Syakir's S2. This per-person status layout and the pull request checklist |
 | 2026-09-18 | F11 | Install to phone (vite-plugin-pwa), offline app shell, placeholder icons, install hint after a gold stamp |
 | 2026-09-18 | F12 | Real Privacy page (PDPA: what, why, who, how long, rights, contact TBC), `<ConsentCheckbox />` for the Review form, test that all languages have the same keys |
+| 2026-09-18 | F8 | Supabase SQL for the 3 tables and private `postcards` bucket, lock-down (RLS on, public key revoked), `npm run check:supabase`, setup guide in `supabase/README.md` |
 
 ### Syakir (guide and map)
 
@@ -107,6 +107,7 @@ Add new lines at the end. Say who needs to know.
 25. **`<InstallHint />`** from `core/InstallHint.jsx` shows "Keep your stamps safe: add to home screen". It is on the Check-in gold screen now. The Passport screen (D3) could show it too. New text keys: `install.*`.
 26. **`<ConsentCheckbox />`** (F12) from `core/ConsentCheckbox.jsx` is the consent tick box for the Review form: unticked to start, plain sentence, link to `/privacy` (opens in a new tab so the review is not lost). Danial, D8.
 27. **New automatic test: every language file must have exactly the same keys as `en.json`, and no empty text.** If you add a key to one language, add it to the other in the same pull request, or the checks go red.
+28. **The database is locked to the app** (F8). The app never reads or writes Supabase tables directly, not even with the public key: everything goes through `submitReview()` in `core/api.js` (F10). New tables must get the same lock-down, see `supabase/README.md`.
 
 ## 1. MVP on a page
 
