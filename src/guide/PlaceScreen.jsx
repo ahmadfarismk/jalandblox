@@ -79,12 +79,28 @@ export default function PlaceScreen() {
 
   return (
     <section className="pb-4">
-      {/* The landmark photos arrive with task D10. Until then this is a plain block. */}
+      {/* Landmark photos come from Wikimedia Commons (see photoCredit in places.json). */}
       <div
         aria-hidden="true"
         style={place.photo ? { backgroundImage: `url(${place.photo})` } : undefined}
         className="aspect-video w-full rounded-2xl bg-slate-100 bg-cover bg-center"
       />
+      {/* The photo licences require this credit line, linked to the original. */}
+      {place.photoCredit && (
+        <p className="mt-1 text-right text-xs text-slate-500">
+          <a
+            href={place.photoCredit.source}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-slate-300"
+          >
+            {t('place.photoCredit', {
+              author: place.photoCredit.author,
+              licence: place.photoCredit.licence,
+            })}
+          </a>
+        </p>
+      )}
 
       <div className="mt-4 flex items-start gap-3">
         <div className="min-w-0 flex-1">

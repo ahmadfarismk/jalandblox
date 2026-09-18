@@ -19,6 +19,8 @@ import nationalitiesData from './nationalities.json';
  * @property {[number, number]} coords   [latitude, longitude]
  * @property {number} radius_m      How close counts as "there" (tuned on field day).
  * @property {string} photo
+ * @property {{author: string, licence: string, licenceUrl: string|null, source: string}} photoCredit
+ *   Who took the photo and its licence. Must be shown next to the photo (the licences require it).
  * @property {string} iconGrey
  * @property {string} iconColour
  * @property {string} nearestStation

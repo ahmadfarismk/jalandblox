@@ -87,7 +87,8 @@
     "story": "The story",
     "noRoute": "We don't have step-by-step directions from here yet. Google Maps can show you the way.",
     "category": "Type",
-    "stampHint": "Check in here with GPS to earn a gold stamp."
+    "stampHint": "Check in here with GPS to earn a gold stamp.",
+    "photoCredit": "Photo: {{author}}, {{licence}}"
   },
   "journey": {
     "title": "Your route",
