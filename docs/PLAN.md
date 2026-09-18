@@ -17,16 +17,15 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Faris (core and backend)
 
-**Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu, F11 install to phone and offline (merged).
+**Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu, F11 install to phone and offline, F12 privacy page and consent tick box.
 
-**In progress:** F12 privacy page and consent tick box: pull request open.
+**In progress:** F8 Supabase: pull request open with the tables, lock-down SQL and a check script (`npm run check:supabase`). Faris still has to create the Supabase project and run the SQL (steps in `supabase/README.md`). Done when the check prints "All blocked".
 
-**Postponed:** F8 Supabase tables. This also holds back F9 (postcard email) and F10 (Review screen sends for real). Must restart by the start of week 3 for the postcard demo. Until then `submitReview()` stays fake.
-
-**Next:** F8 Supabase tables, then F9 postcard email and F10.
+**Next:** F9 send-postcard function (needs an email service account and a sending address), then F10 connect the Review screen to it.
 
 **Before launch (blockers):**
 - Pick the team's contact email for data requests and put it in `src/core/privacy.js` (now `TBC`, and the Privacy page says "coming soon").
+- Delete reviews older than 12 months automatically (the Privacy page promises it).
 - Have someone qualified check the privacy and consent wording (`privacy.*` and `consent.*` in the language files). This is not legal advice (section 9).
 
 **Push log**
@@ -44,6 +43,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | Welcome route | `/welcome` route (full screen, no tabs) for Syakir's S2. This per-person status layout and the pull request checklist |
 | 2026-09-18 | F11 | Install to phone (vite-plugin-pwa), offline app shell, placeholder icons, install hint after a gold stamp |
 | 2026-09-18 | F12 | Real Privacy page (PDPA: what, why, who, how long, rights, contact TBC), `<ConsentCheckbox />` for the Review form, test that all languages have the same keys |
+| 2026-09-18 | F8 | Supabase SQL for the 3 tables and private `postcards` bucket, lock-down (RLS on, public key revoked), `npm run check:supabase`, setup guide in `supabase/README.md` |
 
 ### Syakir (guide and map)
 
@@ -69,7 +69,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **Next:** D8 Review screen and D9 Postcard sent. Field day (D7) and photographer (D10) are physical tasks.
 
-**Notes from Faris:** check-in only works at a landmark once its `coords` are filled in `places.json` (only `abdul-samad` has them now). For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
+**Notes from Faris:** thanks for the coordinates: check-in now works at all 7 landmarks. Please confirm them and `radius_m` on the field day. For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
 
 **Notes from Danial:** research findings that change assumptions are in `src/data/README.md` (Merdeka 118 renamed and mostly closed; Sultan Abdul Samad reopened; Rapid KL gates don't take bank cards yet; KL Tower is a long uphill walk). The Malay still needs a native speaker's read, including Faris's `privacy.*` and `consent.*`.
 
@@ -117,6 +117,7 @@ Add new lines at the end. Say who needs to know.
 32. **Visiting order changed:** KL Sentral 1, Merdeka 118 2, Petaling Street 3, Sultan Abdul Samad 4, Petronas 5, KLCC Park 6, KL Tower 7. The route cards follow it, so Merdeka Square → Petronas is one card. KLCC Park → KL Tower is a `car` card (the walk is 17–25 minutes uphill). (Everyone.)
 33. **Every place has coordinates now** (desk-checked from Wikipedia/OpenStreetMap, to confirm on the field day), so check-in works at all 7. Two core tests used Petronas as "a place with no coordinates"; they now use a made-up place instead. (Faris.)
 34. **Text keys added** for every screen (`welcome.*`, `arrival.*`, `guide.*`, `place.*`, `journey.*`, `map.*`, `learn.*`, `passport.*`, `review.*`, `postcard.*`, `postcardPick.*`, `categories.*`, `lines.*`) plus `meta.dateLocale` for dates, and `ui.stamp.none` / `ui.stamp.outline` / `ui.stamp.gold` ("No stamp", "Outline stamp", "Gold stamp") for `StampBadge` labels. The `welcome.*` keys use the names Syakir's S2 screen already asks for (`welcome.title`, `welcome.intro`, `welcome.language.title`, `welcome.nationality.title` / `.hint` / `.placeholder` / `.skip`, `welcome.start.title` / `.arrival` / `.arrivalHint` / `.city` / `.cityHint`), so its English defaults are replaced by the real text in both languages once both are merged. For a nationality list, use `getNationalities()` with `Intl.DisplayNames` for the country names (no keys needed). Faris's keys are unchanged. Use them instead of adding your own where they fit. (Syakir.)
+35. **The database is locked to the app** (F8). The app never reads or writes Supabase tables directly, not even with the public key: everything goes through `submitReview()` in `core/api.js` (F10). New tables must get the same lock-down, see `supabase/README.md`.
 
 ## 1. MVP on a page
 
