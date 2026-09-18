@@ -1,0 +1,12 @@
+// Cloudflare deploy settings (task F2).
+// The site is plain static files: `npm run build` makes them in dist/,
+// and Cloudflare serves them. "name" must match the project name in Cloudflare.
+{
+  "name": "jalandblox",
+  "compatibility_date": "2026-09-18",
+  "assets": {
+    "directory": "./dist",
+    // Sends links like /passport to the app instead of a 404 page
+    "not_found_handling": "single-page-application",
+  },
+}

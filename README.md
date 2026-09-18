@@ -102,13 +102,19 @@ official sources or on the field day. The `order` values in `places.json` are pl
 Never commit `.env`. It is already in `.gitignore`. Only `.env.example` (names, no values)
 goes into GitHub.
 
-## Still to do for F2 (needs account access)
+## Hosting (Cloudflare)
 
-1. **Hosting:** connect this GitHub repo to Vercel or Cloudflare Pages. Build command
-   `npm run build`, output folder `dist`, environment variable `VITE_USE_MOCKS=true`.
-   Both create a preview link for every pull request automatically.
-2. **Single-page app routing:** so links like `/passport` work on reload, add a rewrite
-   of all paths to `/index.html` (Vercel: a `vercel.json` rewrite; Cloudflare Pages
-   handles this by default when there is no `404.html`).
-3. **Protect `main`:** on GitHub, go to Settings → Branches → Add rule for `main`, then
-   require a pull request with 1 approval and require the `CI / check` status to pass.
+The site is deployed by Cloudflare from this GitHub repo. Settings in the Cloudflare project:
+
+| Setting        | Value                 |
+| -------------- | --------------------- |
+| Build command  | `npm run build`       |
+| Deploy command | `npx wrangler deploy` |
+| Variables      | `VITE_USE_MOCKS=true` |
+
+`wrangler.jsonc` tells Cloudflare to serve the built `dist/` folder, and to send links
+like `/passport` to the app. Its `name` must match the project name in Cloudflare.
+Node 22 is picked from `.node-version`.
+
+**Protect `main`:** on GitHub, go to Settings → Branches → Add rule for `main`, then
+require a pull request with 1 approval and require the `CI / check` status to pass.
