@@ -51,7 +51,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **In progress:** S2 Welcome screen at `/welcome` (route added by Faris).
 
-**Next:** S3 Guide home, S4 Landmark detail. First, put `GuideHomeScreen.jsx` back to a placeholder: the sample page now lives at `/debug/components`.
+**Next:** S3 Guide home, S4 Landmark detail.
 
 **Notes from Faris:** S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
@@ -60,6 +60,7 @@ This section says what is done, what each person builds next, and anything that 
 | Date | Pull request | What changed |
 | --- | --- | --- |
 | 2026-09-18 | #4 S1 | Shared Button, Card, StampBadge, Avatar, BottomTabs and sample page |
+| 2026-09-18 | S3 cleanup | Guide tab back to a placeholder. The S1 sample page stays at `/debug/components` |
 
 ### Danial (rewards and content)
 
