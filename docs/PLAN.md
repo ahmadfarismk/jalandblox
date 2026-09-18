@@ -19,7 +19,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu.
 
-**In progress:** F11 install to phone (home-screen icon, works offline, "save to home screen" hint after the first gold stamp).
+**In progress:** F11 install to phone: pull request open. Home-screen install, works offline after the first visit, "Keep your stamps safe" hint after a gold stamp. Placeholder icons until the real design is ready.
 
 **Postponed:** F8 Supabase tables. This also holds back F9 (postcard email) and F10 (Review screen sends for real). Must restart by the start of week 3 for the postcard demo. Until then `submitReview()` stays fake.
 
@@ -38,6 +38,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | F6 | Real GPS: best-of-3 `getPosition()`, `watchPosition()`, `getPermissionState()`, `LocationExplainer`, `/debug/location` test page |
 | 2026-09-18 | F7 | Real check-in rules with `too_soon`, Check-in screen at `/checkin/:id` with all states, debug menu at `/debug` |
 | 2026-09-18 | Welcome route | `/welcome` route (full screen, no tabs) for Syakir's S2. This per-person status layout and the pull request checklist |
+| 2026-09-18 | F11 | Install to phone (vite-plugin-pwa), offline app shell, placeholder icons, install hint after a gold stamp |
 
 ### Syakir (guide and map)
 
@@ -96,6 +97,9 @@ Add new lines at the end. Say who needs to know.
 20. **A place with no coordinates yet** (still TBC) answers `error` without asking for GPS. Danial: check-in only works once `coords` are filled in `places.json`.
 21. **Debug menu at `/debug`** (hidden): force any Check-in state, load or reset sample stamps, and links to the other test pages. Forced states never save anything.
 22. **`/welcome` is a full-screen page** (no top bar, no tabs). Other first-open or full-screen pages can use the same layout; ask Faris for the route.
+23. **App icons are placeholders** (F11) in `public/icons/`: `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` (logo inside the middle 80%, because phones crop it to a circle) and `apple-touch-icon.png` (180×180). Syakir or Danial: make the real ones at these exact names and sizes.
+24. **The app works offline after the first visit** (F11). When you add big images later (landmark photos, signage), tell Faris: large files may need to be left out of the offline copy.
+25. **`<InstallHint />`** from `core/InstallHint.jsx` shows "Keep your stamps safe: add to home screen". It is on the Check-in gold screen now. The Passport screen (D3) could show it too. New text keys: `install.*`.
 
 ## 1. MVP on a page
 
