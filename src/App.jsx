@@ -1,6 +1,7 @@
 import { Link, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import GuideHomeScreen from './guide/GuideHomeScreen';
+import WelcomeScreen from './guide/WelcomeScreen';
 import MapScreen from './guide/MapScreen';
 import PassportScreen from './rewards/PassportScreen';
 import SettingsScreen from './core/SettingsScreen';
@@ -77,6 +78,7 @@ export default function App() {
         {/* Hidden page showing every shared component (S1). Not linked in the app. */}
         <Route path="debug/components" element={<ComponentsSampleScreen />} />
       </Route>
+      <Route path="welcome" element={<WelcomeScreen />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
