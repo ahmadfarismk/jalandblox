@@ -25,6 +25,7 @@
       { "type": "exit", "textKey": "routes.klia__kl-sentral.s4", "photo": "TBC" },
       { "type": "arrive", "textKey": "routes.klia__kl-sentral.s5", "checkinPlace": "kl-sentral" }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.134283,101.686385&travelmode=transit",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -62,6 +63,7 @@
         "checkinPlace": "merdeka-118"
       }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.14167,101.70072&travelmode=transit",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -102,6 +104,7 @@
         "checkinPlace": "petaling-street"
       }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.144444,101.6975&travelmode=transit",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -141,6 +144,7 @@
         "checkinPlace": "abdul-samad"
       }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.14861,101.69444&travelmode=transit",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -175,6 +179,7 @@
       { "type": "exit", "textKey": "routes.kl-sentral__petronas.s4", "photo": "TBC" },
       { "type": "arrive", "textKey": "routes.kl-sentral__petronas.s5", "checkinPlace": "petronas" }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.1578,101.7117&travelmode=transit",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -213,6 +218,7 @@
         "checkinPlace": "klcc-park"
       }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.15558,101.71478&travelmode=transit",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -248,6 +254,7 @@
       { "type": "exit", "textKey": "routes.kl-sentral__kl-tower.s4", "photo": "TBC" },
       { "type": "arrive", "textKey": "routes.kl-sentral__kl-tower.s5", "checkinPlace": "kl-tower" }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.152859,101.70376&travelmode=transit",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -272,6 +279,7 @@
         "checkinPlace": "petaling-street"
       }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.144444,101.6975&travelmode=walking",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -294,6 +302,7 @@
         "checkinPlace": "abdul-samad"
       }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.14861,101.69444&travelmode=walking",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -327,6 +336,7 @@
       { "type": "exit", "textKey": "routes.abdul-samad__petronas.s4", "photo": "TBC" },
       { "type": "arrive", "textKey": "routes.abdul-samad__petronas.s5", "checkinPlace": "petronas" }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.1578,101.7117&travelmode=transit",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -347,6 +357,7 @@
       { "type": "walk", "textKey": "routes.petronas__klcc-park.s1", "photo": null },
       { "type": "arrive", "textKey": "routes.petronas__klcc-park.s2", "checkinPlace": "klcc-park" }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.15558,101.71478&travelmode=walking",
     "verified": "2026-09-18 (desk)",
     "sources": [
@@ -367,6 +378,7 @@
       { "type": "ride", "textKey": "routes.klcc-park__kl-tower.s3", "stops": null },
       { "type": "arrive", "textKey": "routes.klcc-park__kl-tower.s4", "checkinPlace": "kl-tower" }
     ],
+    "localTips": [],
     "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=3.152859,101.70376&travelmode=driving",
     "verified": "2026-09-18 (desk)",
     "sources": [

@@ -113,7 +113,11 @@
       "train": "Train",
       "walk": "Walk",
       "car": "Car"
-    }
+    },
+    "atAGlance": "Your route at a glance",
+    "localsSay": "What locals say",
+    "localsSayHint": "Tips from people who live in KL.",
+    "localBy": "{{name}}, local"
   },
   "map": {
     "title": "Map",

@@ -136,6 +136,23 @@ describe('routes.json', () => {
     }
   });
 
+  it('has local tips only with real text and a name, in both languages', () => {
+    for (const r of routesData) {
+      expect(Array.isArray(r.localTips), r.id).toBe(true);
+      r.localTips.forEach((tip, i) => {
+        expect(tip.textKey, `${r.id} tip ${i + 1}`).toMatch(
+          new RegExp(`^routes\\.${r.id}\\.tips\\.`),
+        );
+        expectKey(tip.textKey);
+        expect(lookup(en, tip.textKey)).not.toBe('TBC');
+        expect(
+          typeof tip.by === 'string' && tip.by.trim().length > 0,
+          `${r.id} tip ${i + 1} by`,
+        ).toBe(true);
+      });
+    }
+  });
+
   it('has valid steps that end in a check-in at the destination', () => {
     for (const r of routesData) {
       expect(['train', 'walk', 'car']).toContain(r.mode);
