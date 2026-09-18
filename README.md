@@ -1,0 +1,109 @@
+# JalanKL
+
+A phone web app that guides first-time tourists from KLIA into KL, around City Centre
+landmarks, and rewards real visits with stamps and postcards.
+
+The full plan lives in [docs/PLAN.md](docs/PLAN.md). Read it before starting any task.
+
+## What you need
+
+- [Node.js](https://nodejs.org) 22 or newer (includes `npm`)
+- [Git](https://git-scm.com)
+
+## Install and run
+
+```bash
+git clone https://github.com/ahmadfarismk/jalandblox.git
+cd jalandblox
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Open the address it prints (usually http://localhost:5173). You should see three tabs at
+the bottom: **Guide**, **Map** and **Passport**.
+
+To try it on your phone, connect it to the same Wi-Fi and open the **Network** address that
+`npm run dev` prints. (GPS needs https, so real check-in testing uses the hosted preview link.)
+
+## Commands
+
+| Command                | What it does                                          |
+| ---------------------- | ----------------------------------------------------- |
+| `npm run dev`          | Runs the app locally and reloads when you save        |
+| `npm run build`        | Makes the production version in `dist/`               |
+| `npm run preview`      | Serves the built `dist/` folder to check it           |
+| `npm run lint`         | Checks the code for mistakes (ESLint)                 |
+| `npm run format`       | Tidies the formatting of every file (Prettier)        |
+| `npm run format:check` | Checks formatting without changing files (used in CI) |
+
+Run `npm run format` and `npm run lint` before opening a pull request. The same checks
+run automatically on GitHub for every pull request.
+
+## Fake vs real functions (`VITE_USE_MOCKS`)
+
+Screens call the shared functions in `src/core/` (section 8 of the plan). Each one has a
+fake version in `src/core/mocks/` and a real version in `src/core/real/`.
+
+In `.env`:
+
+- `VITE_USE_MOCKS=true` uses the fakes. This is the default and what you want for now.
+- `VITE_USE_MOCKS=false` uses the real versions. They are not built yet and will throw a
+  "not built yet" error until tasks F4 to F10 are done.
+
+Restart `npm run dev` after changing `.env`.
+
+How the fakes behave:
+
+| Function                                          | Fake behaviour                                                    |
+| ------------------------------------------------- | ----------------------------------------------------------------- |
+| `getProgress()` and other `progress.js` functions | Kept in memory, starts with sample stamps. Resets on page reload. |
+| `getPosition()`                                   | After 0.8 s, a fixed spot near Sultan Abdul Samad, 18 m accuracy  |
+| `distanceTo(placeId, position)`                   | Real maths. Returns `null` if the place has no coordinates yet    |
+| `checkIn(placeId)`                                | After 2 s, gives a gold stamp and returns `{ result: 'gold' }`    |
+| `getPrefs()` / `setPrefs(changes)`                | Stored inside the fake progress                                   |
+| `submitReview(review)`                            | After 1 s, returns `{ ok: true, postcardQueued: true }`           |
+
+**Try them in the browser console.** While `npm run dev` is running, every core and data
+function is available on `window.jalankl`, for example:
+
+```js
+await jalankl.checkIn('petronas');
+jalankl.getProgress();
+jalankl.getPlaces();
+```
+
+## Folder guide
+
+| Folder         | Owner         | What goes here                                        |
+| -------------- | ------------- | ----------------------------------------------------- |
+| `src/core/`    | Faris         | Progress, location, check-in, settings, backend calls |
+| `src/guide/`   | Syakir        | Welcome, arrival, guide, place, journey, map, learn   |
+| `src/rewards/` | Danial        | Passport, review, postcard sent                       |
+| `src/data/`    | Danial        | Places, routes, arrival, learn, languages             |
+| `src/shared/`  | Everyone (PR) | Button, Card, Avatar, StampBadge                      |
+| `public/`      | —             | App icons, landmark icons and photos, signage photos  |
+| `supabase/`    | Faris         | Database setup and the send-postcard function         |
+
+Screens never touch localStorage, GPS or Supabase directly. They import from `src/core/`.
+Screens never import JSON files directly. They use the helpers in `src/data/index.js`.
+You can write imports as `@/core/progress` instead of `../../core/progress`.
+
+**Sample data warning:** every `"TBC"` in `src/data/` is a fact still to be checked from
+official sources or on the field day. The `order` values in `places.json` are placeholders too.
+
+## Secrets
+
+Never commit `.env`. It is already in `.gitignore`. Only `.env.example` (names, no values)
+goes into GitHub.
+
+## Still to do for F2 (needs account access)
+
+1. **Hosting:** connect this GitHub repo to Vercel or Cloudflare Pages. Build command
+   `npm run build`, output folder `dist`, environment variable `VITE_USE_MOCKS=true`.
+   Both create a preview link for every pull request automatically.
+2. **Single-page app routing:** so links like `/passport` work on reload, add a rewrite
+   of all paths to `/index.html` (Vercel: a `vercel.json` rewrite; Cloudflare Pages
+   handles this by default when there is no `404.html`).
+3. **Protect `main`:** on GitHub, go to Settings → Branches → Add rule for `main`, then
+   require a pull request with 1 approval and require the `CI / check` status to pass.

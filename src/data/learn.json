@@ -1,0 +1,32 @@
+[
+  {
+    "id": "touch-n-go",
+    "titleKey": "learn.touch-n-go.title",
+    "blocks": [
+      {
+        "type": "text",
+        "key": "learn.touch-n-go.intro"
+      }
+    ]
+  },
+  {
+    "id": "line-colours",
+    "titleKey": "learn.line-colours.title",
+    "blocks": [
+      {
+        "type": "text",
+        "key": "learn.line-colours.intro"
+      }
+    ]
+  },
+  {
+    "id": "reading-signs",
+    "titleKey": "learn.reading-signs.title",
+    "blocks": [
+      {
+        "type": "text",
+        "key": "learn.reading-signs.intro"
+      }
+    ]
+  }
+]

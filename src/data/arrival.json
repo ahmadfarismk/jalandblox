@@ -1,0 +1,18 @@
+[
+  {
+    "id": "option-a",
+    "recommended": true,
+    "nameKey": "arrival.option-a.name",
+    "priceNoteKey": "arrival.option-a.price",
+    "minutesNoteKey": "arrival.option-a.minutes",
+    "routeId": "klia__kl-sentral"
+  },
+  {
+    "id": "option-b",
+    "recommended": false,
+    "nameKey": "arrival.option-b.name",
+    "priceNoteKey": "arrival.option-b.price",
+    "minutesNoteKey": "arrival.option-b.minutes",
+    "routeId": null
+  }
+]

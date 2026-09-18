@@ -1,0 +1,85 @@
+{
+  "places": {
+    "kl-sentral": {
+      "name": "KL Sentral",
+      "story": "TBC"
+    },
+    "petaling-street": {
+      "name": "Jalan Petaling",
+      "story": "TBC"
+    },
+    "abdul-samad": {
+      "name": "Bangunan Sultan Abdul Samad",
+      "story": "TBC"
+    },
+    "merdeka-118": {
+      "name": "Merdeka 118",
+      "story": "TBC"
+    },
+    "kl-tower": {
+      "name": "Menara KL",
+      "story": "TBC"
+    },
+    "petronas": {
+      "name": "Menara Berkembar Petronas",
+      "story": "TBC"
+    },
+    "klcc-park": {
+      "name": "Taman KLCC",
+      "story": "TBC"
+    }
+  },
+  "routes": {
+    "klia__kl-sentral": {
+      "why": "TBC",
+      "s1": "TBC",
+      "s2": "TBC",
+      "s3": "TBC",
+      "s4": "TBC"
+    },
+    "kl-sentral__petronas": {
+      "why": "TBC",
+      "s1": "TBC",
+      "s2": "TBC",
+      "s3": "TBC",
+      "s4": "TBC",
+      "s5": "TBC"
+    }
+  },
+  "arrival": {
+    "option-a": {
+      "name": "TBC",
+      "price": "TBC",
+      "minutes": "TBC"
+    },
+    "option-b": {
+      "name": "TBC",
+      "price": "TBC",
+      "minutes": "TBC"
+    }
+  },
+  "learn": {
+    "touch-n-go": {
+      "title": "TBC",
+      "intro": "TBC"
+    },
+    "line-colours": {
+      "title": "TBC",
+      "intro": "TBC"
+    },
+    "reading-signs": {
+      "title": "TBC",
+      "intro": "TBC"
+    }
+  },
+  "ui": {
+    "tabs": {
+      "guide": "Panduan",
+      "map": "Peta",
+      "passport": "Pasport"
+    },
+    "imHere": "Saya Di Sini",
+    "takeMeThere": "Bawa saya ke sana",
+    "openInGoogleMaps": "Buka dalam Google Maps"
+  }
+}

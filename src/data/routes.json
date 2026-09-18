@@ -1,0 +1,77 @@
+[
+  {
+    "id": "klia__kl-sentral",
+    "from": "klia",
+    "to": "kl-sentral",
+    "mode": "TBC",
+    "why": "routes.klia__kl-sentral.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      {
+        "type": "walk",
+        "textKey": "routes.klia__kl-sentral.s1",
+        "photo": null
+      },
+      {
+        "type": "board",
+        "textKey": "routes.klia__kl-sentral.s2",
+        "line": "TBC",
+        "lineColour": "TBC",
+        "towards": "TBC"
+      },
+      {
+        "type": "ride",
+        "textKey": "routes.klia__kl-sentral.s3",
+        "stops": "TBC"
+      },
+      {
+        "type": "arrive",
+        "textKey": "routes.klia__kl-sentral.s4",
+        "checkinPlace": "kl-sentral"
+      }
+    ],
+    "googleMapsUrl": "TBC",
+    "verified": "TBC",
+    "sources": ["TBC"]
+  },
+  {
+    "id": "kl-sentral__petronas",
+    "from": "kl-sentral",
+    "to": "petronas",
+    "mode": "train",
+    "why": "routes.kl-sentral__petronas.why",
+    "totalMinutes": "TBC",
+    "steps": [
+      {
+        "type": "walk",
+        "textKey": "routes.kl-sentral__petronas.s1",
+        "photo": null
+      },
+      {
+        "type": "board",
+        "textKey": "routes.kl-sentral__petronas.s2",
+        "line": "TBC",
+        "lineColour": "TBC",
+        "towards": "TBC"
+      },
+      {
+        "type": "ride",
+        "textKey": "routes.kl-sentral__petronas.s3",
+        "stops": "TBC"
+      },
+      {
+        "type": "exit",
+        "textKey": "routes.kl-sentral__petronas.s4",
+        "photo": "/signage/TBC.jpg"
+      },
+      {
+        "type": "arrive",
+        "textKey": "routes.kl-sentral__petronas.s5",
+        "checkinPlace": "petronas"
+      }
+    ],
+    "googleMapsUrl": "TBC",
+    "verified": "TBC",
+    "sources": ["TBC"]
+  }
+]

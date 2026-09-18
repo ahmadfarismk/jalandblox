@@ -1,0 +1,85 @@
+{
+  "places": {
+    "kl-sentral": {
+      "name": "KL Sentral",
+      "story": "TBC"
+    },
+    "petaling-street": {
+      "name": "Petaling Street",
+      "story": "TBC"
+    },
+    "abdul-samad": {
+      "name": "Sultan Abdul Samad Building",
+      "story": "TBC"
+    },
+    "merdeka-118": {
+      "name": "Merdeka 118",
+      "story": "TBC"
+    },
+    "kl-tower": {
+      "name": "KL Tower",
+      "story": "TBC"
+    },
+    "petronas": {
+      "name": "Petronas Twin Towers",
+      "story": "TBC"
+    },
+    "klcc-park": {
+      "name": "KLCC Park",
+      "story": "TBC"
+    }
+  },
+  "routes": {
+    "klia__kl-sentral": {
+      "why": "TBC",
+      "s1": "TBC",
+      "s2": "TBC",
+      "s3": "TBC",
+      "s4": "TBC"
+    },
+    "kl-sentral__petronas": {
+      "why": "TBC",
+      "s1": "TBC",
+      "s2": "TBC",
+      "s3": "TBC",
+      "s4": "TBC",
+      "s5": "TBC"
+    }
+  },
+  "arrival": {
+    "option-a": {
+      "name": "TBC",
+      "price": "TBC",
+      "minutes": "TBC"
+    },
+    "option-b": {
+      "name": "TBC",
+      "price": "TBC",
+      "minutes": "TBC"
+    }
+  },
+  "learn": {
+    "touch-n-go": {
+      "title": "TBC",
+      "intro": "TBC"
+    },
+    "line-colours": {
+      "title": "TBC",
+      "intro": "TBC"
+    },
+    "reading-signs": {
+      "title": "TBC",
+      "intro": "TBC"
+    }
+  },
+  "ui": {
+    "tabs": {
+      "guide": "Guide",
+      "map": "Map",
+      "passport": "Passport"
+    },
+    "imHere": "I'm Here",
+    "takeMeThere": "Take me there",
+    "openInGoogleMaps": "Open in Google Maps"
+  }
+}
