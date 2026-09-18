@@ -107,7 +107,41 @@
   },
   "privacy": {
     "title": "Privacy",
-    "comingSoon": "The full privacy notice is coming soon."
+    "intro": "JalanKL is a free guide to Kuala Lumpur, made by a small team. This page explains, in plain words, what we collect and why.",
+    "updated": "Last updated: {{date}}",
+    "phone": {
+      "title": "What stays on your phone",
+      "body": "Your stamps, journey progress, language and nationality are saved only on this phone. When you check in, we read your location for a few seconds to see if you are near the landmark. We never save or send your location: we only keep how accurate the GPS was. You can delete everything on this phone in Settings, \"Reset progress\"."
+    },
+    "review": {
+      "title": "What we collect if you send a review",
+      "body": "Only if you choose to write a review, we receive: your email address, your nationality (if you gave it), your language, your star rating and review text, and the time you agreed to this notice."
+    },
+    "why": {
+      "title": "Why we collect it",
+      "body": "To email you your postcard, and to learn how to make the guide better. We do not use your email for marketing, and we do not sell your data."
+    },
+    "visible": {
+      "title": "Who can see your review",
+      "body": "Only the JalanKL team. Reviews are not shown publicly."
+    },
+    "services": {
+      "title": "Services that help us",
+      "body": "A database service (Supabase) stores reviews. An email service sends your postcard. Cloudflare runs this website. They use your data only to provide these services to us."
+    },
+    "keep": {
+      "title": "How long we keep it",
+      "body": "We keep reviews and email addresses for 12 months, then delete them. You can ask us to delete them sooner."
+    },
+    "rights": {
+      "title": "Your rights",
+      "body": "Under Malaysia's Personal Data Protection Act 2010, you can ask to see, correct or delete your data, and you can withdraw your consent at any time. Write to us and we will reply within 21 days."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "Email us at",
+      "tbc": "Our contact email will be added here soon."
+    }
   },
   "location": {
     "explainer": "We use your location only to show how far places are and to confirm your check-ins. It is never saved.",
@@ -153,5 +187,17 @@
       "title": "Something went wrong",
       "body": "We couldn't check you in this time. Please try again."
     }
+  },
+  "install": {
+    "title": "Keep your stamps safe",
+    "body": "Save JalanKL to your home screen. It opens like an app, works without signal, and helps keep your stamps on this phone.",
+    "button": "Add to home screen",
+    "ios": "Tap the Share button, then \"Add to Home Screen\".",
+    "other": "Open your browser menu and choose \"Add to Home screen\" or \"Install app\".",
+    "later": "Not now"
+  },
+  "consent": {
+    "label": "I agree that JalanKL may use my email, nationality and review to send my postcard and improve the guide. They are kept for 12 months, and I can ask for them to be deleted at any time.",
+    "link": "Read the privacy notice"
   }
 }

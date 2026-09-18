@@ -91,6 +91,21 @@ Open `/debug` (on your laptop or a preview link). It is hidden: nothing in the a
 - **Stamps:** load the sample stamps, or reset progress.
 - Links to the GPS test (`/debug/location`) and Syakir's component page (`/debug/components`).
 
+## Install to phone (F11)
+
+The app can be added to a phone's home screen and then opens like an app, even without
+signal. This only works on the live site or a preview link (https), not the laptop address.
+
+- **Android (Chrome):** menu ⋮ → **Install app** (or **Add to Home screen**).
+- **iPhone / iPad (Safari):** Share button → **Add to Home Screen**.
+- **Offline test:** open the app once, then turn on airplane mode and open it from the home
+  screen. It should still open, with your stamps.
+
+After a gold stamp, the Check-in screen also shows a "Keep your stamps safe" hint with the
+same steps. The icons in `public/icons/` are placeholders from
+`node scripts/make-placeholder-icons.js`. Replace them with the real design, keeping the
+same file names and sizes.
+
 ## Testing real GPS outdoors
 
 GPS only works on https, so use a Cloudflare preview link (or the live site) on your phone,

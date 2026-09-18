@@ -30,7 +30,8 @@ export default [
     },
   },
   {
-    files: ['*.config.js'],
+    // Config files and scripts/ run in Node, not the browser
+    files: ['*.config.js', 'scripts/**/*.js'],
     languageOptions: { globals: { ...globals.node } },
   },
   // Must be last: turns off rules that fight with Prettier's formatting

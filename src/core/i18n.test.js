@@ -68,3 +68,38 @@ describe('translations', () => {
     expect(i18n.t('test.onlyEnglish')).toBe('Only in English');
   });
 });
+
+describe('language files', () => {
+  /** Every key in a nested object, like 'checkin.gold.title'. */
+  const keysOf = (obj, prefix = '') =>
+    Object.entries(obj).flatMap(([k, v]) =>
+      v && typeof v === 'object' && !Array.isArray(v)
+        ? keysOf(v, `${prefix}${k}.`)
+        : [`${prefix}${k}`],
+    );
+
+  const files = import.meta.glob('../data/locales/*.json', { eager: true, import: 'default' });
+  const byLang = Object.fromEntries(
+    Object.entries(files).map(([path, json]) => [path.match(/([\w-]+)\.json$/)[1], json]),
+  );
+
+  it('every language has exactly the same keys as English', () => {
+    const english = keysOf(byLang.en).sort();
+    for (const [lang, json] of Object.entries(byLang)) {
+      const keys = keysOf(json).sort();
+      const missing = english.filter((k) => !keys.includes(k));
+      const extra = keys.filter((k) => !english.includes(k));
+      expect({ lang, missing, extra }).toEqual({ lang, missing: [], extra: [] });
+    }
+  });
+
+  it('no text is empty', () => {
+    for (const [lang, json] of Object.entries(byLang)) {
+      const empty = keysOf(json).filter((k) => {
+        const value = k.split('.').reduce((o, part) => o[part], json);
+        return typeof value === 'string' && value.trim() === '';
+      });
+      expect({ lang, empty }).toEqual({ lang, empty: [] });
+    }
+  });
+});
