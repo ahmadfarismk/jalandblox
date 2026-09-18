@@ -31,22 +31,32 @@
       "passport": "Passport"
     },
     "comingSoon": "Coming soon.",
-    "openSettings": "Settings"
+    "openSettings": "Settings",
+    "stamp": {
+      "none": "No stamp",
+      "outline": "Outline stamp",
+      "gold": "Gold stamp"
+    }
   },
   "welcome": {
     "title": "Welcome to KL",
-    "subtitle": "Step-by-step help from the airport to the city's best-known places. Collect a stamp at each one.",
-    "languageLabel": "Language",
-    "nationalityLabel": "Where are you from?",
-    "nationalityHint": "Optional. It helps us understand who uses JalanKL.",
-    "nationalityPlaceholder": "Choose your country",
-    "nationalitySkip": "Skip",
-    "whereAreYou": "Where are you right now?",
-    "justLanded": "Just landed",
-    "justLandedHint": "At KLIA and heading into the city",
-    "alreadyInKL": "Already in KL",
-    "alreadyInKLHint": "Show me the landmarks",
-    "start": "Let's go"
+    "intro": "Step-by-step help from the airport to the city's best-known places. Collect a stamp at each one.",
+    "language": {
+      "title": "Choose your language"
+    },
+    "nationality": {
+      "title": "Where are you from?",
+      "hint": "Optional. It helps us understand who uses JalanKL.",
+      "placeholder": "Choose your country",
+      "skip": "Skip"
+    },
+    "start": {
+      "title": "Where are you right now?",
+      "arrival": "Just landed",
+      "arrivalHint": "At KLIA and heading into the city",
+      "city": "Already in KL",
+      "cityHint": "Show me the landmarks"
+    }
   },
   "arrival": {
     "title": "From KLIA to KL Sentral",
@@ -208,11 +218,6 @@
     "send": "Send to my email",
     "chosen": "Postcard: {{place}}",
     "errorChoice": "Choose a postcard."
-  },
-  "stamps": {
-    "none": "No stamp",
-    "outline": "Outline",
-    "gold": "Gold"
   },
   "categories": {
     "transport": "Transport hub",
