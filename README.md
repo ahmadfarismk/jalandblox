@@ -36,33 +36,36 @@ To try it on your phone, connect it to the same Wi-Fi and open the **Network** a
 | `npm run lint`         | Checks the code for mistakes (ESLint)                 |
 | `npm run format`       | Tidies the formatting of every file (Prettier)        |
 | `npm run format:check` | Checks formatting without changing files (used in CI) |
+| `npm test`             | Runs the automatic tests once (Vitest)                |
+| `npm run test:watch`   | Re-runs the tests every time you save                 |
 
-Run `npm run format` and `npm run lint` before opening a pull request. The same checks
+Run `npm run format`, `npm run lint` and `npm test` before opening a pull request. The same checks
 run automatically on GitHub for every pull request.
 
 ## Fake vs real functions (`VITE_USE_MOCKS`)
 
-Screens call the shared functions in `src/core/` (section 8 of the plan). Each one has a
-fake version in `src/core/mocks/` and a real version in `src/core/real/`.
+Screens call the shared functions in `src/core/` (section 8 of the plan). Real versions
+live in `src/core/real/`, fake ones in `src/core/mocks/`.
 
-In `.env`:
+**Always real (switch has no effect):** progress and settings. They save on the phone
+(localStorage), so stamps and language survive a reload. Built in task F4.
+
+**Switched by `VITE_USE_MOCKS` in `.env`:** location, check-in and the backend.
 
 - `VITE_USE_MOCKS=true` uses the fakes. This is the default and what you want for now.
 - `VITE_USE_MOCKS=false` uses the real versions. They are not built yet and will throw a
-  "not built yet" error until tasks F4 to F10 are done.
+  "not built yet" error until tasks F6, F7 and F10 are done.
 
 Restart `npm run dev` after changing `.env`.
 
 How the fakes behave:
 
-| Function                                          | Fake behaviour                                                    |
-| ------------------------------------------------- | ----------------------------------------------------------------- |
-| `getProgress()` and other `progress.js` functions | Kept in memory, starts with sample stamps. Resets on page reload. |
-| `getPosition()`                                   | After 0.8 s, a fixed spot near Sultan Abdul Samad, 18 m accuracy  |
-| `distanceTo(placeId, position)`                   | Real maths. Returns `null` if the place has no coordinates yet    |
-| `checkIn(placeId)`                                | After 2 s, gives a gold stamp and returns `{ result: 'gold' }`    |
-| `getPrefs()` / `setPrefs(changes)`                | Stored inside the fake progress                                   |
-| `submitReview(review)`                            | After 1 s, returns `{ ok: true, postcardQueued: true }`           |
+| Function                        | Fake behaviour                                                   |
+| ------------------------------- | ---------------------------------------------------------------- |
+| `getPosition()`                 | After 0.8 s, a fixed spot near Sultan Abdul Samad, 18 m accuracy |
+| `distanceTo(placeId, position)` | Real maths. Returns `null` if the place has no coordinates yet   |
+| `checkIn(placeId)`              | After 2 s, saves a gold stamp and returns `{ result: 'gold' }`   |
+| `submitReview(review)`          | After 1 s, returns `{ ok: true, postcardQueued: true }`          |
 
 **Try them in the browser console.** While `npm run dev` is running, every core and data
 function is available on `window.jalankl`, for example:
@@ -71,6 +74,8 @@ function is available on `window.jalankl`, for example:
 await jalankl.checkIn('petronas');
 jalankl.getProgress();
 jalankl.getPlaces();
+jalankl.loadSampleProgress(); // fills in sample stamps to build screens with
+jalankl.resetProgress(); // back to a fresh start (keeps language)
 ```
 
 ## Folder guide
