@@ -52,6 +52,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | Welcome redirect | First-open check moved from Guide home into App.jsx, so all three tabs send a new visitor to `/welcome`; shared links still open directly. Test that loads the whole app (`src/App.test.jsx`) |
 | 2026-09-18 | Real GPS | `VITE_USE_MOCKS` per part; live site and previews use real GPS and check-in (only reviews stay fake). Fixed the Check-in screen checking in again and again. Tests for both |
 | 2026-09-18 | Landmark photos | 7 landmark photos from Wikimedia Commons (1280 px, about 2 MB total) in `public/landmarks/`, `photoCredit` in `places.json`, credit line on the Landmark screen, test that every place has its photo and credit |
+| 2026-09-18 | Landing page | Landing page at `/` for new visitors (Start → Welcome → app) and at `/about` for anyone; returning visitors still go straight to the Guide. English/Malay switch, how it works, the 7 places, photo credits. "About JalanKL" link in Settings |
 
 ### Syakir (guide and map)
 
@@ -61,7 +62,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **Next:** S11 field-test fixes, which waits for Danial's test day (D13). Until then: the map's street tiles (change 38) whenever the team picks a tile service, and the real landmark photos and icons when D10 and D12 land.
 
-**Notes from Faris:** Landmark photos are in (change 47): `PlaceScreen.jsx` now shows a small credit line under the photo, which the photo licences require; please keep it if you restyle that screen. S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
+**Notes from Faris:** New landing page in `src/core/LandingScreen.jsx` (change 48), built from your Button and Card; restyle it freely when the UI references arrive (tell me and I will hand it over). Landmark photos are in (change 47): `PlaceScreen.jsx` now shows a small credit line under the photo, which the photo licences require; please keep it if you restyle that screen. S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
 **Push log**
 
@@ -89,7 +90,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **Next:** D10 hire the photographer, D11 postcard template, D7 field day (fills the TBCs), D13 field test.
 
-**Notes from Faris:** I added the 7 landmark photos to `public/landmarks/` and a `photoCredit` field to each place in `places.json` (change 47). If you swap in field-day photos, update `photoCredit` too, or remove it for photos the team took. thanks for the coordinates: check-in now works at all 7 landmarks. Please confirm them and `radius_m` on the field day. For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
+**Notes from Faris:** Please check the Malay in `landing.*` and `settings.about` (landing page, change 48). I added the 7 landmark photos to `public/landmarks/` and a `photoCredit` field to each place in `places.json` (change 47). If you swap in field-day photos, update `photoCredit` too, or remove it for photos the team took. thanks for the coordinates: check-in now works at all 7 landmarks. Please confirm them and `radius_m` on the field day. For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
 
 **Notes from Danial:** research findings that change assumptions are in `src/data/README.md` (Merdeka 118 renamed and mostly closed; Sultan Abdul Samad reopened; Rapid KL gates don't take bank cards yet; KL Tower is a long uphill walk). The Malay still needs a native speaker's read, including Faris's `privacy.*` and `consent.*`.
 
@@ -154,6 +155,7 @@ Add new lines at the end. Say who needs to know.
 45. **The live site now uses real GPS and real check-in** (Faris). `VITE_USE_MOCKS` can list the parts that stay fake: `true` (all), `false` (none), or e.g. `api`. The live site and every preview link read `.env.production` (`VITE_USE_MOCKS=api`): real location and check-in, fake review sending until F10. Your own `.env` can stay `true`, so check-in still gives gold at your desk. Testing a real check-in now means being at the landmark (or use the debug menu's forced states). The debug menu at `/debug` shows which parts are fake. (Everyone.)
 46. **`getPlace()` returns a new copy every call** (since D1), so never put its result straight into a `useEffect` or `useCallback` dependency list: the effect would run on every render. Use `useMemo(() => getPlace(id), [id])`, like `PlaceScreen.jsx` does. This caused the Check-in screen to check in again and again with real GPS; fixed. (Everyone.)
 47. **Landmark photos are in** (Faris, with Danial's and Syakir's files). `public/landmarks/<id>.jpg`, 1280 px wide, from Wikimedia Commons under CC0, CC BY or CC BY-SA licences. Each place in `places.json` has `photoCredit`: `{ author, licence, licenceUrl, source }`. **The licences require the credit to be shown with the photo**: the Landmark screen shows "Photo: <author>, <licence>" linked to the source (`place.photoCredit` text key). A test checks every place has its photo file and a full credit. The small list thumbnails rely on the credit on the Landmark screen. These are not the postcard photos: those stay with the hired photographer (D10). (Everyone.)
+48. **Landing page** (Faris; not in the original MVP list, agreed to add on 2026-09-18). A new visitor opening `/` (the link or QR code) sees the landing page; **Start** goes to `/welcome`, then the app. A new visitor opening `/map` or `/passport` is sent to `/` first (before: straight to `/welcome`). Returning visitors still go straight to the Guide at `/`. `/about` always shows the landing page: share that link with people who are not travelling now (KrackedDev, judges, partners); Settings links to it. All "back to the guide" links (`to="/"`) keep working unchanged. Text: `landing.*`, `settings.about`. (Everyone.)
 
 ## 1. MVP on a page
 

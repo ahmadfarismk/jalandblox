@@ -488,7 +488,8 @@
       "title": "Privacy",
       "note": "Your stamps and settings are saved only on this phone. We never save where you are.",
       "link": "Read the privacy notice"
-    }
+    },
+    "about": "About JalanKL"
   },
   "location": {
     "explainer": "We use your location only to show how far places are and to confirm your check-ins. It is never saved.",
@@ -546,5 +547,41 @@
   "consent": {
     "label": "I agree that JalanKL may use my email, nationality and review to send my postcard and improve the guide. They are kept for 12 months, and I can ask for them to be deleted at any time.",
     "link": "Read the privacy notice"
+  },
+  "landing": {
+    "eyebrow": "Kuala Lumpur, step by step",
+    "title": "From KLIA to KL’s best-known places, one clear step at a time",
+    "intro": "A free guide for your first days in KL. Follow simple steps from the airport into the city, visit 7 landmarks, and collect a stamp at each one.",
+    "start": "Start",
+    "howTitle": "How it works",
+    "how": {
+      "pick": {
+        "title": "Pick a place",
+        "body": "Choose a landmark. We show one recommended way to get there, and why."
+      },
+      "follow": {
+        "title": "Follow the steps",
+        "body": "Walk, board, ride, get out. Tap \"I'm Here\" as you go."
+      },
+      "checkin": {
+        "title": "Check in",
+        "body": "At the landmark, your phone’s GPS confirms you made it."
+      },
+      "reward": {
+        "title": "Collect and share",
+        "body": "Earn a gold stamp, then write a review and get a free postcard by email."
+      }
+    },
+    "placesTitle": "7 places to visit",
+    "whyTitle": "Made for your first days in KL",
+    "why": {
+      "free": "Free, no sign-up",
+      "languages": "English and Bahasa Melayu",
+      "offline": "Opens without signal once you have visited",
+      "private": "Your stamps stay on your phone"
+    },
+    "ready": "Ready when you are.",
+    "credits": "Photo credits",
+    "privacy": "Privacy"
   }
 }
