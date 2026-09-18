@@ -1,4 +1,4 @@
-import { Link, NavLink, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router';
+import { Link, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import GuideHomeScreen from './guide/GuideHomeScreen';
 import MapScreen from './guide/MapScreen';
@@ -6,14 +6,11 @@ import PassportScreen from './rewards/PassportScreen';
 import SettingsScreen from './core/SettingsScreen';
 import PrivacyScreen from './core/PrivacyScreen';
 import DebugLocationScreen from './core/DebugLocationScreen';
+import ComponentsSampleScreen from './guide/ComponentsSampleScreen';
+import BottomTabs from './shared/BottomTabs';
 
 // Only built screens are wired up. The others in docs/PLAN.md section 4 get
 // their routes when their tasks are done.
-const TABS = [
-  { to: '/', labelKey: 'ui.tabs.guide' },
-  { to: '/map', labelKey: 'ui.tabs.map' },
-  { to: '/passport', labelKey: 'ui.tabs.passport' },
-];
 
 function TabLayout() {
   const { t } = useTranslation();
@@ -31,25 +28,7 @@ function TabLayout() {
       <main className="flex-1 px-4 pb-24">
         <Outlet />
       </main>
-      <nav className="fixed inset-x-0 bottom-0 border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)]">
-        <ul className="mx-auto flex max-w-md">
-          {TABS.map((tab) => (
-            <li key={tab.to} className="flex-1">
-              <NavLink
-                to={tab.to}
-                end
-                className={({ isActive }) =>
-                  `flex min-h-14 items-center justify-center text-sm font-medium ${
-                    isActive ? 'text-teal-700' : 'text-slate-500'
-                  }`
-                }
-              >
-                {t(tab.labelKey)}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <BottomTabs />
     </div>
   );
 }
@@ -90,6 +69,8 @@ export default function App() {
         <Route path="privacy" element={<PrivacyScreen />} />
         {/* Hidden developer page for the outdoor GPS test (F6). Not linked in the app. */}
         <Route path="debug/location" element={<DebugLocationScreen />} />
+        {/* Hidden page showing every shared component (S1). Not linked in the app. */}
+        <Route path="debug/components" element={<ComponentsSampleScreen />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
