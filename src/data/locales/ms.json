@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "languageName": "Bahasa Melayu"
+  },
   "places": {
     "kl-sentral": {
       "name": "KL Sentral",
@@ -80,6 +83,30 @@
     },
     "imHere": "Saya Di Sini",
     "takeMeThere": "Bawa saya ke sana",
-    "openInGoogleMaps": "Buka dalam Google Maps"
+    "openInGoogleMaps": "Buka dalam Google Maps",
+    "comingSoon": "Akan datang.",
+    "openSettings": "Tetapan",
+    "back": "Kembali"
+  },
+  "settings": {
+    "title": "Tetapan",
+    "language": "Bahasa",
+    "reset": {
+      "title": "Tetapkan semula kemajuan",
+      "body": "Ini akan memadam semua setem dan langkah perjalanan anda pada telefon ini. Bahasa anda tidak berubah.",
+      "button": "Tetapkan semula kemajuan",
+      "confirm": "Ya, padam semua",
+      "cancel": "Batal",
+      "done": "Kemajuan anda telah ditetapkan semula."
+    },
+    "privacy": {
+      "title": "Privasi",
+      "note": "Setem dan tetapan anda disimpan hanya pada telefon ini. Kami tidak pernah menyimpan lokasi anda.",
+      "link": "Baca notis privasi"
+    }
+  },
+  "privacy": {
+    "title": "Privasi",
+    "comingSoon": "Notis privasi penuh akan datang tidak lama lagi."
   }
 }

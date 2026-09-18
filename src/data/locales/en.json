@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "languageName": "English"
+  },
   "places": {
     "kl-sentral": {
       "name": "KL Sentral",
@@ -80,6 +83,30 @@
     },
     "imHere": "I'm Here",
     "takeMeThere": "Take me there",
-    "openInGoogleMaps": "Open in Google Maps"
+    "openInGoogleMaps": "Open in Google Maps",
+    "comingSoon": "Coming soon.",
+    "openSettings": "Settings",
+    "back": "Back"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "reset": {
+      "title": "Reset progress",
+      "body": "This deletes all your stamps and journey steps on this phone. Your language stays the same.",
+      "button": "Reset progress",
+      "confirm": "Yes, delete everything",
+      "cancel": "Cancel",
+      "done": "Your progress has been reset."
+    },
+    "privacy": {
+      "title": "Privacy",
+      "note": "Your stamps and settings are saved only on this phone. We never save where you are.",
+      "link": "Read the privacy notice"
+    }
+  },
+  "privacy": {
+    "title": "Privacy",
+    "comingSoon": "The full privacy notice is coming soon."
   }
 }

@@ -1,21 +1,33 @@
-import { NavLink, Navigate, Outlet, Route, Routes } from 'react-router';
+import { Link, NavLink, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import GuideHomeScreen from './guide/GuideHomeScreen';
 import MapScreen from './guide/MapScreen';
 import PassportScreen from './rewards/PassportScreen';
+import SettingsScreen from './core/SettingsScreen';
+import PrivacyScreen from './core/PrivacyScreen';
 
-// Phase 0: only the 3 tab screens are wired up. The other screens in
-// docs/PLAN.md section 4 get their routes when their tasks are built.
-// TODO(F5/D2): tab labels move to src/data/locales once react-i18next is added.
+// Only built screens are wired up. The others in docs/PLAN.md section 4 get
+// their routes when their tasks are done.
 const TABS = [
-  { to: '/', label: 'Guide' },
-  { to: '/map', label: 'Map' },
-  { to: '/passport', label: 'Passport' },
+  { to: '/', labelKey: 'ui.tabs.guide' },
+  { to: '/map', labelKey: 'ui.tabs.map' },
+  { to: '/passport', labelKey: 'ui.tabs.passport' },
 ];
 
 function TabLayout() {
+  const { t } = useTranslation();
   return (
     <div className="flex min-h-dvh flex-col bg-white text-slate-900">
-      <main className="flex-1 p-4 pb-24">
+      <header className="flex h-14 items-center justify-end px-2">
+        <Link
+          to="/settings"
+          aria-label={t('ui.openSettings')}
+          className="flex size-11 items-center justify-center rounded-full text-xl text-slate-600"
+        >
+          ⚙
+        </Link>
+      </header>
+      <main className="flex-1 px-4 pb-24">
         <Outlet />
       </main>
       <nav className="fixed inset-x-0 bottom-0 border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)]">
@@ -31,12 +43,35 @@ function TabLayout() {
                   }`
                 }
               >
-                {tab.label}
+                {t(tab.labelKey)}
               </NavLink>
             </li>
           ))}
         </ul>
       </nav>
+    </div>
+  );
+}
+
+/** Screens opened on top of the tabs: no bottom bar, with a back button. */
+function PageLayout() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  return (
+    <div className="flex min-h-dvh flex-col bg-white text-slate-900">
+      <header className="flex h-14 items-center px-2">
+        <button
+          type="button"
+          // Go back if we came from inside the app, otherwise go to the Guide tab
+          onClick={() => (window.history.state?.idx > 0 ? navigate(-1) : navigate('/'))}
+          className="flex min-h-11 items-center px-2 font-medium text-teal-700"
+        >
+          ← {t('ui.back')}
+        </button>
+      </header>
+      <main className="flex-1 px-4 pb-8">
+        <Outlet />
+      </main>
     </div>
   );
 }
@@ -48,6 +83,10 @@ export default function App() {
         <Route index element={<GuideHomeScreen />} />
         <Route path="map" element={<MapScreen />} />
         <Route path="passport" element={<PassportScreen />} />
+      </Route>
+      <Route element={<PageLayout />}>
+        <Route path="settings" element={<SettingsScreen />} />
+        <Route path="privacy" element={<PrivacyScreen />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
