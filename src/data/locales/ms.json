@@ -115,5 +115,43 @@
     "asking": "Mencari lokasi anda…",
     "denied": "Lokasi dimatikan untuk laman ini. Anda masih boleh menggunakan panduan. Untuk mengumpul setem emas, hidupkan lokasi dalam tetapan pelayar anda.",
     "unavailable": "Kami tidak dapat mengesan lokasi anda. Cuba lagi di luar, jauh dari bangunan tinggi."
+  },
+  "checkin": {
+    "reading": "Menyemak lokasi anda…",
+    "readingHint": "Ini boleh mengambil masa sehingga 10 saat. Pegang telefon anda dengan stabil.",
+    "tryAgain": "Cuba lagi",
+    "toPassport": "Lihat pasport saya",
+    "toGuide": "Kembali ke panduan",
+    "unknownPlace": "Kami tidak dapat menemui tempat ini.",
+    "gold": {
+      "title": "Setem emas diperoleh!",
+      "body": "{{place}} kini ada dalam pasport anda."
+    },
+    "too_far": {
+      "title": "Belum sampai",
+      "body": "Anda kira-kira {{distance}} m lagi. Dekati dalam lingkungan {{radius}} m dan cuba lagi."
+    },
+    "poor_signal": {
+      "title": "Isyarat GPS lemah",
+      "body": "Keluar ke kawasan terbuka, jauh dari bangunan tinggi, dan cuba lagi.",
+      "accuracy": "Ketepatan sekarang: kira-kira {{accuracy}} m."
+    },
+    "no_permission": {
+      "title": "Lokasi dimatikan",
+      "body": "Tanpa lokasi, kami tidak dapat mengesahkan anda berada di sini. Anda masih boleh mendapat setem garis. Untuk setem emas, hidupkan lokasi dalam tetapan pelayar dan cuba lagi.",
+      "continue": "Teruskan tanpa GPS"
+    },
+    "outline": {
+      "title": "Setem garis ditambah",
+      "body": "Kembali dengan lokasi dihidupkan untuk menjadikannya emas."
+    },
+    "too_soon": {
+      "title": "Sebentar",
+      "body": "Anda baru sahaja mendapat setem emas. Sila tunggu seminit dan cuba lagi."
+    },
+    "error": {
+      "title": "Ada masalah",
+      "body": "Kami tidak dapat mendaftar masuk anda kali ini. Sila cuba lagi."
+    }
   }
 }
