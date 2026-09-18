@@ -11,6 +11,7 @@ import { getPlaces } from '@/data';
 import { CHECKIN_STATES } from './checkinStates';
 import { addStamp, markOpened, resetProgress, setJourneyStep } from './progress';
 import { USE_MOCKS } from './useMocks';
+import ConsentCheckbox from './ConsentCheckbox';
 
 const linkClass =
   'flex min-h-11 items-center rounded-lg border border-slate-200 px-3 font-medium text-teal-700';
@@ -27,6 +28,7 @@ export default function DebugMenuScreen() {
   const places = getPlaces();
   const [placeId, setPlaceId] = useState('abdul-samad');
   const [note, setNote] = useState('');
+  const [consent, setConsent] = useState(false);
 
   return (
     <section className="space-y-8 text-sm">
@@ -92,6 +94,12 @@ export default function DebugMenuScreen() {
           </button>
         </div>
         {note && <p className="text-teal-700">{note}</p>}
+      </div>
+
+      <div className="space-y-2">
+        <h2 className="font-medium">Consent tick box (F12, for the Review form)</h2>
+        <ConsentCheckbox checked={consent} onChange={setConsent} />
+        <p className="text-slate-500">Ticked: {String(consent)}</p>
       </div>
 
       <div className="space-y-2">

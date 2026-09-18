@@ -36,6 +36,15 @@ function TabLayout() {
   );
 }
 
+/** Full-screen pages with no top bar and no tabs, like the first-open Welcome screen. */
+function FullScreenLayout() {
+  return (
+    <div className="flex min-h-dvh flex-col bg-white px-4 py-6 text-slate-900">
+      <Outlet />
+    </div>
+  );
+}
+
 /** Screens opened on top of the tabs: no bottom bar, with a back button. */
 function PageLayout() {
   const { t } = useTranslation();
@@ -78,7 +87,9 @@ export default function App() {
         {/* Hidden page showing every shared component (S1). Not linked in the app. */}
         <Route path="debug/components" element={<ComponentsSampleScreen />} />
       </Route>
-      <Route path="welcome" element={<WelcomeScreen />} />
+      <Route element={<FullScreenLayout />}>
+        <Route path="welcome" element={<WelcomeScreen />} />
+      </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

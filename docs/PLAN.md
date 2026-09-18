@@ -4,36 +4,82 @@
 
 ## 0. Current status (read this first)
 
-This section is updated with every push to GitHub. It says what is done, what each person does next, and anything that changed from the plan below.
+This section says what is done, what each person builds next, and anything that changed from the plan below. It only works if everyone keeps it current.
 
-**Last updated:** 2026-09-18 by Faris, F7 pushed (check-in rules, Check-in screen, debug menu at `/debug`). F6 is still waiting for the outdoor test.
+> **Rule: every pull request updates this section.** Before you commit, update **your own block** below:
+> 1. Move finished tasks to **Done** and write what you are building **Next**.
+> 2. Add one line to **your push log**: date, task ID, what changed.
+> 3. If you changed something the others use (a function in `core/`, a text key, a data shape in `data/`, a route, a shared component), add a line to **Changes from the plan** below, saying what it is and who needs it.
+>
+> Only edit your own block, so two pull requests rarely touch the same lines. If you still get a merge conflict in this file, keep both sides. The reviewer checks this section before approving (see section 13).
 
-**Where we are:** Faris's and Syakir's Phase 0 work is done. Phase 0 is finished when Danial's D1 and D2 are merged. The live site and preview links work.
+**Where we are (2026-09-18):** Phase 0 is done for Faris and Syakir. It is finished for everyone when Danial's D1 and D2 are merged. The live site and a preview link for every pull request work.
 
-### Task status
+### Faris (core and backend)
 
-| Task | Owner | Status |
+**Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu, F11 install to phone and offline (merged).
+
+**In progress:** F12 privacy page and consent tick box: pull request open.
+
+**Postponed:** F8 Supabase tables. This also holds back F9 (postcard email) and F10 (Review screen sends for real). Must restart by the start of week 3 for the postcard demo. Until then `submitReview()` stays fake.
+
+**Next:** F8 Supabase tables, then F9 postcard email and F10.
+
+**Before launch (blockers):**
+- Pick the team's contact email for data requests and put it in `src/core/privacy.js` (now `TBC`, and the Privacy page says "coming soon").
+- Have someone qualified check the privacy and consent wording (`privacy.*` and `consent.*` in the language files). This is not legal advice (section 9).
+
+**Push log**
+
+| Date | Pull request | What changed |
 | --- | --- | --- |
-| F1 Repo, Vite, React, Tailwind, Router, ESLint, Prettier, README | Faris | ✅ Done |
-| F2 Hosting with preview link per pull request | Faris | ✅ Done (Cloudflare). Protecting `main` on GitHub: check it is on |
-| F3 Fake versions of every section 8 function | Faris | ✅ Done |
-| F4 Real `progress.js` with tests | Faris | ✅ Done (early, planned for week 1) |
-| F5 `settings.js` and Settings screen | Faris | ✅ Done (early, planned for week 1) |
-| F6 Real `location.js`, permission explainer, stop when hidden | Faris | 🟡 Pull request open. Waiting for the outdoor phone test |
-| F7 Real `checkin.js` and Check-in screen | Faris | 🟡 Pull request open (planned for week 2). Merge after F6 |
-| S1 Shared components: Button, Card, StampBadge, Avatar, BottomTabs | Syakir | ✅ Done. Bottom tabs wired into App.jsx by Faris |
-| D1 `places.json` and `data/index.js` | Danial | 🟡 Starter files made by Faris. Danial reviews them |
-| D2 `en.json` and `ms.json` | Danial | 🟡 Starter files made by Faris, plus Settings text. Danial finishes them and checks the Malay |
+| 2026-09-18 | F1 F3 first commit | Project setup, folders, fake functions, 3 tabs |
+| 2026-09-18 | #1 F4 | Real progress saving with tests. `loadSampleProgress()` helper |
+| 2026-09-18 | #2 F2 | Cloudflare deploy config (`wrangler.jsonc`) |
+| 2026-09-18 | #3 F5 | Translations (react-i18next), Settings screen, `getLanguages()`, placeholder Privacy page |
+| 2026-09-18 | Plan status | Added this section 0 |
+| 2026-09-18 | App shell | App.jsx uses `<BottomTabs />`; sample page moved to `/debug/components` |
+| 2026-09-18 | F6 | Real GPS: best-of-3 `getPosition()`, `watchPosition()`, `getPermissionState()`, `LocationExplainer`, `/debug/location` test page |
+| 2026-09-18 | F7 | Real check-in rules with `too_soon`, Check-in screen at `/checkin/:id` with all states, debug menu at `/debug` |
+| 2026-09-18 | Welcome route | `/welcome` route (full screen, no tabs) for Syakir's S2. This per-person status layout and the pull request checklist |
+| 2026-09-18 | F11 | Install to phone (vite-plugin-pwa), offline app shell, placeholder icons, install hint after a gold stamp |
+| 2026-09-18 | F12 | Real Privacy page (PDPA: what, why, who, how long, rights, contact TBC), `<ConsentCheckbox />` for the Review form, test that all languages have the same keys |
 
-### What to do next
+### Syakir (guide and map)
 
-| Person | Next task | Notes |
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`.
+
+**In progress:** S2 Welcome screen at `/welcome` (route added by Faris).
+
+**Next:** S3 Guide home, S4 Landmark detail.
+
+**Notes from Faris:** S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
+
+**Push log**
+
+| Date | Pull request | What changed |
 | --- | --- | --- |
-| Faris | Outdoor test for F6, then a real check-in test; then F8 Supabase tables | Real check-in only works at abdul-samad until Danial fills in the other coordinates |
-| Syakir | S2 Welcome screen, S3 Guide home, S4 Landmark detail | First, put `GuideHomeScreen.jsx` back to a placeholder: the sample page now lives at `/debug/components`. S2: save choices with `setPrefs()`, list languages with `getLanguages()` |
-| Danial | D1 and D2, then D3 Passport screen | D3: read stamps with `getProgress()` and refresh with `onProgressChange()`. Use `jalankl.loadSampleProgress()` for test data |
+| 2026-09-18 | #4 S1 | Shared Button, Card, StampBadge, Avatar, BottomTabs and sample page |
+| 2026-09-18 | S3 cleanup | Guide tab back to a placeholder. The S1 sample page stays at `/debug/components` |
+
+### Danial (rewards and content)
+
+**Done:** nothing merged yet. Faris made starter files for D1 (`places.json`, `data/index.js`) and D2 (`en.json`, `ms.json`).
+
+**In progress:** D1 review `places.json`; D2 finish the language files and check the Malay Faris wrote.
+
+**Next:** D3 Passport screen: read stamps with `getProgress()`, refresh with `onProgressChange()`, test data from `jalankl.loadSampleProgress()` or the debug menu at `/debug`.
+
+**Notes from Faris:** check-in only works at a landmark once its `coords` are filled in `places.json` (only `abdul-samad` has them now). For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
+
+**Push log**
+
+| Date | Pull request | What changed |
+| --- | --- | --- |
 
 ### Changes from the plan below (read before coding)
+
+Add new lines at the end. Say who needs to know.
 
 1. **Progress and settings are always real.** `progress.js` and `settings.js` save on the phone (localStorage) even when `VITE_USE_MOCKS=true`. The switch now only picks fake or real for `location.js`, `checkin.js` and `api.js`.
 2. **Sample stamps for building screens:** while `npm run dev` is running, type `jalankl.loadSampleProgress()` in the browser console. `jalankl.resetProgress()` clears them. Every core and data function is on `window.jalankl` for testing.
@@ -42,7 +88,7 @@ This section is updated with every push to GitHub. It says what is done, what ea
 5. **New function `getLanguages()`** in `core/settings.js` returns `[{ code: 'en', name: 'English' }, { code: 'ms', name: 'Bahasa Melayu' }]`, one entry per file in `locales/`.
 6. **Showing text:** `const { t } = useTranslation()` from `react-i18next`, then `t('ui.takeMeThere')`. The language switches everywhere when `setPrefs({ lang })` is called. Missing Malay text falls back to English.
 7. **New keys in the language files:** `meta.languageName`, `ui.comingSoon`, `ui.openSettings`, `ui.back`, `settings.*` and `privacy.*`. Keep them when editing `en.json` and `ms.json`.
-8. **Routes that exist now:** `/`, `/map`, `/passport`, `/settings`, `/privacy`, and the hidden `/debug/components` (S1 sample page) and `/debug/location` (F6 GPS test). `App.jsx` is Faris's file. When your screen needs a route, add the one line in your pull request and ask Faris to review it.
+8. **Routes that exist now:** `/`, `/map`, `/passport`, `/settings`, `/privacy`, `/checkin/:id`, `/welcome`, and the hidden `/debug`, `/debug/location` and `/debug/components`. `App.jsx` is Faris's file. When your screen needs a route, add the one line in your pull request and ask Faris to review it.
 9. **Settings is opened from the ⚙ button** at the top of the tab screens, not from a tab.
 10. **Checks on every pull request:** lint, formatting, tests (`npm test`) and build. Run `npm run format`, `npm run lint` and `npm test` before opening one. Each pull request gets a Cloudflare preview link to try on a phone.
 11. **Hosting** is Cloudflare, set up by `wrangler.jsonc`. Do not rename or delete that file.
@@ -56,20 +102,12 @@ This section is updated with every push to GitHub. It says what is done, what ea
 19. **Opening check-in:** the last Journey step ("I'm Here" on a step with `checkinPlace`) should go to `/checkin/<placeId>`, for example `navigate('/checkin/petronas')`. The Check-in screen does the rest, including the location explainer and the outline stamp when location is off. (Syakir, S5.)
 20. **A place with no coordinates yet** (still TBC) answers `error` without asking for GPS. Danial: check-in only works once `coords` are filled in `places.json`.
 21. **Debug menu at `/debug`** (hidden): force any Check-in state, load or reset sample stamps, and links to the other test pages. Forced states never save anything.
-
-### Push log
-
-| Date | Pull request | What changed |
-| --- | --- | --- |
-| 2026-09-18 | F1 F3 first commit | Project setup, folders, fake functions, 3 tabs |
-| 2026-09-18 | #1 F4 | Real progress saving with tests. `loadSampleProgress()` helper |
-| 2026-09-18 | #2 F2 | Cloudflare deploy config (`wrangler.jsonc`) |
-| 2026-09-18 | #3 F5 | Translations (react-i18next), Settings screen, `getLanguages()`, placeholder Privacy page |
-| 2026-09-18 | Plan status | Added this section 0 |
-| 2026-09-18 | #4 S1 | Shared Button, Card, StampBadge, Avatar, BottomTabs and sample page (Syakir) |
-| 2026-09-18 | App shell | App.jsx uses `<BottomTabs />`; sample page moved to `/debug/components` |
-| 2026-09-18 | F6 | Real GPS: best-of-3 `getPosition()`, `watchPosition()`, `getPermissionState()`, `LocationExplainer`, `/debug/location` test page |
-| 2026-09-18 | F7 | Real check-in rules with `too_soon`, Check-in screen at `/checkin/:id` with all states, debug menu at `/debug` |
+22. **`/welcome` is a full-screen page** (no top bar, no tabs). Other first-open or full-screen pages can use the same layout; ask Faris for the route.
+23. **App icons are placeholders** (F11) in `public/icons/`: `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` (logo inside the middle 80%, because phones crop it to a circle) and `apple-touch-icon.png` (180×180). Syakir or Danial: make the real ones at these exact names and sizes.
+24. **The app works offline after the first visit** (F11). When you add big images later (landmark photos, signage), tell Faris: large files may need to be left out of the offline copy.
+25. **`<InstallHint />`** from `core/InstallHint.jsx` shows "Keep your stamps safe: add to home screen". It is on the Check-in gold screen now. The Passport screen (D3) could show it too. New text keys: `install.*`.
+26. **`<ConsentCheckbox />`** (F12) from `core/ConsentCheckbox.jsx` is the consent tick box for the Review form: unticked to start, plain sentence, link to `/privacy` (opens in a new tab so the review is not lost). Danial, D8.
+27. **New automatic test: every language file must have exactly the same keys as `en.json`, and no empty text.** If you add a key to one language, add it to the other in the same pull request, or the checks go red.
 
 ## 1. MVP on a page
 
@@ -603,7 +641,8 @@ flowchart LR
 | Branch names | `area/short-task`, for example `guide/journey-screen`, `core/checkin`, `rewards/passport`, `data/routes` |
 | Commit messages | Start with the task ID: `S5 add step checklist` |
 | Pull request size | Small. Aim for one task, under roughly 300 changed lines. |
-| Pull request text | What changed, how to test it, a screenshot if it is a screen |
+| Pull request text | What changed, how to test it, a screenshot if it is a screen. GitHub fills in a checklist for this (`.github/pull_request_template.md`) |
+| Plan status | Every pull request updates your own block in section 0 of this doc: what is done, what is next, your push log, and any change others rely on. The reviewer does not approve without it |
 | Review | One approval needed. The reviewer opens the preview link on a phone and tries it. |
 | Before starting work each day | `git pull` on `main`, then update your branch from `main` |
 | Merge conflicts | The branch owner fixes them. If it touches someone else's folder, fix it together on a call. |
@@ -638,6 +677,8 @@ Rules you must follow:
 - Do not invent transit facts, prices, coordinates or station names.
   Use the value "TBC" if a fact is missing.
 - Build for phone screens first. Tap targets at least 44 px tall.
+- Before committing, update my block in section 0 of docs/PLAN.md: what
+  is done, what is next, a push log line, and any change the others use.
 
 Before writing code, list the files you will create or change and wait
 for my OK. After writing, explain in simple words what each file does
