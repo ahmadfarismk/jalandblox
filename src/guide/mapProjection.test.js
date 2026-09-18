@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { getPlaces } from '@/data';
-import { boundsFor, projectPoint } from './mapProjection';
+import { boundsFor, fitToBox, projectPoint } from './mapProjection';
 
 const KL_PLACES = getPlaces().map((p) => p.coords);
 
@@ -74,5 +74,47 @@ describe('projectPoint', () => {
     const acrossY = Math.abs(b.top - a.top);
     // The box is square in real metres, so the two should be within a few percent.
     expect(Math.abs(acrossX - acrossY)).toBeLessThan(2);
+  });
+});
+
+describe('fitToBox', () => {
+  const square = boundsFor([
+    [3.14, 101.69],
+    [3.149, 101.699],
+  ]);
+
+  it('leaves the box alone without a usable shape', () => {
+    expect(fitToBox(square, undefined)).toBe(square);
+    expect(fitToBox(square, 0)).toBe(square);
+    expect(fitToBox(null, 1.5)).toBeNull();
+  });
+
+  it('keeps a kilometre north the same length as a kilometre east', () => {
+    // A tall drawing area, like a phone: 300 wide by 600 tall.
+    const aspect = 300 / 600;
+    const fitted = fitToBox(square, aspect);
+    const a = projectPoint([3.14, 101.69], fitted);
+    const b = projectPoint([3.149, 101.699], fitted);
+    // Percentages become pixels: width * left%, height * top%.
+    const acrossPx = (Math.abs(b.left - a.left) / 100) * 300;
+    const downPx = (Math.abs(b.top - a.top) / 100) * 600;
+    expect(Math.abs(acrossPx - downPx)).toBeLessThan(1);
+  });
+
+  it('adds space rather than moving the landmarks off centre', () => {
+    const fitted = fitToBox(square, 0.5);
+    const middleBefore = projectPoint([3.1445, 101.6945], square);
+    const middleAfter = projectPoint([3.1445, 101.6945], fitted);
+    expect(middleAfter.left).toBeCloseTo(middleBefore.left, 5);
+    expect(middleAfter.top).toBeCloseTo(middleBefore.top, 5);
+  });
+
+  it('works the other way round on a wide screen', () => {
+    const fitted = fitToBox(square, 2);
+    const a = projectPoint([3.14, 101.69], fitted);
+    const b = projectPoint([3.149, 101.699], fitted);
+    const acrossPx = (Math.abs(b.left - a.left) / 100) * 800;
+    const downPx = (Math.abs(b.top - a.top) / 100) * 400;
+    expect(Math.abs(acrossPx - downPx)).toBeLessThan(1);
   });
 });

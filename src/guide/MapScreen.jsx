@@ -26,7 +26,7 @@ import { getPlaces } from '@/data';
 import { getProgress, onProgressChange } from '@/core/progress';
 import { getPermissionState, watchPosition } from '@/core/location';
 import MapPin from './components/MapPin';
-import { boundsFor, projectPoint } from './mapProjection';
+import { boundsFor, fitToBox, projectPoint } from './mapProjection';
 import { isCollected, newlyGold, shortNameKey } from './placeList';
 
 export default function MapScreen() {
@@ -83,13 +83,29 @@ export default function MapScreen() {
 
   const places = useMemo(() => getPlaces(), []);
 
+  // How wide the drawing area is against its height. The landmarks are placed
+  // inside it in percentages, so without this the city would be stretched to
+  // fill a tall phone screen.
+  const boxRef = useRef(null);
+  const [aspect, setAspect] = useState(null);
+  useEffect(() => {
+    const box = boxRef.current;
+    if (!box) return undefined;
+    const measure = () => setAspect(box.clientWidth / box.clientHeight || null);
+    measure();
+    // The box changes with the window, and when the phone is turned sideways.
+    const observer = new globalThis.ResizeObserver(measure);
+    observer.observe(box);
+    return () => observer.disconnect();
+  }, []);
+
   // The map fits every landmark, and the visitor too when they are nearby.
   const bounds = useMemo(() => {
     const points = places.map((p) => p.coords);
     if (position) points.push([position.lat, position.lng]);
     // A wider margin than the default: a pin's name sticks out sideways.
-    return boundsFor(points, 0.25);
-  }, [places, position]);
+    return fitToBox(boundsFor(points, 0.25), aspect);
+  }, [places, position, aspect]);
 
   const you = position ? projectPoint([position.lat, position.lng], bounds) : null;
 
@@ -101,8 +117,11 @@ export default function MapScreen() {
           inner box is inset, so a pin near the edge still has room for its
           name instead of being cut off. */}
       <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-        <div className="relative h-[60vh] min-h-72">
-          <div className="absolute inset-x-12 inset-y-10">
+        {/* The City Centre is a little wider than it is tall, so the box is
+            too: fitting a tall box would only add empty sky and squash the
+            landmarks into a band across the middle. */}
+        <div className="relative aspect-[6/5] w-full">
+          <div ref={boxRef} className="absolute inset-x-12 inset-y-10">
             {places.map((place) => {
               const at = projectPoint(place.coords, bounds);
               if (!at) return null; // coordinates still TBC

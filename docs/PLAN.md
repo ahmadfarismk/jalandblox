@@ -73,6 +73,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | S8 | Colour unlock: a gold stamp colours its map icon with no reload, and the icon that just changed gives one ring |
 | 2026-09-18 | S9 | Learn screens at `/learn` and `/learn/:topic`: 3 topics in both languages, with the line colours list. Route `/learn/:topic` added |
 | 2026-09-18 | S10 | Phone polish: checked at 320px wide, "Finding you…" while GPS lands, the location-off hint, and the Journey opens at the step you are on |
+| 2026-09-18 | S7 fix | Map keeps the city's real shape on any screen, and Danial's landmark icons (D12) show on it |
 
 ### Danial (rewards and content)
 
