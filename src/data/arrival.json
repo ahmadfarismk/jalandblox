@@ -1,18 +1,65 @@
 [
   {
-    "id": "option-a",
+    "id": "klia-ekspres",
     "recommended": true,
-    "nameKey": "arrival.option-a.name",
-    "priceNoteKey": "arrival.option-a.price",
-    "minutesNoteKey": "arrival.option-a.minutes",
-    "routeId": "klia__kl-sentral"
+    "mode": "train",
+    "nameKey": "arrivalOptions.klia-ekspres.name",
+    "priceNoteKey": "arrivalOptions.klia-ekspres.price",
+    "minutesNoteKey": "arrivalOptions.klia-ekspres.minutes",
+    "whyKey": "arrivalOptions.klia-ekspres.why",
+    "routeId": "klia__kl-sentral",
+    "tagKey": "arrivalOptions.klia-ekspres.tag",
+    "payKey": "arrivalOptions.klia-ekspres.pay",
+    "priceShortKey": "arrivalOptions.klia-ekspres.priceShort",
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://www.kliaekspres.com/products-fares/klia-ekspres/",
+      "https://www.kliaekspres.com/plan-your-trip/plan/faq-on-airport-transfer-by-train-to-kuala-lumpur-city/"
+    ]
   },
   {
-    "id": "option-b",
+    "id": "klia-transit",
     "recommended": false,
-    "nameKey": "arrival.option-b.name",
-    "priceNoteKey": "arrival.option-b.price",
-    "minutesNoteKey": "arrival.option-b.minutes",
-    "routeId": null
+    "mode": "train",
+    "nameKey": "arrivalOptions.klia-transit.name",
+    "priceNoteKey": "arrivalOptions.klia-transit.price",
+    "minutesNoteKey": "arrivalOptions.klia-transit.minutes",
+    "whyKey": "arrivalOptions.klia-transit.why",
+    "routeId": null,
+    "tagKey": "arrivalOptions.klia-transit.tag",
+    "payKey": "arrivalOptions.klia-transit.pay",
+    "priceShortKey": "arrivalOptions.klia-transit.priceShort",
+    "verified": "2026-09-18 (desk)",
+    "sources": ["https://www.kliaekspres.com/products-fares/klia-transit/"]
+  },
+  {
+    "id": "airport-bus",
+    "recommended": false,
+    "mode": "bus",
+    "nameKey": "arrivalOptions.airport-bus.name",
+    "priceNoteKey": "arrivalOptions.airport-bus.price",
+    "minutesNoteKey": "arrivalOptions.airport-bus.minutes",
+    "whyKey": "arrivalOptions.airport-bus.why",
+    "routeId": null,
+    "tagKey": "arrivalOptions.airport-bus.tag",
+    "payKey": "arrivalOptions.airport-bus.pay",
+    "priceShortKey": "arrivalOptions.airport-bus.priceShort",
+    "verified": "TBC",
+    "sources": ["TBC: no operator site checked yet (only reseller listings found)"]
+  },
+  {
+    "id": "e-hailing",
+    "recommended": false,
+    "mode": "car",
+    "nameKey": "arrivalOptions.e-hailing.name",
+    "priceNoteKey": "arrivalOptions.e-hailing.price",
+    "minutesNoteKey": "arrivalOptions.e-hailing.minutes",
+    "whyKey": "arrivalOptions.e-hailing.why",
+    "routeId": null,
+    "tagKey": "arrivalOptions.e-hailing.tag",
+    "payKey": "arrivalOptions.e-hailing.pay",
+    "priceShortKey": "arrivalOptions.e-hailing.priceShort",
+    "verified": "TBC",
+    "sources": ["TBC: price and pick-up point to check in the app and on field day"]
   }
 ]
