@@ -113,7 +113,11 @@
       "train": "Tren",
       "walk": "Jalan kaki",
       "car": "Kereta"
-    }
+    },
+    "atAGlance": "Laluan anda sekilas pandang",
+    "localsSay": "Kata orang tempatan",
+    "localsSayHint": "Tip daripada orang yang tinggal di KL.",
+    "localBy": "{{name}}, orang tempatan"
   },
   "map": {
     "title": "Peta",

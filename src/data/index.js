@@ -43,6 +43,15 @@ import nationalitiesData from './nationalities.json';
  */
 
 /**
+ * A tip from someone who lives in KL. Only real tips from real people: never
+ * write one on someone's behalf. The text lives in the locale files under
+ * `routes.<routeId>.tips.<n>`, in every language.
+ * @typedef {Object} LocalTip
+ * @property {string} textKey  Locale key, e.g. "routes.kl-sentral__petronas.tips.1".
+ * @property {string} by       First name of the local who gave the tip.
+ */
+
+/**
  * @typedef {Object} Route
  * @property {string} id            Always `${from}__${to}`.
  * @property {string} from          Place id, or "klia".
@@ -51,6 +60,7 @@ import nationalitiesData from './nationalities.json';
  * @property {string} why           Locale key.
  * @property {number|null} totalMinutes  Estimate. null until measured.
  * @property {RouteStep[]} steps
+ * @property {LocalTip[]} localTips  Real tips from locals, shown as "What locals say". Empty until someone adds one.
  * @property {string} googleMapsUrl
  * @property {string} verified
  * @property {string[]} sources

@@ -42,6 +42,17 @@ This order gives three short walks (118 → Petaling St → Merdeka Square), one
 5. The KLIA Ekspres FAQ calls KL Sentral's LRT station "KJ24", but every other source says KJ15. Confirm on the platform sign.
 6. Could not read (bot protection): kltower.com.my, myrapid.com.my FAQ, touchngo.com.my card pages. The facts that depend on them are marked in the sources, or left out.
 
+## Adding a local tip ("What locals say")
+
+Every route card in `routes.json` has `localTips`. The Journey screen shows them in a "What locals say" box, and hides the box while the list is empty. **Only add tips a real local gave you, with their first name, and only with their OK to show it.** Never write one on someone's behalf.
+
+1. In `routes.json`, on the route, add to `localTips`:
+   `{ "textKey": "routes.kl-sentral__petronas.tips.1", "by": "<their first name>" }`
+2. In `locales/en.json` and `locales/ms.json`, under `routes` → that route, add the text in both languages:
+   `"tips": { "1": "<the tip, in their words>" }`
+   (Translate it into Malay; the tests fail if one language is missing.)
+3. Run `npm test`. It checks every tip has a name and text in every language.
+
 ## Fact log
 
 | Fact                           | Value used                                                                                                             | Source                                                                | Status                                     |
