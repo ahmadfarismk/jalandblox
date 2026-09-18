@@ -100,7 +100,7 @@ describe('D3 Passport', () => {
     );
 
     const samad = screen.getByText('Sultan Abdul Samad Building').closest('li');
-    expect(within(samad).getByText('Outline')).toBeInTheDocument();
+    expect(within(samad).getByText('Outline stamp')).toBeInTheDocument();
     expect(within(samad).getByText('Opened 2 Oct 2026')).toBeInTheDocument();
     expect(samad.querySelector('image')).toHaveAttribute('href', '/landmarks/abdul-samad-grey.png');
     expect(within(samad).queryByText('Write a review')).not.toBeInTheDocument();
