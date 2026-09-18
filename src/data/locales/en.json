@@ -108,5 +108,12 @@
   "privacy": {
     "title": "Privacy",
     "comingSoon": "The full privacy notice is coming soon."
+  },
+  "location": {
+    "explainer": "We use your location only to show how far places are and to confirm your check-ins. It is never saved.",
+    "allow": "Allow location",
+    "asking": "Finding you…",
+    "denied": "Location is turned off for this site. You can still use the guide. To collect gold stamps, turn location on in your browser settings.",
+    "unavailable": "We could not find your location. Try again outside, away from tall buildings."
   }
 }

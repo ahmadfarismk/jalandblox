@@ -108,5 +108,12 @@
   "privacy": {
     "title": "Privasi",
     "comingSoon": "Notis privasi penuh akan datang tidak lama lagi."
+  },
+  "location": {
+    "explainer": "Kami menggunakan lokasi anda hanya untuk menunjukkan jarak tempat dan mengesahkan daftar masuk anda. Lokasi anda tidak pernah disimpan.",
+    "allow": "Benarkan lokasi",
+    "asking": "Mencari lokasi anda…",
+    "denied": "Lokasi dimatikan untuk laman ini. Anda masih boleh menggunakan panduan. Untuk mengumpul setem emas, hidupkan lokasi dalam tetapan pelayar anda.",
+    "unavailable": "Kami tidak dapat mengesan lokasi anda. Cuba lagi di luar, jauh dari bangunan tinggi."
   }
 }

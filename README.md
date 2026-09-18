@@ -51,10 +51,11 @@ live in `src/core/real/`, fake ones in `src/core/mocks/`.
 (localStorage), so stamps and language survive a reload. Built in task F4.
 
 **Switched by `VITE_USE_MOCKS` in `.env`:** location, check-in and the backend.
+The real location (F6) is built. Check-in (F7) and the backend (F10) are not yet.
 
 - `VITE_USE_MOCKS=true` uses the fakes. This is the default and what you want for now.
 - `VITE_USE_MOCKS=false` uses the real versions. They are not built yet and will throw a
-  "not built yet" error until tasks F6, F7 and F10 are done.
+  "not built yet" error until tasks F7 and F10 are done.
 
 Restart `npm run dev` after changing `.env`.
 
@@ -66,6 +67,8 @@ How the fakes behave:
 | `distanceTo(placeId, position)` | Real maths. Returns `null` if the place has no coordinates yet   |
 | `checkIn(placeId)`              | After 2 s, saves a gold stamp and returns `{ result: 'gold' }`   |
 | `submitReview(review)`          | After 1 s, returns `{ ok: true, postcardQueued: true }`          |
+| `watchPosition(callback)`       | Sends the same fake spot now and every 3 s                       |
+| `getPermissionState()`          | Always `'granted'`                                               |
 
 **Try them in the browser console.** While `npm run dev` is running, every core and data
 function is available on `window.jalankl`, for example:
@@ -77,6 +80,20 @@ jalankl.getPlaces();
 jalankl.loadSampleProgress(); // fills in sample stamps to build screens with
 jalankl.resetProgress(); // back to a fresh start (keeps language)
 ```
+
+## Testing real GPS outdoors
+
+GPS only works on https, so use a Cloudflare preview link (or the live site) on your phone,
+not the laptop address.
+
+1. Open `<preview link>/debug/location` on your phone. This hidden page always uses the
+   real GPS, even when `VITE_USE_MOCKS=true`.
+2. Tap **Start live GPS** and allow location.
+3. Stand on a spot and tap **Save this spot as my test point** (or paste coordinates from
+   Google Maps, like `3.14861, 101.69444`).
+4. Walk to a spot a known distance away (measure it with Google Maps' "Measure distance")
+   and compare with **Distance now**. It should match within the accuracy shown.
+5. **Take best-of-3 reading** shows what check-in will use.
 
 ## Folder guide
 

@@ -3,25 +3,34 @@
  * with good accuracy, after a short wait.
  */
 import { getPlace } from '@/data';
-import { metresBetween } from '../geo';
+import { distanceToPlace } from '../geo';
 import { delay } from './delay';
 
 // A few metres from the abdul-samad coords in places.json. Sample value only.
-const FAKE_SPOT = { lat: 3.1488, lng: 101.6943, accuracy_m: 18 };
+const FAKE_SPOT = { ok: true, lat: 3.1488, lng: 101.6943, accuracy_m: 18 };
 
 /** @returns {Promise<import('../location').Position>} */
 export async function getPosition() {
   await delay(800);
-  return { ok: true, ...FAKE_SPOT };
+  return { ...FAKE_SPOT };
 }
 
-/**
- * Metres from `position` to the place, or null if the place has no coordinates yet.
- * @param {string} placeId
- * @param {{ lat: number, lng: number }} position
- */
+/** Metres from `position` to the place, or null if the place has no coordinates yet. */
 export function distanceTo(placeId, position) {
-  const place = getPlace(placeId);
-  if (!place?.coords || !position) return null;
-  return metresBetween(place.coords, [position.lat, position.lng]);
+  return distanceToPlace(getPlace(placeId), position);
+}
+
+/** Sends the fake spot now and every 3 seconds. Returns a function that stops it. */
+export function watchPosition(callback) {
+  const first = setTimeout(() => callback({ ...FAKE_SPOT }), 300);
+  const repeat = setInterval(() => callback({ ...FAKE_SPOT }), 3000);
+  return () => {
+    clearTimeout(first);
+    clearInterval(repeat);
+  };
+}
+
+/** @returns {Promise<import('../location').PermissionState>} */
+export async function getPermissionState() {
+  return 'granted';
 }
