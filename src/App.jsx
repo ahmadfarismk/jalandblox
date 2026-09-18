@@ -88,6 +88,7 @@ export default function App() {
         <Route path="journey/:routeId" element={<JourneyScreen />} />
         <Route path="arrival" element={<ArrivalScreen />} />
         <Route path="learn" element={<LearnScreen />} />
+        <Route path="learn/:topic" element={<LearnScreen />} />
         {/* Hidden developer menu (F7): force check-in states, sample stamps, test pages. */}
         <Route path="debug" element={<DebugMenuScreen />} />
         {/* Hidden developer page for the outdoor GPS test (F6). Not linked in the app. */}

@@ -47,9 +47,9 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Syakir (guide and map)
 
-**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 38). S8 colour unlock.
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 38). S8 colour unlock. S9 Learn screens.
 
-**In progress:** S9 Learn screens.
+**In progress:** S10 phone polish.
 
 **Next:** S10 phone polish. S11 field-test fixes waits for Danial's test day (D13).
 
@@ -68,6 +68,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | S6 | Arrival screen at `/arrival`: recommended way large, others small. "Just landed" on Welcome now goes here. Routes `/arrival` and `/learn` added |
 | 2026-09-18 | S7 | Map tab: all 7 landmarks in their real positions, live position, tap to open. No street tiles and no tilt yet |
 | 2026-09-18 | S8 | Colour unlock: a gold stamp colours its map icon with no reload, and the icon that just changed gives one ring |
+| 2026-09-18 | S9 | Learn screens at `/learn` and `/learn/:topic`: 3 topics in both languages, with the line colours list. Route `/learn/:topic` added |
 
 ### Danial (rewards and content)
 
