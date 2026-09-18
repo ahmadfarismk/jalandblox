@@ -107,7 +107,41 @@
   },
   "privacy": {
     "title": "Privasi",
-    "comingSoon": "Notis privasi penuh akan datang tidak lama lagi."
+    "intro": "JalanKL ialah panduan percuma ke Kuala Lumpur, dibuat oleh sebuah pasukan kecil. Halaman ini menerangkan dengan ringkas apa yang kami kumpul dan sebabnya.",
+    "updated": "Kemas kini terakhir: {{date}}",
+    "phone": {
+      "title": "Apa yang kekal pada telefon anda",
+      "body": "Setem, kemajuan perjalanan, bahasa dan kewarganegaraan anda disimpan hanya pada telefon ini. Semasa daftar masuk, kami membaca lokasi anda selama beberapa saat untuk menyemak sama ada anda berada berhampiran mercu tanda. Kami tidak pernah menyimpan atau menghantar lokasi anda: kami hanya menyimpan ketepatan GPS. Anda boleh memadam semua data pada telefon ini di Tetapan, \"Tetapkan semula kemajuan\"."
+    },
+    "review": {
+      "title": "Apa yang kami kumpul jika anda menghantar ulasan",
+      "body": "Hanya jika anda memilih untuk menulis ulasan, kami menerima: alamat e-mel anda, kewarganegaraan anda (jika diberikan), bahasa anda, penilaian bintang dan teks ulasan, serta masa anda bersetuju dengan notis ini."
+    },
+    "why": {
+      "title": "Mengapa kami mengumpulnya",
+      "body": "Untuk menghantar poskad anda melalui e-mel, dan untuk mengetahui cara memperbaik panduan ini. Kami tidak menggunakan e-mel anda untuk pemasaran, dan kami tidak menjual data anda."
+    },
+    "visible": {
+      "title": "Siapa yang boleh melihat ulasan anda",
+      "body": "Hanya pasukan JalanKL. Ulasan tidak dipaparkan kepada umum."
+    },
+    "services": {
+      "title": "Perkhidmatan yang membantu kami",
+      "body": "Satu perkhidmatan pangkalan data (Supabase) menyimpan ulasan. Satu perkhidmatan e-mel menghantar poskad anda. Cloudflare menjalankan laman web ini. Mereka menggunakan data anda hanya untuk menyediakan perkhidmatan ini kepada kami."
+    },
+    "keep": {
+      "title": "Berapa lama kami menyimpannya",
+      "body": "Kami menyimpan ulasan dan alamat e-mel selama 12 bulan, kemudian memadamnya. Anda boleh meminta kami memadamnya lebih awal."
+    },
+    "rights": {
+      "title": "Hak anda",
+      "body": "Di bawah Akta Perlindungan Data Peribadi 2010 Malaysia, anda boleh meminta untuk melihat, membetulkan atau memadam data anda, dan anda boleh menarik balik persetujuan anda pada bila-bila masa. Tulis kepada kami dan kami akan membalas dalam masa 21 hari."
+    },
+    "contact": {
+      "title": "Hubungi kami",
+      "body": "E-mel kami di",
+      "tbc": "Alamat e-mel untuk dihubungi akan ditambah di sini tidak lama lagi."
+    }
   },
   "location": {
     "explainer": "Kami menggunakan lokasi anda hanya untuk menunjukkan jarak tempat dan mengesahkan daftar masuk anda. Lokasi anda tidak pernah disimpan.",
@@ -161,5 +195,9 @@
     "ios": "Tekan butang Kongsi, kemudian \"Tambah ke Skrin Utama\".",
     "other": "Buka menu pelayar anda dan pilih \"Tambah ke skrin utama\" atau \"Pasang aplikasi\".",
     "later": "Bukan sekarang"
+  },
+  "consent": {
+    "label": "Saya bersetuju JalanKL boleh menggunakan e-mel, kewarganegaraan dan ulasan saya untuk menghantar poskad saya dan memperbaik panduan ini. Ia disimpan selama 12 bulan, dan saya boleh meminta ia dipadam pada bila-bila masa.",
+    "link": "Baca notis privasi"
   }
 }

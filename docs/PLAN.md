@@ -17,13 +17,17 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Faris (core and backend)
 
-**Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu.
+**Done:** F1 setup, F2 hosting and preview links, F3 fakes, F4 real progress, F5 Settings and languages, F6 real GPS (merged; outdoor phone test to confirm), F7 check-in rules, Check-in screen and debug menu, F11 install to phone and offline (merged).
 
-**In progress:** F11 install to phone: pull request open. Home-screen install, works offline after the first visit, "Keep your stamps safe" hint after a gold stamp. Placeholder icons until the real design is ready.
+**In progress:** F12 privacy page and consent tick box: pull request open.
 
 **Postponed:** F8 Supabase tables. This also holds back F9 (postcard email) and F10 (Review screen sends for real). Must restart by the start of week 3 for the postcard demo. Until then `submitReview()` stays fake.
 
-**Next:** F12 privacy page and consent wording (needs a deletion-contact email), then F8.
+**Next:** F8 Supabase tables, then F9 postcard email and F10.
+
+**Before launch (blockers):**
+- Pick the team's contact email for data requests and put it in `src/core/privacy.js` (now `TBC`, and the Privacy page says "coming soon").
+- Have someone qualified check the privacy and consent wording (`privacy.*` and `consent.*` in the language files). This is not legal advice (section 9).
 
 **Push log**
 
@@ -39,6 +43,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | F7 | Real check-in rules with `too_soon`, Check-in screen at `/checkin/:id` with all states, debug menu at `/debug` |
 | 2026-09-18 | Welcome route | `/welcome` route (full screen, no tabs) for Syakir's S2. This per-person status layout and the pull request checklist |
 | 2026-09-18 | F11 | Install to phone (vite-plugin-pwa), offline app shell, placeholder icons, install hint after a gold stamp |
+| 2026-09-18 | F12 | Real Privacy page (PDPA: what, why, who, how long, rights, contact TBC), `<ConsentCheckbox />` for the Review form, test that all languages have the same keys |
 
 ### Syakir (guide and map)
 
@@ -64,7 +69,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **Next:** D3 Passport screen: read stamps with `getProgress()`, refresh with `onProgressChange()`, test data from `jalankl.loadSampleProgress()` or the debug menu at `/debug`.
 
-**Notes from Faris:** check-in only works at a landmark once its `coords` are filled in `places.json` (only `abdul-samad` has them now).
+**Notes from Faris:** check-in only works at a landmark once its `coords` are filled in `places.json` (only `abdul-samad` has them now). For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
 
 **Push log**
 
@@ -100,6 +105,8 @@ Add new lines at the end. Say who needs to know.
 23. **App icons are placeholders** (F11) in `public/icons/`: `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` (logo inside the middle 80%, because phones crop it to a circle) and `apple-touch-icon.png` (180×180). Syakir or Danial: make the real ones at these exact names and sizes.
 24. **The app works offline after the first visit** (F11). When you add big images later (landmark photos, signage), tell Faris: large files may need to be left out of the offline copy.
 25. **`<InstallHint />`** from `core/InstallHint.jsx` shows "Keep your stamps safe: add to home screen". It is on the Check-in gold screen now. The Passport screen (D3) could show it too. New text keys: `install.*`.
+26. **`<ConsentCheckbox />`** (F12) from `core/ConsentCheckbox.jsx` is the consent tick box for the Review form: unticked to start, plain sentence, link to `/privacy` (opens in a new tab so the review is not lost). Danial, D8.
+27. **New automatic test: every language file must have exactly the same keys as `en.json`, and no empty text.** If you add a key to one language, add it to the other in the same pull request, or the checks go red.
 
 ## 1. MVP on a page
 
