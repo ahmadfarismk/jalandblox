@@ -55,11 +55,11 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Syakir (guide and map)
 
-**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 30).
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 38). S8 colour unlock. S9 Learn screens. S10 phone polish.
 
-**In progress:** S8 colour unlock.
+**In progress:** nothing. S1 to S10 are done and waiting for review.
 
-**Next:** S9 Learn, S10 phone polish. S11 field-test fixes waits for Danial's test day (D13).
+**Next:** S11 field-test fixes, which waits for Danial's test day (D13). Until then: the map's street tiles (change 38) whenever the team picks a tile service, and the real landmark photos and icons when D10 and D12 land.
 
 **Notes from Faris:** Landmark photos are in (change 47): `PlaceScreen.jsx` now shows a small credit line under the photo, which the photo licences require; please keep it if you restyle that screen. S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
@@ -75,6 +75,11 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | S5 | Journey screen: step checklist with icons, saved step, "I'm Here" opens the check-in on the last step |
 | 2026-09-18 | S6 | Arrival screen at `/arrival`: recommended way large, others small. "Just landed" on Welcome now goes here. Routes `/arrival` and `/learn` added |
 | 2026-09-18 | S7 | Map tab: all 7 landmarks in their real positions, live position, tap to open. No street tiles and no tilt yet |
+| 2026-09-18 | S8 | Colour unlock: a gold stamp colours its map icon with no reload, and the icon that just changed gives one ring |
+| 2026-09-18 | S9 | Learn screens at `/learn` and `/learn/:topic`: 3 topics in both languages, with the line colours list. Route `/learn/:topic` added |
+| 2026-09-18 | S10 | Phone polish: checked at 320px wide, "Finding you…" while GPS lands, the location-off hint, and the Journey opens at the step you are on |
+| 2026-09-18 | S7 fix | Map keeps the city's real shape on any screen, and Danial's landmark icons (D12) show on it |
+| 2026-09-18 | S2 S3 S5 tests | Screen tests for Welcome, Guide home and Journey with the test libraries from change 40 |
 
 ### Danial (rewards and content)
 

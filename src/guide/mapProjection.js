@@ -68,3 +68,34 @@ export function projectPoint(point, bounds) {
   const top = ((bounds.maxY - point[0]) / (bounds.maxY - bounds.minY)) * 100;
   return { left, top };
 }
+
+/**
+ * Stretch the box so it has the same shape as the space it is drawn in.
+ *
+ * Without this, a tall box on a phone would stretch the city north to south:
+ * two landmarks a kilometre apart east to west would look closer than two a
+ * kilometre apart north to south. Widening (or heightening) the box instead of
+ * the city keeps the shape honest and simply shows a little more empty space.
+ *
+ * @param {ReturnType<typeof boundsFor>} bounds
+ * @param {number} aspect the drawing area's width divided by its height
+ */
+export function fitToBox(bounds, aspect) {
+  if (!bounds || !Number.isFinite(aspect) || aspect <= 0) return bounds;
+
+  const width = bounds.maxX - bounds.minX;
+  const height = bounds.maxY - bounds.minY;
+  const centreX = (bounds.minX + bounds.maxX) / 2;
+  const centreY = (bounds.minY + bounds.maxY) / 2;
+
+  // The box is drawn `aspect` times wider than it is tall, so its own width
+  // has to be `aspect` times its height for the shape to survive.
+  const wanted = height * aspect;
+  if (wanted > width) {
+    const half = wanted / 2;
+    return { ...bounds, minX: centreX - half, maxX: centreX + half };
+  }
+
+  const half = width / aspect / 2;
+  return { ...bounds, minY: centreY - half, maxY: centreY + half };
+}

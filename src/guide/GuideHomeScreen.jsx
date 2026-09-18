@@ -23,6 +23,10 @@ export default function GuideHomeScreen() {
   const [stamps, setStamps] = useState(() => getProgress().stamps);
   /** The visitor's position, or null while we don't have one. */
   const [position, setPosition] = useState(null);
+  /** 'granted' | 'prompt' | 'denied' | 'unknown', or null while we ask. */
+  const [permission, setPermission] = useState(null);
+  /** True while the first reading is on its way, which can take a few seconds. */
+  const [finding, setFinding] = useState(false);
 
   // Refresh the stamps whenever progress changes (a check-in, another tab, a reset).
   useEffect(() => onProgressChange((progress) => setStamps(progress.stamps)), []);
@@ -33,9 +37,14 @@ export default function GuideHomeScreen() {
   useEffect(() => {
     let active = true;
     getPermissionState().then(async (state) => {
-      if (!active || state !== 'granted') return;
+      if (!active) return;
+      setPermission(state);
+      if (state !== 'granted') return;
+      setFinding(true);
       const reading = await getPosition({ readings: 1 });
-      if (active && reading.ok) setPosition(reading);
+      if (!active) return;
+      setFinding(false);
+      if (reading.ok) setPosition(reading);
     });
     return () => {
       active = false;
@@ -69,6 +78,22 @@ export default function GuideHomeScreen() {
           ? t('guide.sortedByDistance', 'Nearest first')
           : t('guide.sortedByOrder', 'In our suggested order')}
       </p>
+
+      {/* GPS can take a few seconds, and the order changes when it lands. Say
+          so, instead of letting the list move for no visible reason. */}
+      {finding ? (
+        <p role="status" className="text-sm text-slate-400">
+          {t('location.asking', 'Finding you…')}
+        </p>
+      ) : null}
+
+      {/* Nothing is broken without location, so this is a hint, not a warning.
+          It stays out of the way while the explainer above is asking. */}
+      {!byDistance && !finding && permission !== null && permission !== 'prompt' ? (
+        <p className="text-sm text-slate-400">
+          {t('guide.locationOffHint', 'Turn on location to sort by distance.')}
+        </p>
+      ) : null}
 
       {sorted.length === 0 ? (
         <p className="mt-4 text-slate-500">{t('guide.empty', 'No places to show.')}</p>

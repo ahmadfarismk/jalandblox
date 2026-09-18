@@ -99,6 +99,7 @@ export default function App() {
         <Route path="journey/:routeId" element={<JourneyScreen />} />
         <Route path="arrival" element={<ArrivalScreen />} />
         <Route path="learn" element={<LearnScreen />} />
+        <Route path="learn/:topic" element={<LearnScreen />} />
         {/* Review in two steps, then the postcard page (D8, D9). */}
         <Route path="review/:id" element={<ReviewScreen />} />
         <Route path="review/:id/postcard" element={<PostcardPickScreen />} />

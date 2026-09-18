@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { getPlaces } from '@/data';
-import { formatDistance, shortNameKey, sortPlaces, stampKind } from './placeList';
+import {
+  formatDistance,
+  isCollected,
+  newlyGold,
+  shortNameKey,
+  sortPlaces,
+  stampKind,
+} from './placeList';
 
 /** Stands in for react-i18next's t() in these tests. */
 const t = (key, options) => `${key}:${JSON.stringify(options ?? {})}`;
@@ -76,5 +83,37 @@ describe('shortNameKey', () => {
       const short = key.split('.').reduce((o, k) => o?.[k], en);
       expect(short, key).toBeTruthy();
     }
+  });
+});
+
+describe('newlyGold', () => {
+  const gold = { kind: 'gold' };
+  const outline = { kind: 'outline' };
+
+  it('says nothing happened when nothing changed', () => {
+    expect(newlyGold({ a: gold }, { a: gold })).toEqual([]);
+    expect(newlyGold({}, {})).toEqual([]);
+    expect(newlyGold(undefined, undefined)).toEqual([]);
+  });
+
+  it('spots a first stamp and an outline turning gold', () => {
+    expect(newlyGold({}, { a: gold })).toEqual(['a']);
+    expect(newlyGold({ a: outline }, { a: gold })).toEqual(['a']);
+  });
+
+  it('ignores an outline stamp from opening a story', () => {
+    expect(newlyGold({}, { a: outline })).toEqual([]);
+  });
+
+  it('celebrates only the place that changed', () => {
+    expect(newlyGold({ a: gold }, { a: gold, b: gold })).toEqual(['b']);
+  });
+});
+
+describe('isCollected', () => {
+  it('is only true for a gold stamp', () => {
+    expect(isCollected({ kind: 'gold' })).toBe(true);
+    expect(isCollected({ kind: 'outline' })).toBe(false);
+    expect(isCollected(null)).toBe(false);
   });
 });

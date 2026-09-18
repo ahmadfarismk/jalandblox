@@ -63,3 +63,24 @@ export function stampKind(stamp) {
 export function shortNameKey(place) {
   return `places.${place.id}.short`;
 }
+
+/** True once a place has its GPS-confirmed gold stamp. */
+export function isCollected(stamp) {
+  return stampKind(stamp) === 'gold';
+}
+
+/**
+ * Which places just turned gold (task S8).
+ *
+ * The Map screen compares the stamps it had a moment ago with the ones it has
+ * now, so it can mark the icon that just changed. Only outline-to-gold and
+ * nothing-to-gold count; a reload, where "before" is already gold, must not
+ * celebrate again.
+ *
+ * @param {Record<string, {kind: string}>} before
+ * @param {Record<string, {kind: string}>} after
+ * @returns {string[]} place ids
+ */
+export function newlyGold(before = {}, after = {}) {
+  return Object.keys(after).filter((id) => isCollected(after[id]) && !isCollected(before[id]));
+}

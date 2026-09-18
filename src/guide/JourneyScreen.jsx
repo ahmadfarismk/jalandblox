@@ -9,7 +9,7 @@
  * screen) for the place the card ends at. Every other step advances on the tap
  * alone, because GPS is weak inside stations and on trains.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { getLine, getPlace, getRoute } from '@/data';
@@ -91,6 +91,17 @@ export default function JourneyScreen() {
 
   useEffect(() => onProgressChange(setProgress), []);
 
+  // On a long route card the step you are on can be below the fold. Bring it
+  // into view, so a visitor holding the phone one-handed sees it straight away.
+  const currentStepRef = useRef(null);
+  const stepIndex = progress.journeys[routeId]?.stepIndex ?? 0;
+  // Jump straight there rather than animate: a smooth scroll is skipped
+  // whenever the page is not being drawn (a backgrounded tab, a phone set to
+  // reduce motion), and then the step is left off-screen.
+  useEffect(() => {
+    currentStepRef.current?.scrollIntoView({ block: 'center' });
+  }, [routeId, stepIndex]);
+
   if (!route) {
     return (
       <section>
@@ -168,7 +179,7 @@ export default function JourneyScreen() {
           const done = state === 'done';
           const now = state === 'now';
           return (
-            <li key={step.textKey}>
+            <li key={step.textKey} ref={now ? currentStepRef : null}>
               <Card
                 className={[
                   'flex gap-3',
@@ -201,7 +212,7 @@ export default function JourneyScreen() {
                       src={step.photo}
                       alt=""
                       loading="lazy"
-                      className="mt-2 w-full rounded-lg object-cover"
+                      className="mt-2 max-h-56 w-full rounded-lg object-cover"
                     />
                   ) : null}
 
