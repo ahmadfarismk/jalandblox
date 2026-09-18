@@ -63,9 +63,9 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Danial (rewards and content)
 
-**Done:** D1 `places.json` (7 spots, desk-checked coordinates and sources) and `data/index.js`. D2 `en.json` / `ms.json` with keys for all 12 screens. D4 stories and hours notes. D5 12 route cards. D6 arrival options and Learn content. Facts come from desk research; exits, photos and ride times stay TBC for the field day (D7).
+**Done:** D1 `places.json` (7 spots, desk-checked coordinates and sources) and `data/index.js`. D2 `en.json` / `ms.json` with keys for all 12 screens. D4 stories and hours notes. D5 12 route cards. D6 arrival options and Learn content. D12 landmark icons. Facts come from desk research; exits, photos and ride times stay TBC for the field day (D7).
 
-**In progress:** D3 Passport screen, D12 landmark icons.
+**In progress:** D3 Passport screen.
 
 **Next:** D8 Review screen and D9 Postcard sent. Field day (D7) and photographer (D10) are physical tasks.
 
@@ -78,6 +78,7 @@ This section says what is done, what each person builds next, and anything that 
 | Date | Pull request | What changed |
 | --- | --- | --- |
 | 2026-09-18 | D1 D2 D4 D5 D6 | All data: places, routes, arrival, learn, lines, nationalities, both language files, data tests |
+| 2026-09-18 | D12 | 14 landmark icons (grey + colour) in `public/landmarks/` |
 
 ### Changes from the plan below (read before coding)
 
@@ -117,6 +118,7 @@ Add new lines at the end. Say who needs to know.
 32. **Visiting order changed:** KL Sentral 1, Merdeka 118 2, Petaling Street 3, Sultan Abdul Samad 4, Petronas 5, KLCC Park 6, KL Tower 7. The route cards follow it, so Merdeka Square → Petronas is one card. KLCC Park → KL Tower is a `car` card (the walk is 17–25 minutes uphill). (Everyone.)
 33. **Every place has coordinates now** (desk-checked from Wikipedia/OpenStreetMap, to confirm on the field day), so check-in works at all 7. Two core tests used Petronas as "a place with no coordinates"; they now use a made-up place instead. (Faris.)
 34. **Text keys added** for every screen (`welcome.*`, `arrival.*`, `guide.*`, `place.*`, `journey.*`, `map.*`, `learn.*`, `passport.*`, `review.*`, `postcard.*`, `postcardPick.*`, `stamps.*`, `categories.*`, `lines.*`) plus `meta.dateLocale` for dates. Faris's keys are unchanged. Use them instead of adding your own where they fit. (Syakir.)
+35. **Landmark icons are in** (D12): `public/landmarks/<id>-grey.png` and `<id>-colour.png`, 256 × 256 with a transparent background, anchored at the bottom centre (the ground shadow sits at y ≈ 238). Use `place.iconGrey` / `place.iconColour`. The landmark photos (`place.photo`) come later from the photographer (D10). (Syakir, for the Map.)
 
 ## 1. MVP on a page
 
