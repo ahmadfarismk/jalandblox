@@ -63,11 +63,11 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Danial (rewards and content)
 
-**Done:** D1 `places.json` (7 spots, desk-checked coordinates and sources) and `data/index.js`. D2 `en.json` / `ms.json` with keys for all 12 screens. D4 stories and hours notes. D5 12 route cards. D6 arrival options and Learn content. D12 landmark icons. D3 Passport screen. Facts come from desk research; exits, photos and ride times stay TBC for the field day (D7).
+**Done:** D1 `places.json` (7 spots, desk-checked coordinates and sources) and `data/index.js`. D2 `en.json` / `ms.json` with keys for all 12 screens. D4 stories and hours notes. D5 12 route cards. D6 arrival options and Learn content. D12 landmark icons. D3 Passport screen. D8 Review screen (two steps). D9 Postcard sent. Facts come from desk research; exits, photos and ride times stay TBC for the field day (D7).
 
-**In progress:** D8 Review screen and D9 Postcard sent.
+**In progress:** nothing. Waiting for review of the open pull requests.
 
-**Next:** Field day (D7) and photographer (D10) are physical tasks.
+**Next:** D10 hire the photographer, D11 postcard template, D7 field day (fills the TBCs), D13 field test.
 
 **Notes from Faris:** check-in only works at a landmark once its `coords` are filled in `places.json` (only `abdul-samad` has them now). For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
 
@@ -80,6 +80,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | D1 D2 D4 D5 D6 | All data: places, routes, arrival, learn, lines, nationalities, both language files, data tests |
 | 2026-09-18 | D12 | 14 landmark icons (grey + colour) in `public/landmarks/` |
 | 2026-09-18 | D3 | Passport screen: postage-stamp grid, counts, filters, next stamp, install hint after a gold stamp; screen tests |
+| 2026-09-18 | D8 D9 | Review in two steps (stars + text, then choose one postcard + email + consent), Postcard sent screen, 3 routes in App.jsx; screen tests |
 
 ### Changes from the plan below (read before coding)
 
@@ -121,6 +122,8 @@ Add new lines at the end. Say who needs to know.
 34. **Text keys added** for every screen (`welcome.*`, `arrival.*`, `guide.*`, `place.*`, `journey.*`, `map.*`, `learn.*`, `passport.*`, `review.*`, `postcard.*`, `postcardPick.*`, `stamps.*`, `categories.*`, `lines.*`) plus `meta.dateLocale` for dates. Faris's keys are unchanged. Use them instead of adding your own where they fit. (Syakir.)
 35. **Landmark icons are in** (D12): `public/landmarks/<id>-grey.png` and `<id>-colour.png`, 256 × 256 with a transparent background, anchored at the bottom centre (the ground shadow sits at y ≈ 238). Use `place.iconGrey` / `place.iconColour`. The landmark photos (`place.photo`) come later from the photographer (D10). (Syakir, for the Map.)
 36. **New dev-only test libraries (please OK):** `jsdom`, `@testing-library/react`, `@testing-library/dom` and `@testing-library/jest-dom`, so screen tests can render a screen and click it. Nothing ships to phones. A test file opts in with `// @vitest-environment jsdom` on its first line, so the other tests still run in plain Node. (Faris, Syakir.)
+37. **The review has two steps** (D8). `/review/:id` asks for stars and text. `/review/:id/postcard` lets the visitor choose **one** postcard, from places they have a **gold** stamp for (the others are shown locked), then asks for email and consent (Faris's `<ConsentCheckbox />`; the send button stays disabled until it is ticked) and sends. Then `/postcard/<chosen place>`. The three routes are added in `App.jsx` under the page layout. (Faris, please review those lines.)
+38. **`submitReview()` gets one more field: `postcardPlaceId`** (please agree, Faris). It is the place whose postcard the visitor chose, or `null` when they have none unlocked yet (the review is still saved). The backend (F9, F10) should email **that** postcard, not always the reviewed place's. It should answer `{ ok: false, reason: 'invalid_postcard' }` if the id is not a postcard place. The server can't check the gold stamp (stamps live on the phone), so the screen enforces it. Other reasons the screen understands: `invalid_email`, `no_consent`, `rate_limited`; anything else shows "we'll try again" and keeps the form filled. (Faris.)
 
 ## 1. MVP on a page
 
