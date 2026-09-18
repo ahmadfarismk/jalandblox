@@ -70,11 +70,11 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Danial (rewards and content)
 
-**Done:** D1 `places.json` (7 spots, desk-checked coordinates and sources) and `data/index.js`. D2 `en.json` / `ms.json` with keys for all 12 screens. D4 stories and hours notes. D5 12 route cards. D6 arrival options and Learn content. Facts come from desk research; exits, photos and ride times stay TBC for the field day (D7).
+**Done:** D1 `places.json` (7 spots, desk-checked coordinates and sources) and `data/index.js`. D2 `en.json` / `ms.json` with keys for all 12 screens. D4 stories and hours notes. D5 12 route cards. D6 arrival options and Learn content. D12 landmark icons. D3 Passport screen. D8 Review screen (two steps). D9 Postcard sent. Facts come from desk research; exits, photos and ride times stay TBC for the field day (D7).
 
-**In progress:** D3 Passport screen, D12 landmark icons.
+**In progress:** nothing. Waiting for review of the open pull requests.
 
-**Next:** D8 Review screen and D9 Postcard sent. Field day (D7) and photographer (D10) are physical tasks.
+**Next:** D10 hire the photographer, D11 postcard template, D7 field day (fills the TBCs), D13 field test.
 
 **Notes from Faris:** thanks for the coordinates: check-in now works at all 7 landmarks. Please confirm them and `radius_m` on the field day. For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
 
@@ -85,6 +85,9 @@ This section says what is done, what each person builds next, and anything that 
 | Date | Pull request | What changed |
 | --- | --- | --- |
 | 2026-09-18 | D1 D2 D4 D5 D6 | All data: places, routes, arrival, learn, lines, nationalities, both language files, data tests |
+| 2026-09-18 | D12 | 14 landmark icons (grey + colour) in `public/landmarks/` |
+| 2026-09-18 | D3 | Passport screen: postage-stamp grid, counts, filters, next stamp, install hint after a gold stamp; screen tests |
+| 2026-09-18 | D8 D9 | Review in two steps (stars + text, then choose one postcard + email + consent), Postcard sent screen, 3 routes in App.jsx; screen tests |
 
 ### Changes from the plan below (read before coding)
 
@@ -128,6 +131,10 @@ Add new lines at the end. Say who needs to know.
 36. **First open goes to `/welcome` from `GuideHomeScreen.jsx`** (S2), because `/` is where the link and the QR code land. Faris: move this into `App.jsx` when you add the redirect there, and delete the three lines at the top of my screen.
 37. **The Map tab has no street tiles and no tilt yet** (S7). MapLibre GL JS needs a hosted tile service, and picking one is still an open question (section 16), so the Map screen draws the seven landmarks from their own coordinates: right positions, no streets. Tilting that drawn map in CSS squashed the icons to about 30px tall, under the 44px a thumb needs, so it is flat. Faris: when the team picks a tile service, `MapScreen.jsx` is the only file that changes, and adding `maplibre-gl` to package.json needs your say-so. The plan already lists the tilt as the first thing to cut (section 12).
 38. **The database is locked to the app** (F8). The app never reads or writes Supabase tables directly, not even with the public key: everything goes through `submitReview()` in `core/api.js` (F10). New tables must get the same lock-down, see `supabase/README.md`.
+39. **Landmark icons are in** (D12): `public/landmarks/<id>-grey.png` and `<id>-colour.png`, 256 × 256 with a transparent background, anchored at the bottom centre (the ground shadow sits at y ≈ 238). Use `place.iconGrey` / `place.iconColour`. The landmark photos (`place.photo`) come later from the photographer (D10). (Syakir, for the Map.)
+40. **New dev-only test libraries (please OK):** `jsdom`, `@testing-library/react`, `@testing-library/dom` and `@testing-library/jest-dom`, so screen tests can render a screen and click it. Nothing ships to phones. A test file opts in with `// @vitest-environment jsdom` on its first line, so the other tests still run in plain Node. (Faris, Syakir.)
+41. **The review has two steps** (D8). `/review/:id` asks for stars and text. `/review/:id/postcard` lets the visitor choose **one** postcard, from places they have a **gold** stamp for (the others are shown locked), then asks for email and consent (Faris's `<ConsentCheckbox />`; the send button stays disabled until it is ticked) and sends. Then `/postcard/<chosen place>`. The three routes are added in `App.jsx` under the page layout. (Faris, please review those lines.)
+42. **`submitReview()` gets one more field: `postcardPlaceId`** (please agree, Faris). It is the place whose postcard the visitor chose, or `null` when they have none unlocked yet (the review is still saved). The backend (F9, F10) should email **that** postcard, not always the reviewed place's. It should answer `{ ok: false, reason: 'invalid_postcard' }` if the id is not a postcard place. The server can't check the gold stamp (stamps live on the phone), so the screen enforces it. Other reasons the screen understands: `invalid_email`, `no_consent`, `rate_limited`; anything else shows "we'll try again" and keeps the form filled. (Faris.)
 
 ## 1. MVP on a page
 
