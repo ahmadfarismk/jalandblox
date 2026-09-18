@@ -1,32 +1,55 @@
 [
   {
     "id": "touch-n-go",
-    "titleKey": "learn.touch-n-go.title",
+    "titleKey": "learnTopics.touch-n-go.title",
     "blocks": [
-      {
-        "type": "text",
-        "key": "learn.touch-n-go.intro"
-      }
+      { "type": "text", "key": "learnTopics.touch-n-go.t1" },
+      { "type": "text", "key": "learnTopics.touch-n-go.t2" },
+      { "type": "photo", "src": "TBC", "captionKey": "learnTopics.touch-n-go.p1" },
+      { "type": "text", "key": "learnTopics.touch-n-go.t3" },
+      { "type": "text", "key": "learnTopics.touch-n-go.t4" },
+      { "type": "text", "key": "learnTopics.touch-n-go.t5" }
+    ],
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/MyRapid_Card",
+      "https://myrapid.com.my/resources/faqs/ (via search index; page blocks automated reads)",
+      "https://worldofbuzz.com/msians-can-now-pay-using-debit-or-credit-cards-at-all-lrt-mrt-brt-monorail-stations/ (1 May 2024, quoting Rapid Rail)",
+      "https://soyacincau.com/2026/05/22/prasarana-mrt-lrt-bus-tap-in-tap-out-credit-debit-card-open-payment-soon/",
+      "https://www.kliaekspres.com/plan-your-trip/plan/faq-on-airport-transfer-by-train-to-kuala-lumpur-city/"
     ]
   },
   {
     "id": "line-colours",
-    "titleKey": "learn.line-colours.title",
+    "titleKey": "learnTopics.line-colours.title",
     "blocks": [
-      {
-        "type": "text",
-        "key": "learn.line-colours.intro"
-      }
+      { "type": "text", "key": "learnTopics.line-colours.t1" },
+      { "type": "lines" },
+      { "type": "text", "key": "learnTopics.line-colours.t2" },
+      { "type": "photo", "src": "TBC", "captionKey": "learnTopics.line-colours.p1" }
+    ],
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Module:Adjacent_stations/KLRT (line colours)",
+      "https://en.wikipedia.org/wiki/Kelana_Jaya_Line",
+      "https://en.wikipedia.org/wiki/MRT_Kajang_Line",
+      "https://en.wikipedia.org/wiki/KL_Monorail"
     ]
   },
   {
     "id": "reading-signs",
-    "titleKey": "learn.reading-signs.title",
+    "titleKey": "learnTopics.reading-signs.title",
     "blocks": [
-      {
-        "type": "text",
-        "key": "learn.reading-signs.intro"
-      }
+      { "type": "text", "key": "learnTopics.reading-signs.t1" },
+      { "type": "text", "key": "learnTopics.reading-signs.t2" },
+      { "type": "photo", "src": "TBC", "captionKey": "learnTopics.reading-signs.p1" },
+      { "type": "text", "key": "learnTopics.reading-signs.t3" },
+      { "type": "text", "key": "learnTopics.reading-signs.t4" }
+    ],
+    "verified": "2026-09-18 (desk)",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Masjid_Jamek_LRT_station",
+      "https://en.wikipedia.org/wiki/Kelana_Jaya_Line"
     ]
   }
 ]

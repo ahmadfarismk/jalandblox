@@ -9,6 +9,13 @@ vi.mock('./location.real', async (importOriginal) => ({
   getPosition: vi.fn(),
 }));
 
+// A made-up place whose coordinates are still TBC (every real place has them now).
+vi.mock('@/data', async (importOriginal) => {
+  const data = await importOriginal();
+  const noCoords = { ...data.getPlace('petronas'), id: 'no-coords-yet', coords: null };
+  return { ...data, getPlace: (id) => (id === noCoords.id ? noCoords : data.getPlace(id)) };
+});
+
 // abdul-samad is at [3.14861, 101.69444] with a 90 m radius in places.json.
 const AT_ABDUL_SAMAD = { ok: true, lat: 3.14861, lng: 101.69444, accuracy_m: 18 };
 // 0.002 degrees of latitude north is about 222 m away.
@@ -67,7 +74,7 @@ describe('checkIn', () => {
   });
 
   it('answers error when the place has no coordinates yet, without asking for GPS', async () => {
-    expect(await checkIn('petronas')).toEqual({ result: 'error' });
+    expect(await checkIn('no-coords-yet')).toEqual({ result: 'error' });
     expect(getPosition).not.toHaveBeenCalled();
   });
 

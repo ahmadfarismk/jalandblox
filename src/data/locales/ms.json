@@ -1,154 +1,429 @@
 {
   "meta": {
+    "dateLocale": "ms-MY",
     "languageName": "Bahasa Melayu"
   },
-  "places": {
-    "kl-sentral": {
-      "name": "KL Sentral",
-      "story": "TBC"
-    },
-    "petaling-street": {
-      "name": "Jalan Petaling",
-      "story": "TBC"
-    },
-    "abdul-samad": {
-      "name": "Bangunan Sultan Abdul Samad",
-      "story": "TBC"
-    },
-    "merdeka-118": {
-      "name": "Merdeka 118",
-      "story": "TBC"
-    },
-    "kl-tower": {
-      "name": "Menara KL",
-      "story": "TBC"
-    },
-    "petronas": {
-      "name": "Menara Berkembar Petronas",
-      "story": "TBC"
-    },
-    "klcc-park": {
-      "name": "Taman KLCC",
-      "story": "TBC"
-    }
-  },
-  "routes": {
-    "klia__kl-sentral": {
-      "why": "TBC",
-      "s1": "TBC",
-      "s2": "TBC",
-      "s3": "TBC",
-      "s4": "TBC"
-    },
-    "kl-sentral__petronas": {
-      "why": "TBC",
-      "s1": "TBC",
-      "s2": "TBC",
-      "s3": "TBC",
-      "s4": "TBC",
-      "s5": "TBC"
-    }
-  },
-  "arrival": {
-    "option-a": {
-      "name": "TBC",
-      "price": "TBC",
-      "minutes": "TBC"
-    },
-    "option-b": {
-      "name": "TBC",
-      "price": "TBC",
-      "minutes": "TBC"
-    }
-  },
-  "learn": {
-    "touch-n-go": {
-      "title": "TBC",
-      "intro": "TBC"
-    },
-    "line-colours": {
-      "title": "TBC",
-      "intro": "TBC"
-    },
-    "reading-signs": {
-      "title": "TBC",
-      "intro": "TBC"
-    }
-  },
   "ui": {
+    "appName": "JalanKL",
+    "imHere": "Saya Di Sini",
+    "takeMeThere": "Bawa saya ke sana",
+    "openInGoogleMaps": "Buka dalam Google Maps",
+    "back": "Kembali",
+    "next": "Seterusnya",
+    "continue": "Teruskan",
+    "cancel": "Batal",
+    "close": "Tutup",
+    "retry": "Cuba lagi",
+    "done": "Selesai",
+    "loading": "Memuatkan…",
+    "estimate": "anggaran",
+    "minutes_one": "{{count}} min",
+    "minutes_other": "{{count}} min",
+    "aboutMinutes": "Kira-kira {{count}} min (anggaran)",
+    "metresAway": "{{count}} m dari sini",
+    "kmAway": "{{km}} km dari sini",
+    "notFound": "Kami tidak menjumpai halaman itu.",
+    "goHome": "Kembali ke panduan",
+    "offline": "Anda di luar talian. Sesetengah perkara mungkin tidak dimuatkan sehingga anda bersambung semula.",
     "tabs": {
       "guide": "Panduan",
       "map": "Peta",
       "passport": "Pasport"
     },
-    "imHere": "Saya Di Sini",
-    "takeMeThere": "Bawa saya ke sana",
-    "openInGoogleMaps": "Buka dalam Google Maps",
     "comingSoon": "Akan datang.",
-    "openSettings": "Tetapan",
-    "back": "Kembali"
+    "openSettings": "Tetapan"
   },
-  "settings": {
-    "title": "Tetapan",
-    "language": "Bahasa",
-    "reset": {
-      "title": "Tetapkan semula kemajuan",
-      "body": "Ini akan memadam semua setem dan langkah perjalanan anda pada telefon ini. Bahasa anda tidak berubah.",
-      "button": "Tetapkan semula kemajuan",
-      "confirm": "Ya, padam semua",
-      "cancel": "Batal",
-      "done": "Kemajuan anda telah ditetapkan semula."
+  "welcome": {
+    "title": "Selamat datang ke KL",
+    "subtitle": "Panduan langkah demi langkah dari lapangan terbang ke tempat paling terkenal di bandar ini. Kumpul cop di setiap satunya.",
+    "languageLabel": "Bahasa",
+    "nationalityLabel": "Anda dari mana?",
+    "nationalityHint": "Pilihan. Ia membantu kami memahami siapa yang menggunakan JalanKL.",
+    "nationalityPlaceholder": "Pilih negara anda",
+    "nationalitySkip": "Langkau",
+    "whereAreYou": "Anda di mana sekarang?",
+    "justLanded": "Baru mendarat",
+    "justLandedHint": "Di KLIA dan menuju ke bandar",
+    "alreadyInKL": "Sudah di KL",
+    "alreadyInKLHint": "Tunjukkan mercu tanda",
+    "start": "Jom mula"
+  },
+  "arrival": {
+    "title": "Dari KLIA ke KL Sentral",
+    "recommended": "Pilihan kami",
+    "why": "Kenapa cara ini",
+    "otherOptions": "Cara lain",
+    "start": "Mula langkah",
+    "learnBasics": "Baru dengan tren di KL? Belajar asasnya",
+    "estimateNote": "Masa dan harga adalah anggaran. Semak dengan pengendali sebelum anda bertolak.",
+    "pickup": "Dewan ketibaan KLIA",
+    "pickupHint": "Terminal 1 atau 2",
+    "dropoffHint": "Hab pengangkutan bandar",
+    "schematic": "Rajah, bukan mengikut skala",
+    "startWith": "Mula dengan {{option}}",
+    "howToPay": "Cara bayar",
+    "optionsLabel": "Cara ke KL Sentral"
+  },
+  "guide": {
+    "title": "Pusat Bandar",
+    "subtitle": "Pilih satu tempat. Kami tunjukkan jalannya.",
+    "sortedByDistance": "Paling dekat dahulu",
+    "sortedByOrder": "Mengikut susunan cadangan kami",
+    "locationOffHint": "Hidupkan lokasi untuk susun mengikut jarak.",
+    "empty": "Tiada tempat untuk dipaparkan."
+  },
+  "place": {
+    "hours": "Waktu dibuka",
+    "story": "Kisahnya",
+    "noRoute": "Kami belum ada arah langkah demi langkah dari sini. Google Maps boleh tunjukkan jalannya.",
+    "category": "Jenis",
+    "stampHint": "Daftar masuk di sini dengan GPS untuk dapatkan cop emas."
+  },
+  "journey": {
+    "title": "Laluan anda",
+    "why": "Kenapa cara ini",
+    "stepOf": "Langkah {{current}} daripada {{total}}",
+    "towards": "Arah {{station}}",
+    "boardAt": "Naik di {{station}}",
+    "alightAt": "Turun di {{station}}",
+    "stops_one": "{{count}} stesen",
+    "stops_other": "{{count}} stesen",
+    "total": "Kira-kira {{count}} min kesemuanya (anggaran)",
+    "liveTimes": "Untuk masa terkini, buka Google Maps.",
+    "resume": "Sambung dari langkah terakhir",
+    "finished": "Anda dah sampai!",
+    "stepType": {
+      "walk": "Jalan kaki",
+      "board": "Naik",
+      "ride": "Dalam perjalanan",
+      "exit": "Keluar",
+      "arrive": "Tiba"
     },
-    "privacy": {
-      "title": "Privasi",
-      "note": "Setem dan tetapan anda disimpan hanya pada telefon ini. Kami tidak pernah menyimpan lokasi anda.",
-      "link": "Baca notis privasi"
+    "mode": {
+      "train": "Tren",
+      "walk": "Jalan kaki",
+      "car": "Kereta"
     }
   },
-  "privacy": {
-    "title": "Privasi",
-    "intro": "JalanKL ialah panduan percuma ke Kuala Lumpur, dibuat oleh sebuah pasukan kecil. Halaman ini menerangkan dengan ringkas apa yang kami kumpul dan sebabnya.",
-    "updated": "Kemas kini terakhir: {{date}}",
-    "phone": {
-      "title": "Apa yang kekal pada telefon anda",
-      "body": "Setem, kemajuan perjalanan, bahasa dan kewarganegaraan anda disimpan hanya pada telefon ini. Semasa daftar masuk, kami membaca lokasi anda selama beberapa saat untuk menyemak sama ada anda berada berhampiran mercu tanda. Kami tidak pernah menyimpan atau menghantar lokasi anda: kami hanya menyimpan ketepatan GPS. Anda boleh memadam semua data pada telefon ini di Tetapan, \"Tetapkan semula kemajuan\"."
+  "map": {
+    "title": "Peta",
+    "you": "Anda di sini",
+    "legendGrey": "Belum dikumpul",
+    "legendColour": "Cop emas dikumpul",
+    "locationOff": "Lokasi dimatikan, jadi kami tidak dapat tunjukkan kedudukan anda."
+  },
+  "learn": {
+    "title": "Belajar asasnya",
+    "subtitle": "Tiga panduan ringkas untuk bergerak dengan tren."
+  },
+  "passport": {
+    "title": "Pasport",
+    "holder": "Pasport JalanKL",
+    "nationality": "Kewarganegaraan",
+    "nationalityNotSet": "Belum ditetapkan",
+    "count": "{{count}} daripada {{total}} cop",
+    "goldCount_one": "{{count}} emas",
+    "goldCount_other": "{{count}} emas",
+    "progressLabel": "Cop emas dikumpul",
+    "status": {
+      "none": "Belum dilawati",
+      "outline": "Cop garis",
+      "gold": "Cop emas"
     },
-    "review": {
-      "title": "Apa yang kami kumpul jika anda menghantar ulasan",
-      "body": "Hanya jika anda memilih untuk menulis ulasan, kami menerima: alamat e-mel anda, kewarganegaraan anda (jika diberikan), bahasa anda, penilaian bintang dan teks ulasan, serta masa anda bersetuju dengan notis ini."
+    "goldOn": "Disahkan {{date}}",
+    "outlineOn": "Dibuka {{date}}",
+    "outlineHint": "Daftar masuk dengan GPS untuk jadikannya emas.",
+    "empty": "Pasport anda masih kosong. Buka satu tempat atau daftar masuk untuk mula mengumpul cop.",
+    "viewOnMap": "Lihat cop anda di peta",
+    "writeReview": "Tulis ulasan",
+    "reviewed": "Ulasan dihantar",
+    "stampAlt": "{{place}}: {{status}}",
+    "collectionTitle": "Pusat Bandar",
+    "collectionHint": "Daftar masuk dengan GPS di kesemua 7 tempat untuk melengkapkan pasport anda.",
+    "filterLabel": "Tunjuk",
+    "filters": {
+      "all": "Semua",
+      "gold": "Emas",
+      "toVisit": "Belum dilawati"
     },
-    "why": {
-      "title": "Mengapa kami mengumpulnya",
-      "body": "Untuk menghantar poskad anda melalui e-mel, dan untuk mengetahui cara memperbaik panduan ini. Kami tidak menggunakan e-mel anda untuk pemasaran, dan kami tidak menjual data anda."
+    "heroStrong": "Kumpul cop.",
+    "heroLight": "Dapatkan poskad.",
+    "nextStamp": "Cari cop seterusnya",
+    "noneInFilter": "Belum ada cop di sini."
+  },
+  "review": {
+    "title": "Ulas {{place}}",
+    "heading": "Bagaimana lawatan ke {{place}}?",
+    "introPostcard": "Kongsi pengalaman anda dan kami akan e-melkan poskad percuma {{place}}.",
+    "introNoPostcard": "Kongsi pengalaman anda. Poskad untuk {{place}} akan datang tidak lama lagi.",
+    "alreadyReviewed": "Anda sudah menghantar ulasan untuk {{place}}. Jika hantar lagi, pautan poskad anda akan dihantar semula.",
+    "starsLabel": "Penilaian anda",
+    "star_one": "{{count}} bintang",
+    "star_other": "{{count}} bintang",
+    "textLabel": "Ulasan anda (pilihan)",
+    "textPlaceholder": "Apa yang anda suka? Ada apa-apa yang perlu kami baiki?",
+    "textCount": "{{count}}/{{max}}",
+    "emailLabel": "Alamat e-mel",
+    "emailHint": "Kami hanya gunakannya untuk menghantar poskad anda.",
+    "emailPlaceholder": "nama@contoh.com",
+    "send": "Hantar ulasan",
+    "sending": "Menghantar…",
+    "errorSummary": "Sila betulkan bahagian yang ditandakan.",
+    "errors": {
+      "stars": "Pilih 1 hingga 5 bintang.",
+      "email": "Masukkan alamat e-mel yang sah, contohnya nama@contoh.com.",
+      "text": "Sila pastikan ulasan anda kurang daripada {{max}} aksara.",
+      "consent": "Tandakan kotak persetujuan sebelum menghantar.",
+      "rateLimited": "Terlalu banyak cubaan dari telefon ini. Sila tunggu sebentar dan cuba lagi.",
+      "failed": "Kami tidak dapat menghantar ulasan anda sekarang. Kami akan cuba lagi apabila anda tekan Hantar. Jawapan anda masih ada di sini."
     },
-    "visible": {
-      "title": "Siapa yang boleh melihat ulasan anda",
-      "body": "Hanya pasukan JalanKL. Ulasan tidak dipaparkan kepada umum."
+    "lockedTitle": "Dapatkan cop emas dahulu",
+    "lockedBody": "Ulasan dibuka selepas anda daftar masuk di {{place}} dengan GPS.",
+    "lockedAction": "Pergi ke {{place}}",
+    "step": "Langkah {{current}} daripada {{total}}",
+    "next": "Seterusnya: pilih poskad anda"
+  },
+  "postcard": {
+    "sentTitle": "Semak e-mel anda",
+    "sentBody": "Kami telah menghantar pautan untuk memuat turun poskad {{place}} anda. Ia mungkin mengambil masa beberapa minit. Semak juga folder spam anda.",
+    "previewAlt": "Poskad {{place}}",
+    "previewPending": "Pratonton poskad",
+    "comingSoonTitle": "Terima kasih atas ulasan anda!",
+    "comingSoonBody": "Ulasan anda telah disimpan. Poskad untuk {{place}} akan datang tidak lama lagi.",
+    "nextStop": "Destinasi seterusnya: {{place}}",
+    "allDone": "Anda sudah mengumpul semua cop emas. Syabas!",
+    "backToPassport": "Kembali ke pasport",
+    "backToGuide": "Kembali ke panduan"
+  },
+  "postcardPick": {
+    "title": "Pilih poskad anda",
+    "heading": "Pilih satu poskad",
+    "intro": "Pilih satu poskad dari tempat yang anda sudah daftar masuk dengan GPS. Kami akan e-melkannya kepada anda.",
+    "optionsLabel": "Poskad",
+    "visited": "Dilawati {{date}}",
+    "locked": "Lawati {{place}} untuk membukanya",
+    "selected": "Dipilih",
+    "comingSoon": "Belum ada poskad untuk: {{places}}. Lebih banyak akan datang.",
+    "noneAvailable": "Anda belum daftar masuk di tempat yang ada poskad, jadi belum ada pilihan. Ulasan anda tetap akan disimpan.",
+    "send": "Hantar ke e-mel saya",
+    "chosen": "Poskad: {{place}}",
+    "errorChoice": "Pilih satu poskad."
+  },
+  "stamps": {
+    "none": "Tiada cop",
+    "outline": "Garis",
+    "gold": "Emas"
+  },
+  "categories": {
+    "transport": "Hab pengangkutan",
+    "modern": "Bangunan pencakar langit",
+    "heritage": "Warisan",
+    "culture": "Budaya dan makanan",
+    "nature": "Taman"
+  },
+  "lines": {
+    "kelana-jaya": "LRT Laluan Kelana Jaya",
+    "ampang": "LRT Laluan Ampang",
+    "sri-petaling": "LRT Laluan Sri Petaling",
+    "kajang": "MRT Laluan Kajang",
+    "monorail": "Monorel KL",
+    "klia-ekspres": "KLIA Ekspres",
+    "klia-transit": "KLIA Transit"
+  },
+  "places": {
+    "kl-sentral": {
+      "name": "KL Sentral",
+      "short": "KL Sentral",
+      "story": "Dibuka pada tahun 2001, KL Sentral ialah stesen kereta api terbesar di Malaysia dan hab pengangkutan utama bandar ini. Tren lapangan terbang, LRT Laluan Kelana Jaya, KTM Komuter dan tren antara bandar semuanya berhenti di sini, manakala monorel dan MRT hanya sedikit berjalan kaki. Kebanyakan laluan JalanKL bermula di sini.",
+      "hours": "Stesen dibuka setiap hari. Tren KLIA Ekspres ke lapangan terbang beroperasi dari 5:00 pagi hingga 12 tengah malam."
     },
-    "services": {
-      "title": "Perkhidmatan yang membantu kami",
-      "body": "Satu perkhidmatan pangkalan data (Supabase) menyimpan ulasan. Satu perkhidmatan e-mel menghantar poskad anda. Cloudflare menjalankan laman web ini. Mereka menggunakan data anda hanya untuk menyediakan perkhidmatan ini kepada kami."
+    "merdeka-118": {
+      "name": "Merdeka 118",
+      "short": "Merdeka 118",
+      "story": "Dengan ketinggian 678.9 meter, Merdeka 118 ialah bangunan kedua tertinggi di dunia selepas Burj Khalifa di Dubai. Namanya diambil daripada Stadium Merdeka di sebelahnya, tempat kemerdekaan Tanah Melayu diisytiharkan pada 31 Ogos 1957. Pada Julai 2026, ia dinamakan semula secara rasmi sebagai Menara Merdeka Maybank, sempena penyewa utamanya.",
+      "hours": "Sebahagian besar menara belum dibuka kepada pelawat (setakat Julai 2026). Dek pemerhatian dan pusat beli-belah sedang dirancang, jadi semak dahulu sebelum pergi. Anda boleh melihat menara ini dari luar pada bila-bila masa."
     },
-    "keep": {
-      "title": "Berapa lama kami menyimpannya",
-      "body": "Kami menyimpan ulasan dan alamat e-mel selama 12 bulan, kemudian memadamnya. Anda boleh meminta kami memadamnya lebih awal."
+    "petaling-street": {
+      "name": "Jalan Petaling",
+      "short": "Jln Petaling",
+      "story": "Jalan Petaling ialah nadi Chinatown Kuala Lumpur. Nama Kantonisnya, Chee Cheong Kai, bermaksud \"jalan kilang kanji\", sempena kilang ubi kayu yang dibuka oleh Kapitan Yap Ah Loy di sini pada abad ke-19. Sejak diubah suai pada tahun 2003, jalan ini berbumbung hijau dan mempunyai gerbang Cina di kedua-dua hujungnya.",
+      "hours": "Jalan ini khas untuk pejalan kaki dan boleh dilalui pada bila-bila masa. Gerai dan kedai mempunyai waktu operasi masing-masing."
     },
-    "rights": {
-      "title": "Hak anda",
-      "body": "Di bawah Akta Perlindungan Data Peribadi 2010 Malaysia, anda boleh meminta untuk melihat, membetulkan atau memadam data anda, dan anda boleh menarik balik persetujuan anda pada bila-bila masa. Tulis kepada kami dan kami akan membalas dalam masa 21 hari."
+    "abdul-samad": {
+      "name": "Bangunan Sultan Abdul Samad",
+      "short": "Abdul Samad",
+      "story": "Siap pada tahun 1897, bangunan bata merah berkubah tembaga ini pada asalnya menempatkan pejabat kerajaan kolonial British. Menara jamnya setinggi 41 meter menghadap Dataran Merdeka, tempat bendera British diturunkan dan bendera Tanah Melayu dinaikkan pada tengah malam 31 Ogos 1957. Selepas dipulihara, bangunan ini dibuka semula pada Februari 2026 dengan galeri dan kafe.",
+      "hours": "Dibuka setiap hari, 8 pagi hingga 10 malam. Sesetengah galeri di dalamnya mengenakan bayaran tiket dan mempunyai waktu operasi sendiri."
     },
-    "contact": {
-      "title": "Hubungi kami",
-      "body": "E-mel kami di",
-      "tbc": "Alamat e-mel untuk dihubungi akan ditambah di sini tidak lama lagi."
+    "petronas": {
+      "name": "Menara Berkembar Petronas",
+      "short": "Petronas",
+      "story": "Dengan ketinggian 451.9 meter dan 88 tingkat, Menara Berkembar Petronas ialah bangunan tertinggi di dunia dari tahun 1998 hingga 2004, dan masih menara berkembar tertinggi di dunia. Pelan lantai setiap menara berasaskan Rub el Hizb, iaitu bintang Islam berbucu lapan. Jambatan langit dua tingkat menghubungkan kedua-dua menara di tingkat 41 dan 42.",
+      "hours": "Jambatan langit dan dek pemerhatian: Selasa hingga Ahad dan cuti umum, 9 pagi hingga 10:30 malam (masuk terakhir 9:30 malam). Juga dibuka pada Isnin ke-2, ke-4 dan ke-5 setiap bulan, 9 pagi hingga 8 malam. Tiket dewasa bukan warganegara bermula RM127. Tempah dalam talian dan semak laman rasmi untuk hari tutup."
+    },
+    "klcc-park": {
+      "name": "Taman KLCC",
+      "short": "Taman KLCC",
+      "story": "Taman seluas 50 ekar di kaki Menara Berkembar Petronas ini direka oleh arkitek landskap Brazil, Roberto Burle Marx. Pokok-pokoknya dipilih untuk menarik burung, dan beberapa pokok lama diselamatkan dari padang lumba kuda yang pernah terletak di sini. Pada waktu malam, air pancut Tasik Simfoni mempersembahkan pertunjukan air, cahaya dan muzik.",
+      "hours": "Pertunjukan air pancut di Tasik Simfoni, di luar Suria KLCC, berlangsung pada waktu malam antara 8 malam hingga kira-kira 10 malam. Semak suriaklcc.com.my untuk waktu dibuka taman."
+    },
+    "kl-tower": {
+      "name": "Menara Kuala Lumpur",
+      "short": "Menara KL",
+      "story": "Dibuka pada tahun 1996, Menara Kuala Lumpur setinggi 421 meter ialah menara telekomunikasi di Bukit Nanas. Kedudukannya dialihkan semasa pembinaan untuk melindungi sebatang pokok jelutong berusia lebih 100 tahun yang masih berdiri berhampiran plaza pintu masuk. Menara ini juga digunakan sebagai balai cerap untuk melihat anak bulan bagi menandakan permulaan Ramadan, Aidilfitri dan Aidiladha.",
+      "hours": "Semak waktu dibuka dan harga tiket di kltower.com.my sebelum anda pergi."
     }
   },
-  "location": {
-    "explainer": "Kami menggunakan lokasi anda hanya untuk menunjukkan jarak tempat dan mengesahkan daftar masuk anda. Lokasi anda tidak pernah disimpan.",
-    "allow": "Benarkan lokasi",
-    "asking": "Mencari lokasi anda…",
-    "denied": "Lokasi dimatikan untuk laman ini. Anda masih boleh menggunakan panduan. Untuk mengumpul setem emas, hidupkan lokasi dalam tetapan pelayar anda.",
-    "unavailable": "Kami tidak dapat mengesan lokasi anda. Cuba lagi di luar, jauh dari bangunan tinggi."
+  "routes": {
+    "klia__kl-sentral": {
+      "why": "Cara paling pantas ke bandar: tren terus tanpa henti dan tiada kesesakan jalan raya.",
+      "s1": "Selepas mengambil bagasi, ikut papan tanda KLIA Ekspres ke stesen tren.",
+      "s2": "Ketik kad kredit atau kad Touch 'n Go di pintu masuk, atau beli tiket di kaunter atau mesin dahulu. Naik KLIA Ekspres ke KL Sentral.",
+      "s3": "Tren bergerak terus ke KL Sentral: kira-kira 28 minit dari Terminal 1, atau 33 minit dari Terminal 2 (ia berhenti di Terminal 1 dahulu). Tren bertolak kira-kira setiap 20 minit.",
+      "s4": "Di KL Sentral, tinggalkan platform dan ikut papan tanda ke dewan utama stesen.",
+      "s5": "Anda di KL Sentral! Tekan Saya Di Sini untuk dapatkan cop anda."
+    },
+    "kl-sentral__merdeka-118": {
+      "why": "MRT membawa anda terus ke stesen Merdeka, beberapa minit berjalan kaki dari menara.",
+      "s1": "Ikut papan tanda ke stesen MRT Muzium Negara. Laluan pejalan kaki berbumbung sepanjang kira-kira 240 meter membawa anda ke sana dari KL Sentral.",
+      "s2": "Ketik kad Touch 'n Go anda di pintu masuk dan naik MRT Laluan Kajang arah Kajang.",
+      "s3": "Naik 2 stesen dan turun di Merdeka (KG17).",
+      "s4": "Ketik keluar dan naik ke Jalan Hang Jebat melalui mana-mana pintu keluar.",
+      "s5": "Jalan kaki kira-kira 5 minit ke kaki Merdeka 118. Mustahil terlepas! Tekan Saya Di Sini."
+    },
+    "kl-sentral__petaling-street": {
+      "why": "Hanya 1 stesen dengan LRT, kemudian berjalan sedikit.",
+      "s1": "Di dalam KL Sentral, ikut papan tanda LRT Laluan Kelana Jaya.",
+      "s2": "Ketik kad Touch 'n Go anda di pintu masuk dan naik tren arah Gombak.",
+      "s3": "Naik 1 stesen dan turun di Pasar Seni (KJ14).",
+      "s4": "Ketik keluar dan turun ke aras jalan di sebelah Jalan Tun Tan Cheng Lock.",
+      "s5": "Jalan kaki kira-kira 6 minit ke jalan pasar berbumbung Jalan Petaling. Tekan Saya Di Sini."
+    },
+    "kl-sentral__abdul-samad": {
+      "why": "Dua stesen dengan LRT membawa anda hampir ke pintunya.",
+      "s1": "Di dalam KL Sentral, ikut papan tanda LRT Laluan Kelana Jaya.",
+      "s2": "Ketik kad Touch 'n Go anda di pintu masuk dan naik tren arah Gombak.",
+      "s3": "Naik 2 stesen dan turun di Masjid Jamek (KJ13).",
+      "s4": "Ketik keluar dan naik ke aras jalan.",
+      "s5": "Jalan kaki kira-kira 5 minit ke bangunan bata merah yang panjang dengan menara jam, menghadap Dataran Merdeka. Tekan Saya Di Sini."
+    },
+    "kl-sentral__petronas": {
+      "why": "LRT membawa anda terus ke stesen KLCC, yang bersambung ke menara melalui laluan bawah tanah.",
+      "s1": "Di dalam KL Sentral, ikut papan tanda LRT Laluan Kelana Jaya.",
+      "s2": "Ketik kad Touch 'n Go anda di pintu masuk dan naik tren arah Gombak.",
+      "s3": "Naik 5 stesen dan turun di KLCC (KJ10).",
+      "s4": "Ketik keluar dan ikut laluan pejalan kaki bawah tanah ke Suria KLCC, pusat beli-belah di kaki menara.",
+      "s5": "Jalan kaki melalui Suria KLCC ke menara, kira-kira 5 minit. Tekan Saya Di Sini."
+    },
+    "kl-sentral__klcc-park": {
+      "why": "LRT membawa anda terus ke stesen KLCC, tidak jauh dari taman.",
+      "s1": "Di dalam KL Sentral, ikut papan tanda LRT Laluan Kelana Jaya.",
+      "s2": "Ketik kad Touch 'n Go anda di pintu masuk dan naik tren arah Gombak.",
+      "s3": "Naik 5 stesen dan turun di KLCC (KJ10).",
+      "s4": "Ketik keluar dan ikut laluan pejalan kaki bawah tanah ke Suria KLCC.",
+      "s5": "Jalan kaki melalui Suria KLCC dan keluar ke tasik dengan air pancut, kira-kira 7 minit. Tekan Saya Di Sini."
+    },
+    "kl-sentral__kl-tower": {
+      "why": "Monorel berhenti di Bukit Nanas, stesen paling dekat dengan menara. Bahagian terakhir ialah jalan kaki mendaki bukit.",
+      "s1": "Dari KL Sentral, jalan kaki melalui pusat beli-belah NU Sentral ke stesen Monorel KL.",
+      "s2": "Ketik kad Touch 'n Go anda di pintu masuk dan naik monorel arah Titiwangsa.",
+      "s3": "Naik 7 stesen dan turun di Bukit Nanas (MR8).",
+      "s4": "Ketik keluar dan turun ke Jalan Sultan Ismail.",
+      "s5": "Jalan kaki mendaki Bukit Nanas ke menara di Jalan Puncak, kira-kira 17 minit. Tekan Saya Di Sini di menara."
+    },
+    "merdeka-118__petaling-street": {
+      "why": "Kira-kira 10 minit berjalan kaki, lebih cepat daripada menaiki tren.",
+      "s1": "Dari kaki Merdeka 118, jalan kaki ke arah barat laut menuju Chinatown, kira-kira 770 meter. Google Maps boleh tunjukkan jalan yang tepat.",
+      "s2": "Cari gerbang Cina di pintu masuk pasar berbumbung Jalan Petaling. Tekan Saya Di Sini."
+    },
+    "petaling-street__abdul-samad": {
+      "why": "Kira-kira 10 minit berjalan kaki, lebih cepat daripada menaiki tren.",
+      "s1": "Dari Jalan Petaling, jalan kaki ke arah barat laut menuju Dataran Merdeka, kira-kira 720 meter. Google Maps boleh tunjukkan jalan yang tepat.",
+      "s2": "Bangunan bata merah yang panjang dengan menara jam itulah Bangunan Sultan Abdul Samad. Tekan Saya Di Sini."
+    },
+    "abdul-samad__petronas": {
+      "why": "Berjalan kaki mengambil masa lebih 30 minit. LRT membawa anda 3 stesen terus ke menara.",
+      "s1": "Jalan kaki semula ke stesen Masjid Jamek, kira-kira 5 minit.",
+      "s2": "Tiga laluan bertemu di sini. Ketik masuk di bahagian LRT Laluan Kelana Jaya (KJ) dan naik tren arah Gombak.",
+      "s3": "Naik 3 stesen dan turun di KLCC (KJ10).",
+      "s4": "Ketik keluar dan ikut laluan pejalan kaki bawah tanah ke Suria KLCC, pusat beli-belah di kaki menara.",
+      "s5": "Jalan kaki melalui Suria KLCC ke menara, kira-kira 5 minit. Tekan Saya Di Sini."
+    },
+    "petronas__klcc-park": {
+      "why": "Taman ini betul-betul di sebelah menara, kira-kira 6 minit berjalan kaki.",
+      "s1": "Jalan kaki melalui Suria KLCC ke sebelah taman, tempat air pancut Tasik Simfoni.",
+      "s2": "Anda di Taman KLCC. Tekan Saya Di Sini."
+    },
+    "klcc-park__kl-tower": {
+      "why": "Tiada tren yang cepat dan berjalan kaki mengambil masa kira-kira 25 minit mendaki bukit, jadi menaiki kereta sekejap adalah paling mudah.",
+      "s1": "Buka aplikasi e-hailing seperti Grab dan tetapkan destinasi ke Menara Kuala Lumpur (KL Tower). Jalan kaki ke tempat menunggu yang ditunjukkan dalam aplikasi.",
+      "s2": "Pastikan nombor plat kereta sama seperti dalam aplikasi sebelum anda naik.",
+      "s3": "Kereta akan membawa anda mendaki Bukit Nanas ke menara.",
+      "s4": "Anda di Menara Kuala Lumpur. Tekan Saya Di Sini."
+    }
+  },
+  "arrivalOptions": {
+    "klia-ekspres": {
+      "name": "Tren KLIA Ekspres",
+      "price": "RM55 sehala (dewasa)",
+      "minutes": "28 min dari Terminal 1, 33 min dari Terminal 2",
+      "why": "Terus ke KL Sentral tanpa henti, tren kira-kira setiap 20 minit, dan tiada kesesakan jalan raya.",
+      "tag": "Tanpa henti",
+      "pay": "Ketik kad kredit atau Touch 'n Go di pintu masuk",
+      "priceShort": "RM55"
+    },
+    "klia-transit": {
+      "name": "Tren KLIA Transit",
+      "price": "RM55 sehala (dewasa)",
+      "minutes": "39 min dari Terminal 2",
+      "why": "Tambang sama seperti KLIA Ekspres tetapi lebih perlahan: ia berhenti di 3 stesen dalam perjalanan.",
+      "tag": "3 hentian dalam perjalanan",
+      "pay": "Beli tiket dalam talian di kliaekspres.com",
+      "priceShort": "RM55"
+    },
+    "airport-bus": {
+      "name": "Bas lapangan terbang",
+      "price": "TBC",
+      "minutes": "TBC",
+      "why": "TBC",
+      "tag": "TBC",
+      "pay": "TBC",
+      "priceShort": "TBC"
+    },
+    "e-hailing": {
+      "name": "Kereta e-hailing (cth. Grab)",
+      "price": "Harga dipaparkan dalam aplikasi",
+      "minutes": "Bergantung pada trafik",
+      "why": "Dari pintu ke pintu, tetapi boleh mengambil masa lebih lama jika jalan sesak.",
+      "tag": "Pintu ke pintu",
+      "pay": "Bayar dalam aplikasi",
+      "priceShort": "Dalam aplikasi"
+    }
+  },
+  "learnTopics": {
+    "touch-n-go": {
+      "title": "Membayar dengan Touch 'n Go",
+      "t1": "Stesen LRT, MRT dan monorel mempunyai pintu masuk berpagar. Ketik kad anda semasa masuk, dan ketik sekali lagi semasa keluar.",
+      "t2": "Cara paling mudah untuk membayar ialah kad Touch 'n Go. Anda boleh membelinya di kaunter khidmat pelanggan Rapid KL di stesen LRT, MRT dan monorel, dan menambah nilai di stesen.",
+      "p1": "Kad Touch 'n Go di pintu masuk stesen",
+      "t3": "Tiada kad? Beli token perjalanan tunggal dari mesin tiket di stesen.",
+      "t4": "Mengetik kad kredit atau debit di pintu masuk Rapid KL belum boleh dibuat lagi (dirancang, setakat Mei 2026). Kaunter stesen menerima kad untuk membeli token dan menambah nilai Touch 'n Go.",
+      "t5": "Tren lapangan terbang KLIA Ekspres berbeza: anda boleh mengetik kad kredit atau kad Touch 'n Go terus di pintu masuknya."
+    },
+    "line-colours": {
+      "title": "Laluan tren dan warnanya",
+      "t1": "Setiap laluan tren mempunyai nama, warna dan kod pendek. Nombor stesen menggunakan kod itu: KJ10 ialah stesen KLCC di Laluan Kelana Jaya.",
+      "t2": "Kad laluan kami menunjukkan warna laluan pada setiap langkah, supaya anda boleh padankan dengan papan tanda di stesen.",
+      "p1": "Warna laluan pada papan tanda stesen"
+    },
+    "reading-signs": {
+      "title": "Membaca papan tanda",
+      "t1": "Setiap stesen mempunyai kod dan nama, contohnya KJ13 Masjid Jamek: stesen ke-13 di Laluan Kelana Jaya.",
+      "t2": "Arah tren ditunjukkan dengan stesen terakhir laluan itu. Kad laluan kami memberitahu arah mana yang perlu diikut, contohnya \"arah Gombak\".",
+      "p1": "Papan tanda platform yang menunjukkan arah",
+      "t3": "Di Masjid Jamek, tiga laluan bertemu. Platform Laluan Kelana Jaya (KJ) berasingan daripada Laluan Ampang dan Sri Petaling (AG dan SP), jadi semak kodnya sebelum ketik masuk.",
+      "t4": "Perkataan Melayu yang berguna pada papan tanda: Keluar = Exit, Masuk = Entrance, Tandas = Toilet, Stesen = Station, Laluan = Line."
+    }
   },
   "checkin": {
     "reading": "Menyemak lokasi anda…",
@@ -188,6 +463,30 @@
       "body": "Kami tidak dapat mendaftar masuk anda kali ini. Sila cuba lagi."
     }
   },
+  "settings": {
+    "title": "Tetapan",
+    "language": "Bahasa",
+    "reset": {
+      "title": "Tetapkan semula kemajuan",
+      "body": "Ini akan memadam semua setem dan langkah perjalanan anda pada telefon ini. Bahasa anda tidak berubah.",
+      "button": "Tetapkan semula kemajuan",
+      "confirm": "Ya, padam semua",
+      "cancel": "Batal",
+      "done": "Kemajuan anda telah ditetapkan semula."
+    },
+    "privacy": {
+      "title": "Privasi",
+      "note": "Setem dan tetapan anda disimpan hanya pada telefon ini. Kami tidak pernah menyimpan lokasi anda.",
+      "link": "Baca notis privasi"
+    }
+  },
+  "location": {
+    "explainer": "Kami menggunakan lokasi anda hanya untuk menunjukkan jarak tempat dan mengesahkan daftar masuk anda. Lokasi anda tidak pernah disimpan.",
+    "allow": "Benarkan lokasi",
+    "asking": "Mencari lokasi anda…",
+    "denied": "Lokasi dimatikan untuk laman ini. Anda masih boleh menggunakan panduan. Untuk mengumpul setem emas, hidupkan lokasi dalam tetapan pelayar anda.",
+    "unavailable": "Kami tidak dapat mengesan lokasi anda. Cuba lagi di luar, jauh dari bangunan tinggi."
+  },
   "install": {
     "title": "Simpan setem anda dengan selamat",
     "body": "Simpan JalanKL di skrin utama anda. Ia dibuka seperti aplikasi, berfungsi tanpa isyarat, dan membantu menyimpan setem anda pada telefon ini.",
@@ -195,6 +494,44 @@
     "ios": "Tekan butang Kongsi, kemudian \"Tambah ke Skrin Utama\".",
     "other": "Buka menu pelayar anda dan pilih \"Tambah ke skrin utama\" atau \"Pasang aplikasi\".",
     "later": "Bukan sekarang"
+  },
+  "privacy": {
+    "title": "Privasi",
+    "intro": "JalanKL ialah panduan percuma ke Kuala Lumpur, dibuat oleh sebuah pasukan kecil. Halaman ini menerangkan dengan ringkas apa yang kami kumpul dan sebabnya.",
+    "updated": "Kemas kini terakhir: {{date}}",
+    "phone": {
+      "title": "Apa yang kekal pada telefon anda",
+      "body": "Setem, kemajuan perjalanan, bahasa dan kewarganegaraan anda disimpan hanya pada telefon ini. Semasa daftar masuk, kami membaca lokasi anda selama beberapa saat untuk menyemak sama ada anda berada berhampiran mercu tanda. Kami tidak pernah menyimpan atau menghantar lokasi anda: kami hanya menyimpan ketepatan GPS. Anda boleh memadam semua data pada telefon ini di Tetapan, \"Tetapkan semula kemajuan\"."
+    },
+    "review": {
+      "title": "Apa yang kami kumpul jika anda menghantar ulasan",
+      "body": "Hanya jika anda memilih untuk menulis ulasan, kami menerima: alamat e-mel anda, kewarganegaraan anda (jika diberikan), bahasa anda, penilaian bintang dan teks ulasan, serta masa anda bersetuju dengan notis ini."
+    },
+    "why": {
+      "title": "Mengapa kami mengumpulnya",
+      "body": "Untuk menghantar poskad anda melalui e-mel, dan untuk mengetahui cara memperbaik panduan ini. Kami tidak menggunakan e-mel anda untuk pemasaran, dan kami tidak menjual data anda."
+    },
+    "visible": {
+      "title": "Siapa yang boleh melihat ulasan anda",
+      "body": "Hanya pasukan JalanKL. Ulasan tidak dipaparkan kepada umum."
+    },
+    "services": {
+      "title": "Perkhidmatan yang membantu kami",
+      "body": "Satu perkhidmatan pangkalan data (Supabase) menyimpan ulasan. Satu perkhidmatan e-mel menghantar poskad anda. Cloudflare menjalankan laman web ini. Mereka menggunakan data anda hanya untuk menyediakan perkhidmatan ini kepada kami."
+    },
+    "keep": {
+      "title": "Berapa lama kami menyimpannya",
+      "body": "Kami menyimpan ulasan dan alamat e-mel selama 12 bulan, kemudian memadamnya. Anda boleh meminta kami memadamnya lebih awal."
+    },
+    "rights": {
+      "title": "Hak anda",
+      "body": "Di bawah Akta Perlindungan Data Peribadi 2010 Malaysia, anda boleh meminta untuk melihat, membetulkan atau memadam data anda, dan anda boleh menarik balik persetujuan anda pada bila-bila masa. Tulis kepada kami dan kami akan membalas dalam masa 21 hari."
+    },
+    "contact": {
+      "title": "Hubungi kami",
+      "body": "E-mel kami di",
+      "tbc": "Alamat e-mel untuk dihubungi akan ditambah di sini tidak lama lagi."
+    }
   },
   "consent": {
     "label": "Saya bersetuju JalanKL boleh menggunakan e-mel, kewarganegaraan dan ulasan saya untuk menghantar poskad saya dan memperbaik panduan ini. Ia disimpan selama 12 bulan, dan saya boleh meminta ia dipadam pada bila-bila masa.",
