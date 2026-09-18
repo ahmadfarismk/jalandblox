@@ -5,6 +5,7 @@ import MapScreen from './guide/MapScreen';
 import PassportScreen from './rewards/PassportScreen';
 import SettingsScreen from './core/SettingsScreen';
 import PrivacyScreen from './core/PrivacyScreen';
+import DebugLocationScreen from './core/DebugLocationScreen';
 import ComponentsSampleScreen from './guide/ComponentsSampleScreen';
 import BottomTabs from './shared/BottomTabs';
 
@@ -66,6 +67,8 @@ export default function App() {
       <Route element={<PageLayout />}>
         <Route path="settings" element={<SettingsScreen />} />
         <Route path="privacy" element={<PrivacyScreen />} />
+        {/* Hidden developer page for the outdoor GPS test (F6). Not linked in the app. */}
+        <Route path="debug/location" element={<DebugLocationScreen />} />
         {/* Hidden page showing every shared component (S1). Not linked in the app. */}
         <Route path="debug/components" element={<ComponentsSampleScreen />} />
       </Route>

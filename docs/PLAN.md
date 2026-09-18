@@ -42,11 +42,16 @@ This section is updated with every push to GitHub. It says what is done, what ea
 5. **New function `getLanguages()`** in `core/settings.js` returns `[{ code: 'en', name: 'English' }, { code: 'ms', name: 'Bahasa Melayu' }]`, one entry per file in `locales/`.
 6. **Showing text:** `const { t } = useTranslation()` from `react-i18next`, then `t('ui.takeMeThere')`. The language switches everywhere when `setPrefs({ lang })` is called. Missing Malay text falls back to English.
 7. **New keys in the language files:** `meta.languageName`, `ui.comingSoon`, `ui.openSettings`, `ui.back`, `settings.*` and `privacy.*`. Keep them when editing `en.json` and `ms.json`.
-8. **Routes that exist now:** `/`, `/map`, `/passport`, `/settings`, `/privacy`, and the hidden `/debug/components` (S1 sample page). `App.jsx` is Faris's file. When your screen needs a route, add the one line in your pull request and ask Faris to review it.
+8. **Routes that exist now:** `/`, `/map`, `/passport`, `/settings`, `/privacy`, and the hidden `/debug/components` (S1 sample page) and `/debug/location` (F6 GPS test). `App.jsx` is Faris's file. When your screen needs a route, add the one line in your pull request and ask Faris to review it.
 9. **Settings is opened from the ⚙ button** at the top of the tab screens, not from a tab.
 10. **Checks on every pull request:** lint, formatting, tests (`npm test`) and build. Run `npm run format`, `npm run lint` and `npm test` before opening one. Each pull request gets a Cloudflare preview link to try on a phone.
 11. **Hosting** is Cloudflare, set up by `wrangler.jsonc`. Do not rename or delete that file.
 12. **The bottom tab bar is `shared/BottomTabs.jsx`** (Syakir). App.jsx uses it, so change the tabs there, by pull request.
+13. **Two new location functions (F6)** in `core/location.js`: `watchPosition(callback)` for a live position on Map and Guide home (returns a stop function; GPS pauses by itself when the app is hidden), and `getPermissionState()` which answers `granted`, `prompt`, `denied` or `unknown`. See section 8.
+14. **`getPosition()` takes up to 3 readings in about 10 seconds** and returns the most accurate. For a quick rough position (for example sorting the Guide list), use `getPosition({ readings: 1 })`.
+15. **`distanceTo()` returns `null`** when a place's coordinates are still TBC. Screens must handle that (for example, show no distance and sort by `order`).
+16. **Use `<LocationExplainer />`** from `core/LocationExplainer.jsx` before asking for location. It shows the "why we need your location" sentence and an Allow button, shows nothing if location is already allowed, and explains how to turn it on if denied. New text keys: `location.*`.
+17. **Hidden developer page `/debug/location`** shows live GPS, accuracy and distance to a test point. English only, not linked in the app.
 
 ### Push log
 
@@ -59,6 +64,7 @@ This section is updated with every push to GitHub. It says what is done, what ea
 | 2026-09-18 | Plan status | Added this section 0 |
 | 2026-09-18 | #4 S1 | Shared Button, Card, StampBadge, Avatar, BottomTabs and sample page (Syakir) |
 | 2026-09-18 | App shell | App.jsx uses `<BottomTabs />`; sample page moved to `/debug/components` |
+| 2026-09-18 | F6 | Real GPS: best-of-3 `getPosition()`, `watchPosition()`, `getPermissionState()`, `LocationExplainer`, `/debug/location` test page |
 
 ## 1. MVP on a page
 
@@ -365,7 +371,9 @@ These are the only doors between the three parts of the app. Faris ships fake ve
 | `resetProgress()` | `core/progress.js` | nothing | Nothing |
 | `onProgressChange(callback)` | `core/progress.js` | a function | Calls it whenever progress changes, so screens refresh |
 | `getPosition()` | `core/location.js` | nothing | `{ ok, lat, lng, accuracy_m }` or `{ ok: false, reason }` |
-| `distanceTo(placeId, position)` | `core/location.js` | place id, position | Metres as a number |
+| `distanceTo(placeId, position)` | `core/location.js` | place id, position | Metres as a number, or `null` if the place has no coordinates yet |
+| `watchPosition(callback)` (added in F6) | `core/location.js` | a function | Calls it with each new position. Returns a stop function. Pauses while the app is hidden |
+| `getPermissionState()` (added in F6) | `core/location.js` | nothing | `'granted'`, `'prompt'`, `'denied'` or `'unknown'` |
 | `checkIn(placeId)` | `core/checkin.js` | place id | `{ result }` where result is `gold`, `too_far`, `poor_signal`, `no_permission` or `error` |
 | `getPrefs()` and `setPrefs(changes)` | `core/settings.js` | changes object | Current preferences |
 | `getLanguages()` (added in F5) | `core/settings.js` | nothing | `[{ code, name }]`, one per file in `locales/` |
