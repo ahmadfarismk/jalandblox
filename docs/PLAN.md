@@ -47,11 +47,11 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Syakir (guide and map)
 
-**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`.
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 30).
 
-**In progress:** S2 Welcome screen at `/welcome` (route added by Faris).
+**In progress:** S8 colour unlock.
 
-**Next:** S3 Guide home, S4 Landmark detail. First, put `GuideHomeScreen.jsx` back to a placeholder: the sample page now lives at `/debug/components`.
+**Next:** S9 Learn, S10 phone polish. S11 field-test fixes waits for Danial's test day (D13).
 
 **Notes from Faris:** S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
@@ -60,6 +60,13 @@ This section says what is done, what each person builds next, and anything that 
 | Date | Pull request | What changed |
 | --- | --- | --- |
 | 2026-09-18 | #4 S1 | Shared Button, Card, StampBadge, Avatar, BottomTabs and sample page |
+| 2026-09-18 | S3 cleanup | Guide tab back to a placeholder. The S1 sample page stays at `/debug/components` |
+| 2026-09-18 | S2 | Welcome screen: language, nationality picker, start choice, all saved with `setPrefs()` |
+| 2026-09-18 | S3 | Guide home: landmark list, distance sorting, stamp status. Route `/place/:id` added |
+| 2026-09-18 | S4 | Landmark detail: photo, story, hours, "Take me there", outline stamp on open. Route `/journey/:routeId` added |
+| 2026-09-18 | S5 | Journey screen: step checklist with icons, saved step, "I'm Here" opens the check-in on the last step |
+| 2026-09-18 | S6 | Arrival screen at `/arrival`: recommended way large, others small. "Just landed" on Welcome now goes here. Routes `/arrival` and `/learn` added |
+| 2026-09-18 | S7 | Map tab: all 7 landmarks in their real positions, live position, tap to open. No street tiles and no tilt yet |
 
 ### Danial (rewards and content)
 
@@ -117,7 +124,10 @@ Add new lines at the end. Say who needs to know.
 32. **Visiting order changed:** KL Sentral 1, Merdeka 118 2, Petaling Street 3, Sultan Abdul Samad 4, Petronas 5, KLCC Park 6, KL Tower 7. The route cards follow it, so Merdeka Square → Petronas is one card. KLCC Park → KL Tower is a `car` card (the walk is 17–25 minutes uphill). (Everyone.)
 33. **Every place has coordinates now** (desk-checked from Wikipedia/OpenStreetMap, to confirm on the field day), so check-in works at all 7. Two core tests used Petronas as "a place with no coordinates"; they now use a made-up place instead. (Faris.)
 34. **Text keys added** for every screen (`welcome.*`, `arrival.*`, `guide.*`, `place.*`, `journey.*`, `map.*`, `learn.*`, `passport.*`, `review.*`, `postcard.*`, `postcardPick.*`, `categories.*`, `lines.*`) plus `meta.dateLocale` for dates, and `ui.stamp.none` / `ui.stamp.outline` / `ui.stamp.gold` ("No stamp", "Outline stamp", "Gold stamp") for `StampBadge` labels. The `welcome.*` keys use the names Syakir's S2 screen already asks for (`welcome.title`, `welcome.intro`, `welcome.language.title`, `welcome.nationality.title` / `.hint` / `.placeholder` / `.skip`, `welcome.start.title` / `.arrival` / `.arrivalHint` / `.city` / `.cityHint`), so its English defaults are replaced by the real text in both languages once both are merged. For a nationality list, use `getNationalities()` with `Intl.DisplayNames` for the country names (no keys needed). Faris's keys are unchanged. Use them instead of adding your own where they fit. (Syakir.)
-35. **The database is locked to the app** (F8). The app never reads or writes Supabase tables directly, not even with the public key: everything goes through `submitReview()` in `core/api.js` (F10). New tables must get the same lock-down, see `supabase/README.md`.
+35. **`prefs.nationality` is an ISO 3166 country code** (S2), for example `JP`, not a country name. The Welcome picker fills it from `getNationalities()` and shows names with `Intl.DisplayNames`, so country names need no translation file. Danial: send the code to `submitReview({ nationality })`, and use the same `Intl.DisplayNames` trick if a screen has to show it.
+36. **First open goes to `/welcome` from `GuideHomeScreen.jsx`** (S2), because `/` is where the link and the QR code land. Faris: move this into `App.jsx` when you add the redirect there, and delete the three lines at the top of my screen.
+37. **The Map tab has no street tiles and no tilt yet** (S7). MapLibre GL JS needs a hosted tile service, and picking one is still an open question (section 16), so the Map screen draws the seven landmarks from their own coordinates: right positions, no streets. Tilting that drawn map in CSS squashed the icons to about 30px tall, under the 44px a thumb needs, so it is flat. Faris: when the team picks a tile service, `MapScreen.jsx` is the only file that changes, and adding `maplibre-gl` to package.json needs your say-so. The plan already lists the tilt as the first thing to cut (section 12).
+38. **The database is locked to the app** (F8). The app never reads or writes Supabase tables directly, not even with the public key: everything goes through `submitReview()` in `core/api.js` (F10). New tables must get the same lock-down, see `supabase/README.md`.
 
 ## 1. MVP on a page
 
