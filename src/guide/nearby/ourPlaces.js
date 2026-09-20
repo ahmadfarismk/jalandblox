@@ -87,13 +87,74 @@ export function oursNear(ours, { lat, lng, radius, group }) {
 }
 
 /**
- * Ours first, then everything else. A Geoapify result with exactly the same
- * name as one of ours is dropped, so the same landmark is not listed twice.
- * @param {Array<object>} ours
- * @param {Array<object>} others
+ * How close a result has to be to one of our landmarks before we treat it as
+ * the same thing. Our 7 are buildings and streets, not points, so their
+ * mapped position and a provider's can sit a fair way apart: Geoapify
+ * returned three separate objects for Bangunan Sultan Abdul Samad at 2 m,
+ * 112 m and 121 m.
  */
-export function mergeOursFirst(ours, others) {
+export const SAME_PLACE_M = 150;
+
+/**
+ * Words in a result's categories that mean "this is the same KIND of thing as
+ * our landmark". Without this check, a cafe 30 m from Petronas would be
+ * dropped as a duplicate of the towers.
+ *
+ * Deliberately no "building": Geoapify tags plenty of cafes with it, so it
+ * would swallow exactly the results we want to keep.
+ */
+const SIGHT_WORDS =
+  /tourism|heritage|historic|architect|museum|monument|memorial|attraction|sights|religion|place_of_worship|park|garden|skyscraper|tower/i;
+const TRANSPORT_WORDS = /station|railway|public_transport|transport|\bbus\b|\btrain\b/i;
+
+/** Every category word a result carries, as one lower-case string. */
+function categoryText(result) {
+  return [result.category, ...(result.allCategories ?? [])].filter(Boolean).join(' ');
+}
+
+/** True when a result is the same kind of thing as one of our landmarks. */
+function sameKind(place, result) {
+  const text = categoryText(result);
+  if (place.group === 'see') return result.group === 'see' || SIGHT_WORDS.test(text);
+  // KL Sentral is `transport`, which is none of See, Eat or Stay.
+  if (place.category === 'transport') return TRANSPORT_WORDS.test(text);
+  return result.group === place.group;
+}
+
+/**
+ * True when a result is almost certainly one of our 7 under another name.
+ * Matching on the name text alone is not enough: Geoapify returned our
+ * landmarks as "Menara Berkembar Petronas" and "Bangunan Sultan Abdul Samad",
+ * and neither matches the English name we hold.
+ * @param {Array<object>} ours
+ * @param {object} result
+ */
+export function isOneOfOurs(ours, result) {
+  if (!Number.isFinite(result?.lat) || !Number.isFinite(result?.lng)) return false;
+  return ours.some(
+    (place) =>
+      metresBetween([place.lat, place.lng], [result.lat, result.lng]) <= SAME_PLACE_M &&
+      sameKind(place, result),
+  );
+}
+
+/**
+ * Ours first, then everything else, with the same landmark never listed twice.
+ * A result is dropped when it has exactly our name, OR when it sits within
+ * SAME_PLACE_M of one of ours and is the same kind of thing.
+ *
+ * `ours` is the shortened list actually on screen, so the distance check uses
+ * `allOurs` (all 7) when it is given: a landmark can be filtered out of the
+ * list by group or radius and still be the thing a result duplicates.
+ *
+ * @param {Array<object>} ours the ones being shown, which rank first
+ * @param {Array<object>} others results from a provider
+ * @param {Array<object>} [allOurs] all 7, for the distance check
+ */
+export function mergeOursFirst(ours, others, allOurs = ours) {
   const names = new Set(ours.map((p) => p.name.toLowerCase()));
-  const rest = others.filter((p) => !names.has(String(p.name ?? '').toLowerCase()));
+  const rest = others.filter(
+    (p) => !names.has(String(p.name ?? '').toLowerCase()) && !isOneOfOurs(allOurs, p),
+  );
   return [...ours, ...rest];
 }
