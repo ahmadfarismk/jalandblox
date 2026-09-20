@@ -14,7 +14,7 @@ import Button from '@/shared/Button';
 import Card from '@/shared/Card';
 import { getPosition } from '@/core/location';
 import { getPlace } from '@/data';
-import { GROUPS, GROUP_IDS } from './nearby/categories';
+import { GROUPS, GROUP_IDS, OTM_RATES, OTM_SEE_KINDS } from './nearby/categories';
 import { getFakeFailure, setFakeFailure } from './nearby/geoapify.mock';
 import {
   clearCache,
@@ -22,7 +22,10 @@ import {
   getCacheSize,
   getNearbyPlaces,
   getRequestCount,
+  getRequestCounts,
+  isRealSource,
   searchPlaces,
+  SOURCES,
   sourceReady,
 } from './nearby/nearbySource';
 import { matchOursByName, mergeOursFirst, ourPlacesAsResults, oursNear } from './nearby/ourPlaces';
@@ -36,15 +39,27 @@ const START = getPlace('abdul-samad')?.coords ?? null;
 const MIN_SEARCH_LETTERS = 3;
 const DEBOUNCE_MS = 400;
 
+/** What each source is called on screen, and what it costs. */
+const SOURCE_LABELS = {
+  fake: { name: 'Fake', note: 'Sample data, no network' },
+  geoapify: { name: 'Geoapify', note: '3,000 credits a day, 5 requests a second' },
+  opentripmap: {
+    name: 'OpenTripMap',
+    note: '5,000 requests a day, 10 a second, non-commercial use only',
+  },
+};
+
 const PROBLEMS = {
-  no_key: 'No API key. Put VITE_GEOAPIFY_KEY in your .env and restart npm run dev.',
-  network: 'Could not reach Geoapify. The connection is down, or the request was blocked.',
-  bad_key:
-    'Geoapify refused the key (401/403). It is wrong, expired, or restricted to another site.',
-  rate_limited:
-    'Too many requests (429). The free plan allows 3,000 credits a day and 5 requests a second.',
-  server: 'Geoapify had a problem at their end (5xx). Try again in a moment.',
-  bad_answer: 'Geoapify sent something that is not JSON.',
+  no_key: 'No API key for this source. Add its key to your .env and restart npm run dev.',
+  network: 'Could not reach the provider. The connection is down, or the request was blocked.',
+  bad_key: 'The provider refused the key (401/403). It is wrong, expired, or site-restricted.',
+  rate_limited: 'Too many requests (429). Wait a moment, or check the daily allowance.',
+  server: 'The provider had a problem at their end (5xx). Try again in a moment.',
+  bad_answer: 'The provider sent something we could not read.',
+  needs_point:
+    'OpenTripMap can only search around a point, never country-wide. Set a test point first.',
+  unsupported_group:
+    'This spike only wired OpenTripMap up for See. Switch to Geoapify for Eat and Stay.',
   error: 'Something else went wrong.',
 };
 
@@ -96,6 +111,10 @@ export default function DebugNearbyScreen() {
   const [selectedId, setSelectedId] = useState(null);
   const [reloads, setReloads] = useState(0);
   const [fakeFail, setFakeFail] = useState(() => getFakeFailure() ?? '');
+  // OpenTripMap only: the minimum significance, and whether to ask for all of
+  // interesting_places instead of our curated kinds.
+  const [rate, setRate] = useState('');
+  const [wide, setWide] = useState(false);
 
   // Wait until typing stops before asking anything, so one search is one
   // request and not one per keystroke.
@@ -115,7 +134,7 @@ export default function DebugNearbyScreen() {
   // and "Loading…" needs no state of its own.
   const question = query
     ? `search|${query}|${lat},${lng}|${source}|${reloads}`
-    : `nearby|${group}|${lat},${lng}|${radius}|${source}|${reloads}`;
+    : `nearby|${group}|${lat},${lng}|${radius}|${source}|${rate}|${wide}|${reloads}`;
 
   useEffect(() => {
     if (!Number.isFinite(lat) || !Number.isFinite(lng)) return undefined;
@@ -124,7 +143,16 @@ export default function DebugNearbyScreen() {
 
     const ask = query
       ? searchPlaces(query, { lat, lng }, { source, signal: controller.signal })
-      : getNearbyPlaces({ lat, lng, radius, group, source, signal: controller.signal });
+      : getNearbyPlaces({
+          lat,
+          lng,
+          radius,
+          group,
+          source,
+          rate,
+          wide,
+          signal: controller.signal,
+        });
 
     ask
       .then((result) => {
@@ -139,7 +167,7 @@ export default function DebugNearbyScreen() {
       controller.abort();
     };
     // `question` already changes whenever any of these do.
-  }, [question, query, lat, lng, radius, group, source]);
+  }, [question, query, lat, lng, radius, group, source, rate, wide]);
 
   const current = answer?.question === question ? answer : null;
   const busy = Boolean(point) && !current;
@@ -153,10 +181,17 @@ export default function DebugNearbyScreen() {
       : oursNear(ours, { lat, lng, radius, group });
   }, [ours, query, lat, lng, radius, group]);
 
+  // All 7 go into the duplicate check, not just the ones on screen: a landmark
+  // can be filtered out by group or radius and still be what a result is a
+  // second copy of.
   const items = useMemo(
-    () => mergeOursFirst(oursShown, current?.ok ? current.items : []),
-    [oursShown, current],
+    () => mergeOursFirst(oursShown, current?.ok ? current.items : [], ours),
+    [oursShown, current, ours],
   );
+
+  /** How many provider results the duplicate filter removed, for the counts. */
+  const droppedAsOurs =
+    (current?.ok ? current.items.length : 0) - (items.length - oursShown.length);
 
   const selected = items.find((item) => item.id === selectedId) ?? null;
 
@@ -194,18 +229,20 @@ export default function DebugNearbyScreen() {
     reload();
   }
 
-  const real = source === 'geoapify';
+  const real = isRealSource(source);
+  const otm = source === 'opentripmap';
   const ready = sourceReady(source);
   const problem = current && !current.ok ? current.reason : null;
   const nothing = current?.ok && items.length === 0;
+  const counts = getRequestCounts();
 
   return (
     <section className="space-y-6 pb-10 text-sm">
       <div>
         <h1 className="text-2xl font-semibold">Nearby places test</h1>
         <p className="text-slate-500">
-          Developer page, spike X1. Trying Geoapify as a second tier of places. Not connected to the
-          Guide, the Map, the Passport or check-in.
+          Developer page, spikes X1 and X2. Comparing Geoapify and OpenTripMap as a second tier of
+          places. Not connected to the Guide, the Map, the Passport or check-in.
         </p>
       </div>
 
@@ -217,29 +254,32 @@ export default function DebugNearbyScreen() {
         ].join(' ')}
       >
         <p className="font-medium">
-          Data on screen: {real ? 'REAL — live Geoapify' : 'FAKE — sample data, no network'}
+          Data on screen:{' '}
+          {real ? `REAL — live ${SOURCE_LABELS[source].name}` : 'FAKE — sample data, no network'}
         </p>
-        <div className="mt-2 grid grid-cols-2 gap-2">
-          <Chip active={!real} onClick={() => setSource('fake')}>
-            Fake
-          </Chip>
-          <Chip active={real} onClick={() => setSource('geoapify')}>
-            Real
-          </Chip>
+        <div className="mt-2 grid grid-cols-3 gap-2">
+          {SOURCES.map((id) => (
+            <Chip key={id} active={source === id} onClick={() => setSource(id)}>
+              {SOURCE_LABELS[id].name}
+            </Chip>
+          ))}
         </div>
         <div className="mt-3">
           <Row label="Requests this session">{getRequestCount()}</Row>
+          <Row label="· Geoapify">{counts.geoapify}</Row>
+          <Row label="· OpenTripMap">{counts.opentripmap}</Row>
           <Row label="Answers reused from cache">{getCacheSize()}</Row>
-          <Row label="API key set">{sourceReady('geoapify') ? 'yes' : 'no'}</Row>
+          <Row label="Geoapify key set">{sourceReady('geoapify') ? 'yes' : 'no'}</Row>
+          <Row label="OpenTripMap key set">{sourceReady('opentripmap') ? 'yes' : 'no'}</Row>
           <Row label=".env default">{defaultSource()}</Row>
         </div>
         <p className="mt-2 text-slate-500">
-          Free plan: 3,000 credits a day, 20 places per credit, 5 requests a second. The same
-          question is only ever asked once per session.
+          {SOURCE_LABELS[source].note}. The same question is only ever asked once per session.
         </p>
         {real && !ready && (
           <p className="mt-2 font-medium text-red-700">
-            No key set, so nothing can load. Add VITE_GEOAPIFY_KEY to your .env and restart.
+            No key set for {SOURCE_LABELS[source].name}, so nothing can load. Add its key to your
+            .env and restart.
           </p>
         )}
       </div>
@@ -303,7 +343,18 @@ export default function DebugNearbyScreen() {
               </Chip>
             ))}
           </div>
-          <p className="mt-1 text-slate-500">{GROUPS[group].categories.join(', ')}</p>
+          <p className="mt-1 text-slate-500">
+            {otm
+              ? wide
+                ? 'interesting_places (everything, including squares and streets)'
+                : OTM_SEE_KINDS.join(', ')
+              : GROUPS[group].categories.join(', ')}
+          </p>
+          {otm && group !== 'see' && (
+            <p className="mt-1 font-medium text-amber-700">
+              OpenTripMap is only wired up for See in this spike.
+            </p>
+          )}
         </div>
         <div>
           <h2 className="font-medium">Radius</h2>
@@ -317,6 +368,47 @@ export default function DebugNearbyScreen() {
         </div>
         {query && <p className="text-slate-500">A search ignores the group and the radius.</p>}
       </div>
+
+      {/* OpenTripMap only: how significant a place has to be, and how wide to cast */}
+      {otm && !query && (
+        <div className="space-y-3">
+          <div>
+            <h2 className="font-medium">Significance</h2>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {OTM_RATES.map((choice) => (
+                <Chip
+                  key={choice.value || 'any'}
+                  active={rate === choice.value}
+                  onClick={() => setRate(choice.value)}
+                >
+                  {choice.label}
+                </Chip>
+              ))}
+            </div>
+            <p className="mt-1 text-slate-500">
+              OpenTripMap&apos;s own score for how notable a place is, 1 to 3, or whether it is on a
+              cultural heritage list. It is <b>not</b> a rating from visitors: neither provider has
+              those.
+            </p>
+          </div>
+          <div>
+            <h2 className="font-medium">Categories asked for</h2>
+            <div className="mt-2 flex gap-2">
+              <Chip active={!wide} onClick={() => setWide(false)}>
+                Curated
+              </Chip>
+              <Chip active={wide} onClick={() => setWide(true)}>
+                Everything
+              </Chip>
+            </div>
+            <p className="mt-1 text-slate-500">
+              &quot;Everything&quot; asks for all of interesting_places, OpenTripMap&apos;s own
+              default. It adds the squares-and-streets and view-points categories the curated list
+              leaves out, so you can see what the filtering is doing.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Pretend failures, so every error state can be seen without breaking anything */}
       {!real && (
@@ -346,7 +438,7 @@ export default function DebugNearbyScreen() {
             <p className="text-slate-500">
               {selected.ours
                 ? 'One of our 7 landmarks (src/data)'
-                : 'From Geoapify / OpenStreetMap'}
+                : `From ${SOURCE_LABELS[current?.source ?? source].name}`}
             </p>
           </div>
           <div>
@@ -357,12 +449,17 @@ export default function DebugNearbyScreen() {
             <Row label="Latitude">{selected.lat.toFixed(6)}</Row>
             <Row label="Longitude">{selected.lng.toFixed(6)}</Row>
             <Row label="Address">{selected.address ?? '—'}</Row>
+            {selected.significance !== undefined && selected.significance !== null && (
+              <Row label="Significance (not a rating)">{selected.significance}</Row>
+            )}
+            {selected.wikidata && <Row label="Wikidata">{selected.wikidata}</Row>}
             <Row label="id">{selected.id}</Row>
           </div>
           <p className="text-slate-500">
-            OpenStreetMap has no ratings, no prices, no room availability, and halal status is
-            rarely tagged, so this page shows none of those. Opening hours are not shown either:
-            they are often missing or out of date.
+            Neither provider has ratings, prices, room availability or reliable halal tagging, so
+            this page shows none of those. Opening hours are not shown either: they are often
+            missing or out of date. OpenTripMap&apos;s &quot;significance&quot; is its own measure
+            of how notable a place is, not an opinion from any visitor.
           </p>
           <Button
             as="a"
@@ -393,6 +490,9 @@ export default function DebugNearbyScreen() {
 
         <p className="text-slate-500">
           {busy ? 'Loading…' : `${items.length} shown`}
+          {!busy && droppedAsOurs > 0
+            ? ` · ${droppedAsOurs} dropped as a second copy of one of our 7`
+            : ''}
           {current?.ok && current.fromCache ? ' · reused from cache, no request sent' : ''}
         </p>
 
@@ -453,8 +553,8 @@ export default function DebugNearbyScreen() {
         </ul>
       </div>
 
-      {/* Required by the data licence */}
-      <footer className="border-t border-slate-200 pt-3 text-xs text-slate-500">
+      {/* Required by the data licences. Both providers build on OpenStreetMap. */}
+      <footer className="space-y-1 border-t border-slate-200 pt-3 text-xs text-slate-500">
         <p>
           Place data from{' '}
           <a className="underline" href="https://www.openstreetmap.org/copyright">
@@ -464,15 +564,22 @@ export default function DebugNearbyScreen() {
           <a className="underline" href="https://opendatacommons.org/licenses/odbl/">
             Open Database Licence
           </a>
-          . Served by{' '}
-          <a className="underline" href="https://www.geoapify.com/">
-            Geoapify
-          </a>
           .
         </p>
-        <p className="mt-1">
-          Our own 7 landmarks come from src/data and always rank first. Geoapify results never get a
-          stamp, a route card or a check-in.
+        <p>
+          Served by{' '}
+          <a className="underline" href="https://www.geoapify.com/">
+            Geoapify
+          </a>{' '}
+          and{' '}
+          <a className="underline" href="https://opentripmap.com/">
+            OpenTripMap
+          </a>
+          . OpenTripMap also draws on Wikidata and Wikipedia, and is ODbL too.
+        </p>
+        <p>
+          Our own 7 landmarks come from src/data and always rank first. Nothing from either provider
+          ever gets a stamp, a route card or a check-in.
         </p>
       </footer>
     </section>
