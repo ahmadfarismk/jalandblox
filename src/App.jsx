@@ -17,6 +17,7 @@ import DebugLocationScreen from './core/DebugLocationScreen';
 import CheckinScreen from './core/CheckinScreen';
 import DebugMenuScreen from './core/DebugMenuScreen';
 import ComponentsSampleScreen from './guide/ComponentsSampleScreen';
+import DebugNearbyScreen from './guide/DebugNearbyScreen';
 import BottomTabs from './shared/BottomTabs';
 import { getPrefs } from './core/settings';
 import { isWelcomeDone } from './guide/welcomePrefs';
@@ -116,6 +117,8 @@ export default function App() {
         <Route path="debug/location" element={<DebugLocationScreen />} />
         {/* Hidden page showing every shared component (S1). Not linked in the app. */}
         <Route path="debug/components" element={<ComponentsSampleScreen />} />
+        {/* Hidden page for the Geoapify places spike (X1). Not linked in the app. */}
+        <Route path="debug/nearby" element={<DebugNearbyScreen />} />
       </Route>
       {/* The landing page for anyone, e.g. a link shared with people not travelling now. */}
       <Route path="about" element={<LandingScreen />} />
