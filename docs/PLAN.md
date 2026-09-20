@@ -56,11 +56,11 @@ This section says what is done, what each person builds next, and anything that 
 
 ### Syakir (guide and map)
 
-**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 38). S8 colour unlock. S9 Learn screens. S10 phone polish.
+**Done:** S1 shared components (Button, Card, StampBadge, Avatar, BottomTabs) and the sample page at `/debug/components`. S2 Welcome screen at `/welcome`. S3 Guide home. S4 Landmark detail. S5 Journey screen. S6 Arrival screen. S7 Map screen (no street tiles yet, see change 38). S8 colour unlock. S9 Learn screens. S10 phone polish. X1 Geoapify spike (see change 49).
 
 **In progress:** nothing. S1 to S10 are done and waiting for review.
 
-**Next:** S11 field-test fixes, which waits for Danial's test day (D13). Until then: the map's street tiles (change 38) whenever the team picks a tile service, and the real landmark photos and icons when D10 and D12 land.
+**Next:** S11 field-test fixes, which waits for Danial's test day (D13). Until then: the map's street tiles (change 38) whenever the team picks a tile service, and the real landmark photos and icons when D10 and D12 land. The team still has to decide whether the X1 second tier goes ahead; nothing is wired into the app until it does.
 
 **Notes from Faris:** New landing page in `src/core/LandingScreen.jsx` (change 48), built from your Button and Card; restyle it freely when the UI references arrive (tell me and I will hand it over). Landmark photos are in (change 47): `PlaceScreen.jsx` now shows a small credit line under the photo, which the photo licences require; please keep it if you restyle that screen. S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
@@ -81,6 +81,7 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | S10 | Phone polish: checked at 320px wide, "Finding you…" while GPS lands, the location-off hint, and the Journey opens at the step you are on |
 | 2026-09-18 | S7 fix | Map keeps the city's real shape on any screen, and Danial's landmark icons (D12) show on it |
 | 2026-09-18 | S2 S3 S5 tests | Screen tests for Welcome, Guide home and Journey with the test libraries from change 40 |
+| 2026-09-21 | X1 | Geoapify spike: hidden `/debug/nearby` page, `src/guide/nearby/` (one fetch file, a fake, the fake/real switch with caching), one route line in App.jsx. Nothing wired into the Guide, Map, Passport or check-in |
 
 ### Danial (rewards and content)
 
@@ -156,6 +157,7 @@ Add new lines at the end. Say who needs to know.
 46. **`getPlace()` returns a new copy every call** (since D1), so never put its result straight into a `useEffect` or `useCallback` dependency list: the effect would run on every render. Use `useMemo(() => getPlace(id), [id])`, like `PlaceScreen.jsx` does. This caused the Check-in screen to check in again and again with real GPS; fixed. (Everyone.)
 47. **Landmark photos are in** (Faris, with Danial's and Syakir's files). `public/landmarks/<id>.jpg`, 1280 px wide, from Wikimedia Commons under CC0, CC BY or CC BY-SA licences. Each place in `places.json` has `photoCredit`: `{ author, licence, licenceUrl, source }`. **The licences require the credit to be shown with the photo**: the Landmark screen shows "Photo: <author>, <licence>" linked to the source (`place.photoCredit` text key). A test checks every place has its photo file and a full credit. The small list thumbnails rely on the credit on the Landmark screen. These are not the postcard photos: those stay with the hired photographer (D10). (Everyone.)
 48. **Landing page** (Faris; not in the original MVP list, agreed to add on 2026-09-18). A new visitor opening `/` (the link or QR code) sees the landing page; **Start** goes to `/welcome`, then the app. A new visitor opening `/map` or `/passport` is sent to `/` first (before: straight to `/welcome`). Returning visitors still go straight to the Guide at `/`. `/about` always shows the landing page: share that link with people who are not travelling now (KrackedDev, judges, partners); Settings links to it. All "back to the guide" links (`to="/"`) keep working unchanged. Text: `landing.*`, `settings.about`. (Everyone.)
+49. **New hidden page `/debug/nearby`** (Syakir, spike X1, 2026-09-21). A test page for judging whether Geoapify could power a **second tier** of places across KL: search, things to See, places to Eat, places to Stay. **Nothing is wired into the Guide, the Map, the Passport, check-in or stamps, and nothing here ever gets a stamp or a route card.** Our 7 landmarks stay hand-written in `src/data/` and always rank first in the list. New folder `src/guide/nearby/`: `geoapify.js` is the only file in the app that calls `fetch`, `geoapify.mock.js` is the fake, `nearbySource.js` is the fake/real switch plus the cache and the request counter, `categories.js` holds the three category groups in one place. Fake is the default, so no key and no credits are needed. **Faris: two lines added to `App.jsx`** (the import and the route, next to `/debug/location`) — please review them. **Faris: `.env.example` needs `VITE_GEOAPIFY_KEY=` (name only, no value) and `VITE_GEOAPIFY_SOURCE=fake`**; I did not edit that file. No new library. (Everyone: the team still has to decide whether the second tier goes ahead.)
 
 ## 1. MVP on a page
 
