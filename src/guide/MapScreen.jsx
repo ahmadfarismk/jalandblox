@@ -1,33 +1,37 @@
 /**
- * Map screen (task S7, docs/PLAN.md section 4).
+ * Map screen (task S7, colour unlock S8, 3D scene S12/S13).
  *
  * An overview of the City Centre with the seven check-in spots on it. Each
- * icon is grey until its gold stamp is earned, then it turns gold, and it does
- * that live: the screen listens for progress changes (task S8). Tapping an
- * icon opens the landmark.
+ * landmark is grey until its gold stamp is earned, then it turns gold, and it
+ * does that live: this screen listens for progress changes. Tapping one opens
+ * the landmark.
  *
- * Two things wait on decisions the team has not made yet:
+ * Two maps, one screen:
+ * - The 3D city (CityMap3D) on phones that can draw it. Landmark models stand
+ *   on the real street layout, at their real positions.
+ * - The flat map (FlatMap) everywhere else: no WebGL, a phone saving data, a
+ *   small phone, the simple-map setting, or a crash in the 3D scene.
  *
- * - No street tiles. The plan's map library (MapLibre GL JS) needs a hosted
- *   tile service, and which one to use is still an open question (docs/PLAN.md
- *   section 16). Until then this screen draws the landmarks itself from their
- *   real coordinates, so they sit in the right places relative to each other.
- * - No tilt. Tilting this drawn map in CSS squashed the icons to about 30px
- *   tall, under the 44px a thumb needs, and pushed the ones at the edge out of
- *   view. The tilt belongs to the map library, and the plan already lists it
- *   as the first thing to cut (section 12).
- *
- * When the team picks a tile service, this screen is the only file to change.
+ * Everything that decides grey or gold lives here, so both maps get it for
+ * free. Neither map needs a tile service or an API key, so both work offline.
  */
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { getPlaces } from '@/data';
 import { getProgress, onProgressChange } from '@/core/progress';
 import { getPermissionState, watchPosition } from '@/core/location';
-import MapPin from './components/MapPin';
-import { boundsFor, fitToBox, projectPoint } from './mapProjection';
-import { isCollected, newlyGold, shortNameKey } from './placeList';
+import { getPrefs } from '@/core/settings';
+import FlatMap from './components/FlatMap';
+import MapErrorBoundary from './components/MapErrorBoundary';
+import MapAttribution from './components/MapAttribution';
+import MapLegend from './components/MapLegend';
+import { canRender3D, detectMapEnv } from './mapCapability';
+import { newlyGold } from './placeList';
+
+// Only fetched when a phone can actually draw it, so the Guide and Passport
+// tabs never pay for the 3D library.
+const CityMap3D = lazy(() => import('./components/CityMap3D'));
 
 export default function MapScreen() {
   const { t } = useTranslation();
@@ -40,8 +44,12 @@ export default function MapScreen() {
   const [justUnlocked, setJustUnlocked] = useState([]);
   const stampsRef = useRef(stamps);
 
-  // Gold stamps colour the icons in, with no reload (task S8). A check-in on
-  // another screen, or in another tab, arrives here the same way.
+  // What this phone can draw, decided once when the screen opens. It becomes
+  // false if the 3D scene then fails, so the flat map takes over.
+  const [use3D, setUse3D] = useState(() => canRender3D(detectMapEnv(getPrefs())));
+
+  // Gold stamps colour the landmarks in, with no reload (task S8). A check-in
+  // on another screen, or in another tab, arrives here the same way.
   useEffect(
     () =>
       onProgressChange((progress) => {
@@ -83,102 +91,42 @@ export default function MapScreen() {
 
   const places = useMemo(() => getPlaces(), []);
 
-  // How wide the drawing area is against its height. The landmarks are placed
-  // inside it in percentages, so without this the city would be stretched to
-  // fill a tall phone screen.
-  const boxRef = useRef(null);
-  const [aspect, setAspect] = useState(null);
-  useEffect(() => {
-    const box = boxRef.current;
-    if (!box) return undefined;
-    const measure = () => setAspect(box.clientWidth / box.clientHeight || null);
-    measure();
-    // The box changes with the window, and when the phone is turned sideways.
-    const observer = new globalThis.ResizeObserver(measure);
-    observer.observe(box);
-    return () => observer.disconnect();
-  }, []);
-
-  // The map fits every landmark, and the visitor too when they are nearby.
-  const bounds = useMemo(() => {
-    const points = places.map((p) => p.coords);
-    if (position) points.push([position.lat, position.lng]);
-    // A wider margin than the default: a pin's name sticks out sideways.
-    return fitToBox(boundsFor(points, 0.25), aspect);
-  }, [places, position, aspect]);
-
-  const you = position ? projectPoint([position.lat, position.lng], bounds) : null;
+  const mapProps = {
+    places,
+    stamps,
+    justUnlocked,
+    position,
+    onSelect: (placeId) => navigate(`/place/${placeId}`),
+    // A phone can take the graphics context away: fall back to the flat map.
+    onFail: () => setUse3D(false),
+  };
+  const flatMap = <FlatMap {...mapProps} />;
 
   return (
     <section>
       <h1 className="text-2xl font-semibold">{t('map.title', 'Map')}</h1>
 
-      {/* Flat for now, not tilted: see the note at the top of this file. The
-          inner box is inset, so a pin near the edge still has room for its
-          name instead of being cut off. */}
-      <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-        {/* The City Centre is a little wider than it is tall, so the box is
-            too: fitting a tall box would only add empty sky and squash the
-            landmarks into a band across the middle. */}
-        <div className="relative aspect-[6/5] w-full">
-          <div ref={boxRef} className="absolute inset-x-12 inset-y-10">
-            {places.map((place) => {
-              const at = projectPoint(place.coords, bounds);
-              if (!at) return null; // coordinates still TBC
-              const collected = isCollected(stamps[place.id]);
-              return (
-                <MapPin
-                  key={place.id}
-                  name={t(shortNameKey(place), t(place.nameKey))}
-                  collected={collected}
-                  justUnlocked={justUnlocked.includes(place.id)}
-                  icon={collected ? place.iconColour : place.iconGrey}
-                  at={at}
-                  onSelect={() => navigate(`/place/${place.id}`)}
-                />
-              );
-            })}
-
-            {you ? (
-              <span
-                style={{ left: `${you.left}%`, top: `${you.top}%` }}
-                className="absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-teal-600 shadow"
-              >
-                <span className="sr-only">{t('map.you', 'You are here')}</span>
-              </span>
-            ) : null}
-          </div>
-        </div>
+      <div className="mt-3">
+        {use3D ? (
+          <MapErrorBoundary fallback={flatMap} onFail={() => setUse3D(false)}>
+            <Suspense fallback={flatMap}>
+              <CityMap3D {...mapProps} />
+            </Suspense>
+          </MapErrorBoundary>
+        ) : (
+          flatMap
+        )}
       </div>
 
-      <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-600">
-        <li className="flex items-center gap-2">
-          <span
-            aria-hidden="true"
-            className="size-3 rounded-full border border-slate-400 bg-white"
-          />
-          {t('map.legendGrey', 'Not collected yet')}
-        </li>
-        <li className="flex items-center gap-2">
-          <span
-            aria-hidden="true"
-            className="size-3 rounded-full border border-amber-600 bg-amber-400"
-          />
-          {t('map.legendColour', 'Gold stamp collected')}
-        </li>
-        {you ? (
-          <li className="flex items-center gap-2">
-            <span aria-hidden="true" className="size-3 rounded-full bg-teal-600" />
-            {t('map.you', 'You are here')}
-          </li>
-        ) : null}
-      </ul>
+      <MapLegend showCity={Boolean(use3D)} showYou={Boolean(position)} />
 
       {locationOn ? null : (
         <p role="status" className="mt-3 text-sm text-slate-500">
           {t('map.locationOff', "Location is off, so we can't show where you are.")}
         </p>
       )}
+
+      {use3D ? <MapAttribution className="mt-2" /> : null}
     </section>
   );
 }

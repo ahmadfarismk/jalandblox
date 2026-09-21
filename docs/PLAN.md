@@ -25,7 +25,24 @@ This section says what is done, what each person builds next, and anything that 
 
 **Done since:** real GPS and check-in on the live site and preview links (`.env.production`), and a fix for a check-in loop (see change 46).
 
-**Next:** F6 outdoor test on the live site, then F9 send-postcard function (needs an email service account and a sending address; adds a `postcard_place_id` column for Danial's postcard choice), then F10 connect the Review screen to it.
+**In progress:** the KrackedDev pivot (2026-09-21). S12 map split and S13 the 3D city are built; F14 imported the building shapes. See changes 49 to 51.
+
+**The pivot, in one paragraph:** KrackedDev could not picture the product from a flat map, so the Map tab is now a 3D city drawn by the app itself: the street grid, the rivers, the parks, and buildings at their real heights, all from OpenStreetMap, with a marker at each check-in spot. No tile service, no key, no cost per visitor, and it works offline. Phones that cannot draw it still get the flat map. **The cost: the postcard email (F9, F10) slips to week 4**, so week 3 no longer demos a postcard arriving. This reverses two agreed decisions (sections 1 and 2) and needs the team's yes at the Monday call, not just mine.
+
+**New tasks from the pivot**
+
+| ID | Task | Owner | State |
+| --- | --- | --- | --- |
+| S12 | Split the Map tab: chooser, `FlatMap`, capability check, error boundary | Faris (Syakir's folder: see the note in his block) | Done, in review |
+| S13 | `CityMap3D`: three.js scene, markers, labels, colour unlock, tap to open | Faris | Done, in review |
+| F14 | `npm run import:buildings` → `buildings.json`, OSM credit component | Faris | Done, in review |
+| K1 | Seven landmark models as `.glb` (spec in `public/models/README.md`) | KrackedDev | Not started. Touches no app file |
+| F16 | Nearby attractions imported from OpenStreetMap, shown as a list | Faris | Not started |
+| S14 | Learn blocks: `list` and `table` renderers | Syakir | Not started |
+| D14–D16 | Payments, rides, seasons, budgets, area vibe: content in both languages | Danial | Not started |
+| S16 | Personalisation by rules (nationality, stamps, time of day). No AI in the app | Syakir | Not started |
+
+**Next:** hand KrackedDev the model spec, the F6 outdoor test on the live site, then F9 send-postcard function (needs an email service account and a sending address; adds a `postcard_place_id` column for Danial's postcard choice), then F10 connect the Review screen to it.
 
 **Before launch (blockers):**
 - Pick the team's contact email for data requests and put it in `src/core/privacy.js` (now `TBC`, and the Privacy page says "coming soon").
@@ -53,6 +70,9 @@ This section says what is done, what each person builds next, and anything that 
 | 2026-09-18 | Real GPS | `VITE_USE_MOCKS` per part; live site and previews use real GPS and check-in (only reviews stay fake). Fixed the Check-in screen checking in again and again. Tests for both |
 | 2026-09-18 | Landmark photos | 7 landmark photos from Wikimedia Commons (1280 px, about 2 MB total) in `public/landmarks/`, `photoCredit` in `places.json`, credit line on the Landmark screen, test that every place has its photo and credit |
 | 2026-09-18 | Landing page | Landing page at `/` for new visitors (Start → Welcome → app) and at `/about` for anyone; returning visitors still go straight to the Guide. English/Malay switch, how it works, the 7 places, photo credits. "About JalanKL" link in Settings |
+| 2026-09-21 | 3D map, part 3 | All seven landmarks drawn and coloured (Abdul Samad, Petaling gate, KL Sentral, KLCC Park); city buildings get a real palette; legend wording follows the grey-to-colour rule |
+| 2026-09-21 | 3D map, part 2 | Streets, rivers and parks on the map; landmark buildings turn gold with their stamp; drawn Twin Towers and KL Tower, with Merdeka 118 taken from the real data; map legend |
+| 2026-09-21 | 3D map (S12, S13, F14) | Map tab split into a chooser plus the flat map; new three.js city from OpenStreetMap: streets, rivers, parks and buildings with real heights, landmark markers, labels and colour unlock; `npm run import:citymap`; "simple map" setting; OSM credit. Postcard email (F9, F10) slips to week 4 |
 
 ### Syakir (guide and map)
 
@@ -62,7 +82,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **Next:** S11 field-test fixes, which waits for Danial's test day (D13). Until then: the map's street tiles (change 38) whenever the team picks a tile service, and the real landmark photos and icons when D10 and D12 land.
 
-**Notes from Faris:** New landing page in `src/core/LandingScreen.jsx` (change 48), built from your Button and Card; restyle it freely when the UI references arrive (tell me and I will hand it over). Landmark photos are in (change 47): `PlaceScreen.jsx` now shows a small credit line under the photo, which the photo licences require; please keep it if you restyle that screen. S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
+**Notes from Faris:** **The Map tab changed (S12, S13, changes 49-50).** I split `MapScreen.jsx` into a chooser plus `components/FlatMap.jsx` (your drawing, moved as it was) and added `components/CityMap3D.jsx`. Your unlock logic and `MapPin` are reused unchanged, except that `at` is now optional. Sorry for working in your folder: this came from the KrackedDev sync and the deadline. Restyle any of it, and say if you would rather own it. The street-tiles question is closed: we draw our own city, so there is no tile service to pick. New landing page in `src/core/LandingScreen.jsx` (change 48), built from your Button and Card; restyle it freely when the UI references arrive (tell me and I will hand it over). Landmark photos are in (change 47): `PlaceScreen.jsx` now shows a small credit line under the photo, which the photo licences require; please keep it if you restyle that screen. S2 saves choices with `setPrefs({ lang, nationality, startedFrom })` and lists languages with `getLanguages()`. When S2 works, ask Faris to add the "first open goes to /welcome" redirect in App.jsx (it will use `startedFrom` being empty).
 
 **Push log**
 
@@ -90,7 +110,7 @@ This section says what is done, what each person builds next, and anything that 
 
 **Next:** D10 hire the photographer, D11 postcard template, D7 field day (fills the TBCs), D13 field test.
 
-**Notes from Faris:** Please check the Malay in `landing.*` and `settings.about` (landing page, change 48). I added the 7 landmark photos to `public/landmarks/` and a `photoCredit` field to each place in `places.json` (change 47). If you swap in field-day photos, update `photoCredit` too, or remove it for photos the team took. thanks for the coordinates: check-in now works at all 7 landmarks. Please confirm them and `radius_m` on the field day. For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
+**Notes from Faris:** **New content is coming your way (D14-D16, see the pivot table in my block):** payment systems, Grab fare bands, attraction budgets, seasonal highlights, and a `vibeKey` per place. Same rules as always: every fact sourced and dated, "TBC" where it is not checked. Please also check the Malay in `attribution.*` and `settings.map.*`. Please check the Malay in `landing.*` and `settings.about` (landing page, change 48). I added the 7 landmark photos to `public/landmarks/` and a `photoCredit` field to each place in `places.json` (change 47). If you swap in field-day photos, update `photoCredit` too, or remove it for photos the team took. thanks for the coordinates: check-in now works at all 7 landmarks. Please confirm them and `radius_m` on the field day. For D8, use `<ConsentCheckbox checked={consent} onChange={setConsent} />` from `core/ConsentCheckbox.jsx` and keep the send button disabled until it is ticked; you can try it in the debug menu at `/debug`. Please check the Malay in `privacy.*` and `consent.*`.
 
 **Notes from Danial:** research findings that change assumptions are in `src/data/README.md` (Merdeka 118 renamed and mostly closed; Sultan Abdul Samad reopened; Rapid KL gates don't take bank cards yet; KL Tower is a long uphill walk). The Malay still needs a native speaker's read, including Faris's `privacy.*` and `consent.*`.
 
@@ -156,6 +176,11 @@ Add new lines at the end. Say who needs to know.
 46. **`getPlace()` returns a new copy every call** (since D1), so never put its result straight into a `useEffect` or `useCallback` dependency list: the effect would run on every render. Use `useMemo(() => getPlace(id), [id])`, like `PlaceScreen.jsx` does. This caused the Check-in screen to check in again and again with real GPS; fixed. (Everyone.)
 47. **Landmark photos are in** (Faris, with Danial's and Syakir's files). `public/landmarks/<id>.jpg`, 1280 px wide, from Wikimedia Commons under CC0, CC BY or CC BY-SA licences. Each place in `places.json` has `photoCredit`: `{ author, licence, licenceUrl, source }`. **The licences require the credit to be shown with the photo**: the Landmark screen shows "Photo: <author>, <licence>" linked to the source (`place.photoCredit` text key). A test checks every place has its photo file and a full credit. The small list thumbnails rely on the credit on the Landmark screen. These are not the postcard photos: those stay with the hired photographer (D10). (Everyone.)
 48. **Landing page** (Faris; not in the original MVP list, agreed to add on 2026-09-18). A new visitor opening `/` (the link or QR code) sees the landing page; **Start** goes to `/welcome`, then the app. A new visitor opening `/map` or `/passport` is sent to `/` first (before: straight to `/welcome`). Returning visitors still go straight to the Guide at `/`. `/about` always shows the landing page: share that link with people who are not travelling now (KrackedDev, judges, partners); Settings links to it. All "back to the guide" links (`to="/"`) keep working unchanged. Text: `landing.*`, `settings.about`. (Everyone.)
+49. **The Map tab now has two maps** (S12). `MapScreen.jsx` decides: the 3D city on phones that can draw it, the flat map otherwise (no WebGL, saving data, 2 GB of memory or less, "simple map" in Settings, or a crash in the 3D scene). The flat map moved to `guide/components/FlatMap.jsx`, unchanged. `MapPin`'s `at` is now optional: the 3D map places its own labels. New pref `simpleMap`. (Syakir.)
+50. **The 3D city** (S13) is `guide/components/CityMap3D.jsx`, drawn with **three.js** (a new dependency: needs the team's yes, section 14). It loads only when the Map tab opens on a phone that can draw it, so the Guide and Passport tabs are unaffected, and it draws only when something moves, so an idle map costs no battery. Landmark markers are deliberately plain until KrackedDev's models land (K1): a pillar and a disc, not a guess at the real building. (Everyone.)
+51. **The city comes from OpenStreetMap** (F14): `npm run import:citymap` writes `src/data/citymap.json` (450 buildings with heights, 1,400 roads, the rivers, 13 lakes and 65 parks, 323 KB), committed to the repo. Visitors never call the API, so there is no key, no bill and no signal needed. **The ODbL licence requires the credit**: `<MapAttribution />` shows it under the map, so keep it. OpenTripMap was rejected for the attractions list because its free plan is non-commercial only and JalanKL may go commercial. (Everyone.)
+52. **Landmarks on the 3D map** (S13). A landmark's own building turns gold with its stamp, not just the marker: `guide/footprints.js` works out which OpenStreetMap outline belongs to each landmark (the smallest one the coordinates fall inside, or the nearest within 70 m). Where OpenStreetMap already has the real tower, the map uses it: Merdeka 118 is in the data at its full 679 m. Where it does not, `guide/landmarkShapes.js` draws a simple stand-in with the real height: the Twin Towers (451.9 m, with the skybridge) and KL Tower (421 m). Everything else keeps a plain marker, and KLCC Park and Petaling Street have no building to colour, which is correct. KrackedDev's models (K1) replace the drawn shapes. The map's colours live in `guide/mapColours.js` (plain numbers, no three.js) so the new `<MapLegend />` shows exactly the colours the map uses without pulling the 3D library into the rest of the app. (Everyone.)
+53. **All seven landmarks are drawn on the 3D map, and they turn from grey to their own colours** (S13), which is what section 1 promised: "the landmark icon turns from grey to colour on the map". Sultan Abdul Samad has its brick arcade, clock tower and copper domes; Petaling Street its red and green gate; KL Sentral its curved roof; KLCC Park the fountain and trees; plus the Twin Towers and KL Tower from before. Merdeka 118 is still the real OpenStreetMap tower. The city's own buildings now use a small palette instead of three greys: plaster and brick low down, concrete in the middle, glass on the towers, each building keeping its shade between visits. Colours live in `guide/mapColours.js`; shapes in `guide/landmarkShapes.js`. All of it is a stand-in for KrackedDev's models (K1). (Everyone.)
 
 ## 1. MVP on a page
 
@@ -165,7 +190,7 @@ The bet: tourists will follow one clear recommended route (not a list of options
 
 | In the MVP | Not in the MVP |
 | --- | --- |
-| Arrival journey: KLIA to KL Sentral | 3D mini city (we use a tilted 2D map instead) |
+| Arrival journey: KLIA to KL Sentral | Photo-realistic map tiles (Google 3D: about $6 per 1,000 tile requests) |
 | City Centre: 6 landmarks + KL Sentral as check-in spots | Automatic route finder (we hand-write route cards) |
 | Hand-written route cards with "I'm Here" steps | Login and accounts |
 | One recommended option per route, plus "Open in Google Maps" | Live train times |
@@ -188,7 +213,7 @@ These merge the original PDF plan with the team's feature notes. Rows marked "as
 | Codebase | Build from scratch. No existing Jalan KL code. | Confirmed |
 | Area | Arrival (KLIA to KL Sentral) plus City Centre | Confirmed |
 | Rewards | Both stamps and emailed postcards | Confirmed |
-| Map | Tilted 2D map (2.5D look) with landmark icons. No 3D city. | Agreed |
+| Map | A 3D city drawn by the app: OpenStreetMap building shapes, plus hand-made landmark models from KrackedDev. A flat map stays as the fallback. | **Changed 2026-09-21** after the KrackedDev sync, by Faris. Was "tilted 2D map, no 3D city (Agreed)". Confirm at the Monday call |
 | Routes | About 12 hand-written route cards stored as data. No route finder. | Agreed |
 | Check-in | User taps "I'm Here", then the app checks GPS is inside the landmark radius | Agreed |
 | Languages | English and Malay. Built so a new language is just a new file. | Assumed |
@@ -266,8 +291,8 @@ Everything is a website that behaves like an app on a phone, plus one small host
 | Language | JavaScript (not TypeScript) | Fewer things to learn. Use JSDoc comments to describe data shapes. |
 | Styling | Tailwind CSS | Style with short class names instead of separate CSS files. |
 | Screen navigation | React Router | Maps a URL path like `/passport` to a screen. |
-| Map | MapLibre GL JS | Free map library. Can tilt the map for the 2.5D look and place custom icons. |
-| Map background | A hosted map tile service | The street map images under our icons. Pick one in week 1 (see open questions). |
+| Map | three.js | Draws the 3D city on the phone. Chosen over MapLibre because we now draw our own buildings instead of using map tiles. |
+| Map background | None: building shapes shipped with the app | `npm run import:buildings` fetches KL Centre from OpenStreetMap once; the result is committed. No tile service, no key, no bill, and the map works offline. |
 | Saving progress | Browser localStorage | Saves stamps on the phone itself. No login needed. |
 | Backend | Supabase | Hosted database, file storage and small server functions. Holds reviews, emails, postcard files. |
 | Email sending | Resend (or similar), called from a Supabase function | Sends the postcard email. The secret key stays on the server, never in the app. |
@@ -277,7 +302,7 @@ Everything is a website that behaves like an app on a phone, plus one small host
 | Code checks | ESLint + Prettier | Catches mistakes and keeps formatting the same across three people. |
 | Tests | Vitest | Small automatic tests for the important logic (progress save, distance check). |
 
-**Fallback:** if MapLibre proves too hard in week 1, switch to Leaflet. It is simpler but cannot tilt the map, so the 2.5D look would be dropped.
+**Fallback:** the flat map (`FlatMap.jsx`) is still shipped and tested. Phones without WebGL, phones saving data, small phones, anyone who picks "simple map" in Settings, and any crash in the 3D scene all get it.
 
 **Not verified:** free-plan limits for Supabase, Resend, the tile service and hosting. Check each pricing page before committing.
 
@@ -653,7 +678,9 @@ Five phases, each ending with a demo on a real phone using the preview link. If 
 | Phase 0 (days 1 to 3) | Agree sections 7 and 8 together. Repo, hosting, fakes and shared components ready. | Empty app with 3 tabs opens on everyone's phone from a link | Nothing. Do not start features before this is done. |
 | Week 1: Screens | Every screen exists and runs on fake data | Click through the whole app: welcome, list, detail, passport, settings | Settings screen polish |
 | Week 2: Go | Real routes, real GPS, map, backend tables, field day | KLIA to KL Sentral journey works; check-in gives gold at one real landmark | Muzium Negara; map tilt |
-| Week 3: Reward | Colour unlock, review, postcard email, learn pages, install to phone | Full loop on a phone, and the stamp survives closing the app | Learn pages down to 1 topic; postcards down to 1 landmark |
+| Week 3: Reward | Colour unlock, review, learn pages, install to phone, **3D city map** | Full loop on a phone, and the stamp survives closing the app | Learn pages down to 1 topic; postcards down to 1 landmark |
+
+**Changed 2026-09-21:** the 3D map took priority after the KrackedDev sync, so the postcard email (F9, F10) moves to week 4 and week 3 no longer demos a real postcard arriving. Faris decided this; the team confirms it at the Monday call. This is the thing to undo first if week 4 gets tight.
 | Week 4: Prove and ship | Test with 3 to 5 tourists, fix top issues, go public | Live link plus a one-page test report | New features. Only fixes this week. |
 
 **Weekly rhythm**
@@ -807,7 +834,9 @@ The two biggest risks are trying to build too much, and sending a tourist the wr
 **Open questions for the team**
 
 - [ ] Are the assumptions in section 2 right (languages, 3 postcard landmarks, 4 weeks, Danial's coding load)?
-- [ ] Which map tile service do we use? Compare 2 or 3 in Phase 0 on price and on how good KL looks.
+- [x] Which map tile service do we use? **None** (2026-09-21). We draw our own 3D city from OpenStreetMap shapes shipped with the app, so there is no tile bill and no key. Google's photo-realistic 3D tiles were priced and rejected: 1,000 tile requests free per month, then about $6 per 1,000, with no spend cap.
+- [ ] Does JalanKL stay non-commercial? It decides where attraction data may come from: OpenTripMap's free plan is non-commercial only, which is why we use OpenStreetMap instead. Owner: Faris to ask KrackedDev.
+- [ ] An AI assistant inside the app: in or out? Out for the MVP (cost per message, useless offline, and it can invent a train line: see the second risk above). "Personalisation" in week 3 means filtering what we already have by nationality, stamps and time of day. Owner: the team.
 - [ ] What email address sends the postcards, and do we own a domain for it?
 - [ ] Who is the contact for data deletion requests?
 - [ ] Is photography allowed inside the stations we need signage photos from?

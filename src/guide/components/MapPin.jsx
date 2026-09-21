@@ -13,7 +13,8 @@
  * @param {boolean} [props.justUnlocked] the stamp arrived a moment ago: the pin
  *   gives one quiet ring so the visitor sees which icon changed (task S8)
  * @param {string} [props.icon] path to Danial's icon, grey or colour
- * @param {{left: number, top: number}} props.at where on the map, in percent
+ * @param {{left: number, top: number}} [props.at] where on the map, in percent.
+ *   Left out by the 3D map, which positions the pin itself.
  * @param {() => void} props.onSelect
  */
 import { useState } from 'react';
@@ -25,10 +26,12 @@ export default function MapPin({ name, collected, justUnlocked, icon, at, onSele
     <button
       type="button"
       onClick={onSelect}
-      style={{ left: `${at.left}%`, top: `${at.top}%` }}
+      style={at ? { left: `${at.left}%`, top: `${at.top}%` } : undefined}
       // The icon hangs from its point, so the point is what sits on the
       // coordinate, the way a pin does on a paper map. The name follows below.
-      className="absolute flex min-h-11 w-20 -translate-x-1/2 -translate-y-7 flex-col items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+      className={`flex min-h-11 w-20 flex-col items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700 ${
+        at ? 'absolute -translate-x-1/2 -translate-y-7' : 'relative'
+      }`}
     >
       {/* A ring around the pin that has just been earned. Phones set to reduce
           motion get the colour change on its own, with no animation. */}

@@ -37,7 +37,7 @@ describe('loading a save', () => {
   it('starts empty when nothing is saved', () => {
     expect(p.getProgress()).toEqual({
       version: 1,
-      prefs: { lang: 'en', nationality: null, startedFrom: null },
+      prefs: { lang: 'en', nationality: null, startedFrom: null, simpleMap: false },
       opened: [],
       stamps: {},
       journeys: {},
@@ -161,7 +161,7 @@ describe('reset and preferences', () => {
 
   it('_updatePrefs ignores invalid values', () => {
     const prefs = p._updatePrefs({ startedFrom: 'moon', lang: '' });
-    expect(prefs).toEqual({ lang: 'en', nationality: null, startedFrom: null });
+    expect(prefs).toEqual({ lang: 'en', nationality: null, startedFrom: null, simpleMap: false });
   });
 });
 

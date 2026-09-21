@@ -123,9 +123,13 @@
   "map": {
     "title": "Map",
     "you": "You are here",
-    "legendGrey": "Not collected yet",
-    "legendColour": "Gold stamp collected",
-    "locationOff": "Location is off, so we can't show where you are."
+    "legendGrey": "Not visited yet",
+    "legendColour": "Stamped, shown in colour",
+    "locationOff": "Location is off, so we can't show where you are.",
+    "legendPark": "Park",
+    "legendWater": "River or lake",
+    "legendRoad": "Main road",
+    "legendBuilding": "Building"
   },
   "learn": {
     "title": "Learn the basics",
@@ -489,7 +493,12 @@
       "note": "Your stamps and settings are saved only on this phone. We never save where you are.",
       "link": "Read the privacy notice"
     },
-    "about": "About JalanKL"
+    "about": "About JalanKL",
+    "map": {
+      "title": "Map",
+      "simple": "Use the simple map",
+      "simpleHint": "Turn this on if the 3D map is slow, or to save battery and data."
+    }
   },
   "location": {
     "explainer": "We use your location only to show how far places are and to confirm your check-ins. It is never saved.",
@@ -583,5 +592,8 @@
     "ready": "Ready when you are.",
     "credits": "Photo credits",
     "privacy": "Privacy"
+  },
+  "attribution": {
+    "osm": "Building shapes © OpenStreetMap contributors (ODbL)"
   }
 }
