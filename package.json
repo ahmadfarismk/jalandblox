@@ -13,7 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check:supabase": "node scripts/check-supabase.js",
-    "import:buildings": "node scripts/import-buildings.js"
+    "import:citymap": "node scripts/import-citymap.js"
   },
   "dependencies": {
     "i18next": "^26.4.2",

@@ -1,10 +1,13 @@
 /**
  * The 3D city (task S13).
  *
- * KL Centre drawn in three.js: the ground, the real shapes of the biggest
- * buildings around the landmarks (from OpenStreetMap, task F14), and a marker
- * standing at each of the seven check-in spots. A marker is grey until its
- * gold stamp is earned, then gold, live, exactly like the flat map.
+ * KL Centre drawn in three.js from OpenStreetMap (task F14): the street grid,
+ * the rivers, the parks, and the real shapes and heights of the buildings,
+ * with a marker standing at each of the seven check-in spots. A marker is grey
+ * until its gold stamp is earned, then gold, live, exactly like the flat map.
+ *
+ * The shapes themselves are built in cityLayers.js, which also holds the
+ * map's colours.
  *
  * Everything comes from files in the app, so there is no tile service, no API
  * key, no bill per visitor, and it works with no signal.
@@ -29,29 +32,22 @@ import {
   AmbientLight,
   CylinderGeometry,
   DirectionalLight,
-  DoubleSide,
-  ExtrudeGeometry,
   Fog,
   Group,
   Mesh,
   MeshLambertMaterial,
   PerspectiveCamera,
-  PlaneGeometry,
   Scene,
-  Shape,
   Vector3,
   WebGLRenderer,
 } from 'three';
-import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import buildingsFile from '@/data/buildings.json';
+import city from '@/data/citymap.json';
 import MapPin from './MapPin';
-import { buildingToScene, cameraDistance, sceneCentre, sceneRadius, toScene } from '../scene';
+import { cameraDistance, sceneCentre, sceneRadius, toScene } from '../scene';
+import { COLOURS, buildCity } from '../cityLayers';
 import { isCollected, shortNameKey } from '../placeList';
 
-const SKY = 0xdfe8f0;
-const GROUND = 0xe6eae3;
-const BUILDING = 0xc9ced6;
 const MARKER_GREY = 0x94a3b8;
 const MARKER_GOLD = 0xf5a524;
 
@@ -93,12 +89,12 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
       ),
       600,
     );
-    scene.fog = new Fog(SKY, radius * 2.2, radius * 6);
+    scene.fog = new Fog(COLOURS.sky, radius * 2.2, radius * 6);
 
     const camera = new PerspectiveCamera(45, 1, 5, radius * 12);
     const renderer = new WebGLRenderer({ antialias: false, powerPreference: 'low-power' });
     renderer.setPixelRatio(Math.min(globalThis.devicePixelRatio || 1, 1.5));
-    renderer.setClearColor(SKY, 1);
+    renderer.setClearColor(COLOURS.sky, 1);
     holder.appendChild(renderer.domElement);
     renderer.domElement.classList.add('block', 'h-full', 'w-full', 'touch-none');
 
@@ -107,37 +103,11 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
     sun.position.set(-radius, radius * 1.5, radius * 0.6);
     scene.add(sun);
 
-    // The ground, big enough to reach past the fog.
-    const ground = new Mesh(
-      new PlaneGeometry(radius * 8, radius * 8),
-      new MeshLambertMaterial({ color: GROUND }),
-    );
-    ground.rotation.x = -Math.PI / 2;
-    scene.add(ground);
-
-    // Every building becomes a flat outline pushed upwards, then they are all
-    // merged into one shape so the phone draws them in a single pass.
-    const parts = [];
-    for (const building of buildingsFile.buildings) {
-      const shaped = buildingToScene(building, centre);
-      if (!shaped) continue;
-      const outline = new Shape();
-      // -z: the outline is drawn flat and then tipped upright, which would
-      // otherwise swap north and south.
-      shaped.points.forEach(({ x, z }, i) =>
-        i === 0 ? outline.moveTo(x, -z) : outline.lineTo(x, -z),
-      );
-      outline.closePath();
-      const geometry = new ExtrudeGeometry(outline, { depth: shaped.height, bevelEnabled: false });
-      // Drawn flat on the floor, so "up" in the outline becomes "up" in the city.
-      geometry.rotateX(-Math.PI / 2);
-      parts.push(geometry);
-    }
-    const cityGeometry = parts.length ? mergeGeometries(parts, false) : null;
-    parts.forEach((g) => g.dispose());
-    const cityMaterial = new MeshLambertMaterial({ color: BUILDING, side: DoubleSide });
-    const city = cityGeometry ? new Mesh(cityGeometry, cityMaterial) : null;
-    if (city) scene.add(city);
+    // The ground, the parks, the water, the roads and the buildings. Each
+    // layer is one mesh, so the phone draws the whole city in a handful of
+    // passes instead of thousands.
+    const layers = buildCity(city, centre, radius);
+    layers.forEach((layer) => scene.add(layer));
 
     // One marker per landmark, at its real position.
     const markers = {};
@@ -160,17 +130,7 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
     controls.maxPolarAngle = 1.32; // never below the horizon
     controls.target.set(0, 0, 0);
 
-    const state = {
-      scene,
-      camera,
-      renderer,
-      controls,
-      markers,
-      centre,
-      radius,
-      city,
-      cityMaterial,
-    };
+    const state = { scene, camera, renderer, controls, markers, centre, radius, layers };
     sceneRef.current = state;
 
     /** Moves the floating names to wherever their landmark now is on screen. */
@@ -236,10 +196,10 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
       controls.removeEventListener('change', draw);
       renderer.domElement.removeEventListener('webglcontextlost', onLost);
       controls.dispose();
-      city?.geometry.dispose();
-      cityMaterial.dispose();
-      ground.geometry.dispose();
-      ground.material.dispose();
+      layers.forEach((layer) => {
+        layer.geometry.dispose();
+        layer.material.dispose();
+      });
       Object.values(markers).forEach((marker) => {
         marker.children.forEach((child) => child.geometry.dispose());
         marker.userData.material.dispose();

@@ -1,0 +1,154 @@
+/**
+ * Builds the shapes of the city for the 3D map (task S13).
+ *
+ * Kept out of the screen so the drawing code stays short, and so the colours
+ * of the map live in one place. Everything here is measured in metres, with
+ * the middle of the City Centre at (0, 0) — see scene.js.
+ *
+ * The layers are stacked a few centimetres apart so they never fight over
+ * which one is on top: ground, parks, water, then roads.
+ */
+import {
+  BufferAttribute,
+  BufferGeometry,
+  DoubleSide,
+  ExtrudeGeometry,
+  Mesh,
+  MeshLambertMaterial,
+  PlaneGeometry,
+  Shape,
+  ShapeGeometry,
+} from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { buildingToScene, ribbon, toScene } from './scene';
+
+/** The map's colours: a paper map, not a video game. */
+export const COLOURS = {
+  sky: 0xe9eef3,
+  // The ground is a shade darker than the roads on purpose: white streets on
+  // a white background are invisible, which is what the first version looked like.
+  ground: 0xdfd9cd,
+  green: 0xbcd7a8,
+  water: 0x8fc2df,
+  road: 0xfbf9f5,
+  roadBig: 0xf3d38a, // main roads, the way paper maps pick them out
+  buildingLow: 0xd3d7dd,
+  buildingMid: 0xc2c9d3,
+  buildingTall: 0xb0b9c6,
+};
+
+/** How high each flat layer sits, so they stack instead of flickering. */
+const Y = { green: 0.3, water: 0.6, road: 0.9, roadBig: 1.0 };
+
+/** A closed outline, flat on the ground. */
+function flatShape(points) {
+  const shape = new Shape();
+  // -z because the shape is drawn flat and then tipped upright, which would
+  // otherwise swap north and south.
+  points.forEach(({ x, z }, i) => (i === 0 ? shape.moveTo(x, -z) : shape.lineTo(x, -z)));
+  shape.closePath();
+  const geometry = new ShapeGeometry(shape);
+  geometry.rotateX(-Math.PI / 2);
+  return geometry;
+}
+
+/** One mesh from many flat outlines (parks, water). */
+function areaMesh(areas, centre, colour, y) {
+  const parts = [];
+  for (const area of areas ?? []) {
+    const points = (area.p ?? []).map((p) => toScene(p, centre)).filter(Boolean);
+    if (points.length < 3) continue;
+    parts.push(flatShape(points));
+  }
+  if (parts.length === 0) return null;
+  const merged = mergeGeometries(parts, false);
+  parts.forEach((part) => part.dispose());
+  const mesh = new Mesh(merged, new MeshLambertMaterial({ color: colour, side: DoubleSide }));
+  mesh.position.y = y;
+  return mesh;
+}
+
+/** One mesh from many lines with a width (roads, rivers). */
+function lineMesh(lines, centre, colour, y) {
+  const positions = [];
+  for (const line of lines ?? []) {
+    const points = (line.p ?? []).map((p) => toScene(p, centre)).filter(Boolean);
+    positions.push(...ribbon(points, line.w));
+  }
+  if (positions.length === 0) return null;
+  const geometry = new BufferGeometry();
+  geometry.setAttribute('position', new BufferAttribute(new Float32Array(positions), 3));
+  geometry.computeVertexNormals();
+  // Both sides: which way a ribbon faces depends on which way the road runs,
+  // and a road facing away from the sky would simply not be drawn.
+  const mesh = new Mesh(geometry, new MeshLambertMaterial({ color: colour, side: DoubleSide }));
+  mesh.position.y = y;
+  return mesh;
+}
+
+/** Taller buildings are drawn a shade deeper, so the skyline reads at a glance. */
+function buildingColour(height) {
+  if (height >= 120) return COLOURS.buildingTall;
+  if (height >= 40) return COLOURS.buildingMid;
+  return COLOURS.buildingLow;
+}
+
+/** Every building as one mesh, coloured per building. */
+function buildingsMesh(buildings, centre) {
+  const parts = [];
+  for (const building of buildings ?? []) {
+    const shaped = buildingToScene(building, centre);
+    if (!shaped) continue;
+    const outline = new Shape();
+    shaped.points.forEach(({ x, z }, i) =>
+      i === 0 ? outline.moveTo(x, -z) : outline.lineTo(x, -z),
+    );
+    outline.closePath();
+    const geometry = new ExtrudeGeometry(outline, { depth: shaped.height, bevelEnabled: false });
+    geometry.rotateX(-Math.PI / 2);
+
+    // Colour lives on the shape itself, so all the buildings can still be
+    // drawn in one go.
+    const colour = buildingColour(shaped.height);
+    const count = geometry.attributes.position.count;
+    const colours = new Float32Array(count * 3);
+    const r = ((colour >> 16) & 255) / 255;
+    const g = ((colour >> 8) & 255) / 255;
+    const b = (colour & 255) / 255;
+    for (let i = 0; i < count; i++) colours.set([r, g, b], i * 3);
+    geometry.setAttribute('color', new BufferAttribute(colours, 3));
+    parts.push(geometry);
+  }
+  if (parts.length === 0) return null;
+  const merged = mergeGeometries(parts, false);
+  parts.forEach((part) => part.dispose());
+  return new Mesh(merged, new MeshLambertMaterial({ vertexColors: true }));
+}
+
+/**
+ * Everything that makes up the city, ready to add to the scene.
+ * @param {object} city   the imported citymap.json
+ * @param {[number, number]} centre
+ * @param {number} radius metres from the centre to the furthest landmark
+ * @returns {import('three').Mesh[]}
+ */
+export function buildCity(city, centre, radius) {
+  const ground = new Mesh(
+    new PlaneGeometry(radius * 8, radius * 8),
+    new MeshLambertMaterial({ color: COLOURS.ground }),
+  );
+  ground.rotation.x = -Math.PI / 2;
+
+  const bigRoads = (city.roads ?? []).filter((road) => road.w >= 13);
+  const smallRoads = (city.roads ?? []).filter((road) => road.w < 13);
+
+  return [
+    ground,
+    areaMesh(city.green, centre, COLOURS.green, Y.green),
+    areaMesh(city.water, centre, COLOURS.water, Y.water),
+    lineMesh(city.waterways, centre, COLOURS.water, Y.water),
+    lineMesh(smallRoads, centre, COLOURS.road, Y.road),
+    lineMesh(bigRoads, centre, COLOURS.roadBig, Y.roadBig),
+    buildingsMesh(city.buildings, centre),
+  ].filter(Boolean);
+}

@@ -72,3 +72,43 @@ export function buildingToScene(building, centre) {
   const height = Number.isFinite(building.h) && building.h > 0 ? building.h : 12;
   return { height, points };
 }
+
+/**
+ * Turns a line (a road, a river) into a flat ribbon of the given width, as
+ * triangles laid on the ground.
+ *
+ * A line on its own would be a hairline on a phone. This gives every road a
+ * real width in metres, so the street grid reads as a street grid.
+ *
+ * @param {{x: number, z: number}[]} points  the line, in scene metres
+ * @param {number} width                     how wide to draw it, in metres
+ * @returns {number[]} x, y, z for each triangle corner, flat on the ground
+ */
+export function ribbon(points, width) {
+  const out = [];
+  const half = Math.max(width, 1) / 2;
+  for (let i = 0; i < points.length - 1; i++) {
+    const a = points[i];
+    const b = points[i + 1];
+    const dx = b.x - a.x;
+    const dz = b.z - a.z;
+    const length = Math.hypot(dx, dz);
+    if (!length) continue;
+    // Sideways from the direction of travel.
+    const nx = (-dz / length) * half;
+    const nz = (dx / length) * half;
+    const corners = [
+      [a.x + nx, a.z + nz],
+      [a.x - nx, a.z - nz],
+      [b.x - nx, b.z - nz],
+      [b.x + nx, b.z + nz],
+    ];
+    for (const [c1, c2, c3] of [
+      [corners[0], corners[1], corners[2]],
+      [corners[0], corners[2], corners[3]],
+    ]) {
+      out.push(c1[0], 0, c1[1], c2[0], 0, c2[1], c3[0], 0, c3[1]);
+    }
+  }
+  return out;
+}

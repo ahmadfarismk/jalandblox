@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { buildingToScene, cameraDistance, sceneCentre, sceneRadius, toScene } from './scene';
+import {
+  buildingToScene,
+  cameraDistance,
+  ribbon,
+  sceneCentre,
+  sceneRadius,
+  toScene,
+} from './scene';
 
 // Sultan Abdul Samad, near the middle of the City Centre.
 const CENTRE = [3.14861, 101.69444];
@@ -97,5 +104,49 @@ describe('buildingToScene', () => {
   it('drops shapes that are not shapes', () => {
     expect(buildingToScene({ h: 10, p: [CENTRE] }, CENTRE)).toBeNull();
     expect(buildingToScene({}, CENTRE)).toBeNull();
+  });
+});
+
+describe('ribbon', () => {
+  const line = [
+    { x: 0, z: 0 },
+    { x: 100, z: 0 },
+  ];
+
+  it('turns one straight length into two triangles', () => {
+    const out = ribbon(line, 10);
+    expect(out).toHaveLength(18); // 2 triangles x 3 corners x 3 numbers
+  });
+
+  it('gives the road its width, sideways from the way it runs', () => {
+    const out = ribbon(line, 10);
+    const zs = [];
+    for (let i = 2; i < out.length; i += 3) zs.push(out[i]);
+    expect(Math.max(...zs)).toBeCloseTo(5, 6); // half of 10 m either side
+    expect(Math.min(...zs)).toBeCloseTo(-5, 6);
+  });
+
+  it('lies flat on the ground', () => {
+    const out = ribbon(line, 8);
+    for (let i = 1; i < out.length; i += 3) expect(out[i]).toBe(0);
+  });
+
+  it('follows every bend', () => {
+    const bent = [...line, { x: 100, z: 100 }];
+    expect(ribbon(bent, 10)).toHaveLength(36); // two lengths
+  });
+
+  it('skips points that sit on top of each other, and lines too short to draw', () => {
+    expect(
+      ribbon(
+        [
+          { x: 0, z: 0 },
+          { x: 0, z: 0 },
+        ],
+        10,
+      ),
+    ).toEqual([]);
+    expect(ribbon([{ x: 0, z: 0 }], 10)).toEqual([]);
+    expect(ribbon([], 10)).toEqual([]);
   });
 });

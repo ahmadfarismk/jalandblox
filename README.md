@@ -28,17 +28,18 @@ To try it on your phone, connect it to the same Wi-Fi and open the **Network** a
 
 ## Commands
 
-| Command                  | What it does                                                     |
-| ------------------------ | ---------------------------------------------------------------- |
-| `npm run dev`            | Runs the app locally and reloads when you save                   |
-| `npm run build`          | Makes the production version in `dist/`                          |
-| `npm run preview`        | Serves the built `dist/` folder to check it                      |
-| `npm run lint`           | Checks the code for mistakes (ESLint)                            |
-| `npm run format`         | Tidies the formatting of every file (Prettier)                   |
-| `npm run format:check`   | Checks formatting without changing files (used in CI)            |
-| `npm test`               | Runs the automatic tests once (Vitest)                           |
-| `npm run test:watch`     | Re-runs the tests every time you save                            |
-| `npm run check:supabase` | Checks the Supabase tables are locked (see `supabase/README.md`) |
+| Command                  | What it does                                                          |
+| ------------------------ | --------------------------------------------------------------------- |
+| `npm run dev`            | Runs the app locally and reloads when you save                        |
+| `npm run build`          | Makes the production version in `dist/`                               |
+| `npm run preview`        | Serves the built `dist/` folder to check it                           |
+| `npm run lint`           | Checks the code for mistakes (ESLint)                                 |
+| `npm run format`         | Tidies the formatting of every file (Prettier)                        |
+| `npm run format:check`   | Checks formatting without changing files (used in CI)                 |
+| `npm test`               | Runs the automatic tests once (Vitest)                                |
+| `npm run test:watch`     | Re-runs the tests every time you save                                 |
+| `npm run import:citymap` | Re-imports the 3D map of KL Centre from OpenStreetMap (rarely needed) |
+| `npm run check:supabase` | Checks the Supabase tables are locked (see `supabase/README.md`)      |
 
 Run `npm run format`, `npm run lint` and `npm test` before opening a pull request. The same checks
 run automatically on GitHub for every pull request.
