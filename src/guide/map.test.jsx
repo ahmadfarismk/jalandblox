@@ -98,8 +98,10 @@ describe('Map tab without 3D', () => {
 
   it('shows the legend, and no map credit when no map data is drawn', async () => {
     await renderMap();
-    expect(screen.getByText('Not collected yet')).toBeInTheDocument();
-    expect(screen.getByText('Gold stamp collected')).toBeInTheDocument();
+    expect(screen.getByText('Not visited yet')).toBeInTheDocument();
+    expect(screen.getByText('Stamped, shown in colour')).toBeInTheDocument();
+    // The city colours (parks, roads, water) belong to the 3D map only.
+    expect(screen.queryByText('Park')).toBeNull();
     expect(screen.queryByText(/OpenStreetMap/)).toBeNull();
   });
 

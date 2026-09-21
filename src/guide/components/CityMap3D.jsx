@@ -43,7 +43,8 @@ import city from '@/data/citymap.json';
 import MapPin from './MapPin';
 import { cameraDistance, sceneCentre, sceneRadius, toScene } from '../scene';
 import { COLOURS, buildCity } from '../cityLayers';
-import { MARKER_GOLD, MARKER_GREY, labelHeight, makeLandmark } from '../landmarkShapes';
+import { labelHeight, makeLandmark, setLandmarkColour } from '../landmarkShapes';
+import { LANDMARK_COLLECTED, MARKER_GREY } from '../mapColours';
 import { isCollected, shortNameKey } from '../placeList';
 
 export default function CityMap3D({ places, stamps, justUnlocked, position, onSelect, onFail }) {
@@ -221,19 +222,19 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Grey to gold, without rebuilding anything: the landmark's shape and its
-  // building both change together.
+  // Grey to colour, without rebuilding anything: the landmark's shape and its
+  // building both change together the moment the stamp lands.
   useEffect(() => {
     const state = sceneRef.current;
     if (!state) return;
     for (const [id, marker] of Object.entries(state.markers)) {
-      const colour = isCollected(stamps[id]) ? MARKER_GOLD : MARKER_GREY;
-      // An empty marker means the real building stands there instead.
-      marker.userData.material?.color.setHex(colour);
+      const collected = isCollected(stamps[id]);
+      // An empty marker means the real OpenStreetMap building stands there.
+      setLandmarkColour(marker, collected);
       const building = state.landmarks[id];
       if (building) {
         building.material.color.setHex(
-          isCollected(stamps[id]) ? MARKER_GOLD : COLOURS.landmarkGrey,
+          collected ? (LANDMARK_COLLECTED[id] ?? MARKER_GREY) : COLOURS.landmarkGrey,
         );
       }
     }

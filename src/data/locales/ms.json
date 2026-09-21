@@ -123,14 +123,13 @@
   "map": {
     "title": "Peta",
     "you": "Anda di sini",
-    "legendGrey": "Belum dikumpul",
-    "legendColour": "Cop emas dikumpul",
+    "legendGrey": "Belum dilawati",
+    "legendColour": "Sudah dicop, ditunjukkan berwarna",
     "locationOff": "Lokasi dimatikan, jadi kami tidak dapat tunjukkan kedudukan anda.",
     "legendPark": "Taman",
     "legendWater": "Sungai atau tasik",
     "legendRoad": "Jalan utama",
-    "legendBuilding": "Bangunan",
-    "legendLandmarkGold": "Mercu tanda yang anda telah cop"
+    "legendBuilding": "Bangunan"
   },
   "learn": {
     "title": "Belajar asasnya",

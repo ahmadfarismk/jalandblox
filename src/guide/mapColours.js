@@ -17,6 +17,15 @@ export const COLOURS = {
   buildingLow: 0xd3d7dd,
   buildingMid: 0xc2c9d3,
   buildingTall: 0xb0b9c6,
+  /**
+   * Real cities are not one grey. Low buildings are shophouse plaster and
+   * brick, the middle is concrete, and the towers are glass. A building keeps
+   * the same colour every time the map is drawn (it comes from its place in
+   * the file), so the city never flickers between shades.
+   */
+  buildingsLow: [0xe3dccf, 0xdcd3c4, 0xd9cec2, 0xe6e0d5, 0xd6c9bb],
+  buildingsMid: [0xd5d8dc, 0xcdd2d8, 0xd9dbdd, 0xc9cfd6],
+  buildingsTall: [0xb8c6d2, 0xa9bccd, 0xc0cbd6, 0xaebfd0],
   // A landmark before its stamp: the same grey as the city, so gold means
   // something when it arrives.
   landmarkGrey: 0xb0b9c6,
@@ -28,3 +37,18 @@ export const MARKER_GOLD = 0xf0a726;
 
 /** "You are here", matching the teal used across the app. */
 export const YOU_ARE_HERE = 0x0d9488;
+
+/**
+ * The colour a landmark's real building takes once its stamp is earned. Only
+ * needed where OpenStreetMap already has the building and the app does not
+ * draw its own shape: Merdeka 118's dark glass, for instance.
+ */
+export const LANDMARK_COLLECTED = {
+  'merdeka-118': 0x6f8fa6,
+  petronas: 0x9fb3c8,
+  'kl-tower': 0xe8e4dc,
+  'abdul-samad': 0xc08161,
+  'petaling-street': 0xb3322c,
+  'kl-sentral': 0x8fb6cf,
+  'klcc-park': 0x5f9e56,
+};

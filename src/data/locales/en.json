@@ -123,14 +123,13 @@
   "map": {
     "title": "Map",
     "you": "You are here",
-    "legendGrey": "Not collected yet",
-    "legendColour": "Gold stamp collected",
+    "legendGrey": "Not visited yet",
+    "legendColour": "Stamped, shown in colour",
     "locationOff": "Location is off, so we can't show where you are.",
     "legendPark": "Park",
     "legendWater": "River or lake",
     "legendRoad": "Main road",
-    "legendBuilding": "Building",
-    "legendLandmarkGold": "Landmark you have stamped"
+    "legendBuilding": "Building"
   },
   "learn": {
     "title": "Learn the basics",

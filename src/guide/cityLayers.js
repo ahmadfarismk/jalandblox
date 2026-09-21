@@ -75,11 +75,19 @@ function lineMesh(lines, centre, colour, y) {
   return mesh;
 }
 
-/** Taller buildings are drawn a shade deeper, so the skyline reads at a glance. */
-function buildingColour(height) {
-  if (height >= 120) return COLOURS.buildingTall;
-  if (height >= 40) return COLOURS.buildingMid;
-  return COLOURS.buildingLow;
+/**
+ * A building's colour: glass for the towers, concrete for the middle, brick
+ * and plaster for the low shophouses. The shade comes from the building's
+ * place in the file, so it never changes between visits.
+ */
+function buildingColour(height, index) {
+  const palette =
+    height >= 120
+      ? COLOURS.buildingsTall
+      : height >= 40
+        ? COLOURS.buildingsMid
+        : COLOURS.buildingsLow;
+  return palette[index % palette.length];
 }
 
 /** One building, pushed up from its outline. */
@@ -101,6 +109,7 @@ function buildingsMesh(buildings, centre, skip = new Set()) {
     if (skip.has(index)) continue; // a landmark: it gets its own mesh
     const shaped = buildingToScene(building, centre);
     if (!shaped) continue;
+    const paletteIndex = index;
     const outline = new Shape();
     shaped.points.forEach(({ x, z }, i) =>
       i === 0 ? outline.moveTo(x, -z) : outline.lineTo(x, -z),
@@ -111,7 +120,7 @@ function buildingsMesh(buildings, centre, skip = new Set()) {
 
     // Colour lives on the shape itself, so all the buildings can still be
     // drawn in one go.
-    const colour = buildingColour(shaped.height);
+    const colour = buildingColour(shaped.height, paletteIndex);
     const count = geometry.attributes.position.count;
     const colours = new Float32Array(count * 3);
     const r = ((colour >> 16) & 255) / 255;

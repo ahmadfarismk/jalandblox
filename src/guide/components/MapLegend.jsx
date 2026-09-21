@@ -25,14 +25,13 @@ export default function MapLegend({ showCity, showYou }) {
   const { t } = useTranslation();
 
   const items = [
-    { key: 'legendGrey', colour: MARKER_GREY, round: true, fallback: 'Not collected yet' },
-    { key: 'legendColour', colour: MARKER_GOLD, round: true, fallback: 'Gold stamp collected' },
+    { key: 'legendGrey', colour: MARKER_GREY, round: true, fallback: 'Not visited yet' },
+    { key: 'legendColour', colour: MARKER_GOLD, round: true, fallback: 'Stamped, shown in colour' },
     ...(showYou
       ? [{ key: 'you', colour: YOU_ARE_HERE, round: true, fallback: 'You are here' }]
       : []),
     ...(showCity
       ? [
-          { key: 'legendLandmarkGold', colour: MARKER_GOLD, fallback: 'Landmark you have stamped' },
           { key: 'legendBuilding', colour: COLOURS.buildingMid, fallback: 'Building' },
           { key: 'legendRoad', colour: COLOURS.roadBig, fallback: 'Main road' },
           { key: 'legendWater', colour: COLOURS.water, fallback: 'River or lake' },
