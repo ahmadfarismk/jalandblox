@@ -489,7 +489,12 @@
       "note": "Your stamps and settings are saved only on this phone. We never save where you are.",
       "link": "Read the privacy notice"
     },
-    "about": "About JalanKL"
+    "about": "About JalanKL",
+    "map": {
+      "title": "Map",
+      "simple": "Use the simple map",
+      "simpleHint": "Turn this on if the 3D map is slow, or to save battery and data."
+    }
   },
   "location": {
     "explainer": "We use your location only to show how far places are and to confirm your check-ins. It is never saved.",
@@ -583,5 +588,8 @@
     "ready": "Ready when you are.",
     "credits": "Photo credits",
     "privacy": "Privacy"
+  },
+  "attribution": {
+    "osm": "Building shapes © OpenStreetMap contributors (ODbL)"
   }
 }

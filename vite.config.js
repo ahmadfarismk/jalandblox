@@ -37,7 +37,22 @@ export default defineConfig({
       workbox: {
         // Keep the app shell on the phone so it opens without signal
         globPatterns: ['**/*.{js,css,html,png,svg,json,woff2}'],
+        // ...but not the 3D city: it is big, and most of what it needs only
+        // matters on the Map tab. It is fetched the first time that tab opens
+        // on a phone that can draw it, and kept from then on. Without it the
+        // Map tab falls back to the flat map, which is always installed.
+        globIgnores: ['**/CityMap3D-*.js'],
         navigateFallback: '/index.html',
+        runtimeCaching: [
+          {
+            urlPattern: /\/assets\/CityMap3D-.*\.js$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'jalankl-3d-map',
+              expiration: { maxEntries: 2, maxAgeSeconds: 60 * 60 * 24 * 60 },
+            },
+          },
+        ],
       },
     }),
   ],

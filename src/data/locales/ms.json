@@ -489,7 +489,12 @@
       "note": "Setem dan tetapan anda disimpan hanya pada telefon ini. Kami tidak pernah menyimpan lokasi anda.",
       "link": "Baca notis privasi"
     },
-    "about": "Mengenai JalanKL"
+    "about": "Mengenai JalanKL",
+    "map": {
+      "title": "Peta",
+      "simple": "Guna peta ringkas",
+      "simpleHint": "Hidupkan ini jika peta 3D perlahan, atau untuk menjimatkan bateri dan data."
+    }
   },
   "location": {
     "explainer": "Kami menggunakan lokasi anda hanya untuk menunjukkan jarak tempat dan mengesahkan daftar masuk anda. Lokasi anda tidak pernah disimpan.",
@@ -583,5 +588,8 @@
     "ready": "Sedia bila-bila masa anda mahu.",
     "credits": "Kredit foto",
     "privacy": "Privasi"
+  },
+  "attribution": {
+    "osm": "Bentuk bangunan © penyumbang OpenStreetMap (ODbL)"
   }
 }

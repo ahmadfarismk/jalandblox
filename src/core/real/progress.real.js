@@ -17,7 +17,7 @@ const STARTED_FROM = ['arrival', 'city'];
 function emptyProgress(prefs) {
   return {
     version: 1,
-    prefs: { lang: 'en', nationality: null, startedFrom: null, ...prefs },
+    prefs: { lang: 'en', nationality: null, startedFrom: null, simpleMap: false, ...prefs },
     opened: [],
     stamps: {},
     journeys: {},
@@ -38,10 +38,12 @@ export function normalise(raw) {
   if (!isObject(raw)) return p;
 
   if (isObject(raw.prefs)) {
-    const { lang, nationality, startedFrom } = raw.prefs;
+    const { lang, nationality, startedFrom, simpleMap } = raw.prefs;
     if (typeof lang === 'string' && lang) p.prefs.lang = lang;
     if (typeof nationality === 'string' && nationality) p.prefs.nationality = nationality;
     if (STARTED_FROM.includes(startedFrom)) p.prefs.startedFrom = startedFrom;
+    // The visitor asked for the flat map instead of the 3D city (task S12).
+    if (typeof simpleMap === 'boolean') p.prefs.simpleMap = simpleMap;
   }
 
   p.opened = stringList(raw.opened);

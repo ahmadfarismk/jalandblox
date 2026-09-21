@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { resetProgress } from './progress';
-import { getLanguages, setPrefs } from './settings';
+import { getLanguages, getPrefs, setPrefs } from './settings';
 
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
   const [confirmingReset, setConfirmingReset] = useState(false);
   const [resetDone, setResetDone] = useState(false);
+  const [simpleMap, setSimpleMap] = useState(() => getPrefs().simpleMap === true);
 
   function reset() {
     resetProgress();
@@ -43,6 +44,25 @@ export default function SettingsScreen() {
           ))}
         </div>
       </fieldset>
+
+      <div>
+        <h2 className="mb-1 font-medium">{t('settings.map.title')}</h2>
+        <label className="flex min-h-12 cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            checked={simpleMap}
+            onChange={(e) => {
+              setSimpleMap(e.target.checked);
+              setPrefs({ simpleMap: e.target.checked });
+            }}
+            className="mt-1 size-5 accent-teal-700"
+          />
+          <span>
+            {t('settings.map.simple')}
+            <span className="block text-sm text-slate-600">{t('settings.map.simpleHint')}</span>
+          </span>
+        </label>
+      </div>
 
       <div>
         <h2 className="mb-1 font-medium">{t('settings.reset.title')}</h2>
