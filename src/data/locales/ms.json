@@ -125,7 +125,12 @@
     "you": "Anda di sini",
     "legendGrey": "Belum dikumpul",
     "legendColour": "Cop emas dikumpul",
-    "locationOff": "Lokasi dimatikan, jadi kami tidak dapat tunjukkan kedudukan anda."
+    "locationOff": "Lokasi dimatikan, jadi kami tidak dapat tunjukkan kedudukan anda.",
+    "legendPark": "Taman",
+    "legendWater": "Sungai atau tasik",
+    "legendRoad": "Jalan utama",
+    "legendBuilding": "Bangunan",
+    "legendLandmarkGold": "Mercu tanda yang anda telah cop"
   },
   "learn": {
     "title": "Belajar asasnya",

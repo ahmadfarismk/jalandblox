@@ -30,12 +30,9 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AmbientLight,
-  CylinderGeometry,
   DirectionalLight,
   Fog,
   Group,
-  Mesh,
-  MeshLambertMaterial,
   PerspectiveCamera,
   Scene,
   Vector3,
@@ -46,23 +43,8 @@ import city from '@/data/citymap.json';
 import MapPin from './MapPin';
 import { cameraDistance, sceneCentre, sceneRadius, toScene } from '../scene';
 import { COLOURS, buildCity } from '../cityLayers';
+import { MARKER_GOLD, MARKER_GREY, labelHeight, makeLandmark } from '../landmarkShapes';
 import { isCollected, shortNameKey } from '../placeList';
-
-const MARKER_GREY = 0x94a3b8;
-const MARKER_GOLD = 0xf5a524;
-
-/** A landmark marker: a pillar you can see over the rooftops, with a disc on top. */
-function makeMarker() {
-  const group = new Group();
-  const material = new MeshLambertMaterial({ color: MARKER_GREY });
-  const pillar = new Mesh(new CylinderGeometry(6, 9, 70, 12), material);
-  pillar.position.y = 35;
-  const disc = new Mesh(new CylinderGeometry(22, 22, 6, 18), material);
-  disc.position.y = 74;
-  group.add(pillar, disc);
-  group.userData.material = material;
-  return group;
-}
 
 export default function CityMap3D({ places, stamps, justUnlocked, position, onSelect, onFail }) {
   const { t } = useTranslation();
@@ -105,19 +87,30 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
 
     // The ground, the parks, the water, the roads and the buildings. Each
     // layer is one mesh, so the phone draws the whole city in a handful of
-    // passes instead of thousands.
-    const layers = buildCity(city, centre, radius);
+    // passes instead of thousands. Landmark buildings come back on their own,
+    // so they can be coloured in when their stamp is earned.
+    const { layers, landmarks } = buildCity(city, centre, radius, places);
     layers.forEach((layer) => scene.add(layer));
 
-    // One marker per landmark, at its real position.
+    // Where each landmark's name floats, and what stands under it.
+    //
+    // Some landmarks are already in OpenStreetMap as real towers (Merdeka 118
+    // is there at 679 m): those need nothing drawn, just their name above the
+    // real building. The rest get a drawn shape: the Twin Towers and KL Tower
+    // have one each, everything else a plain marker.
     const markers = {};
+    const labelTops = {};
     for (const place of places) {
       const at = toScene(place.coords, centre);
       if (!at) continue; // coordinates still TBC
-      const marker = makeMarker();
+      const realTower = landmarks[place.id]?.userData.height >= 150;
+      const marker = realTower ? new Group() : makeLandmark(place.id);
       marker.position.set(at.x, 0, at.z);
       scene.add(marker);
       markers[place.id] = marker;
+      labelTops[place.id] = realTower
+        ? landmarks[place.id].userData.height + 60
+        : labelHeight(place.id);
     }
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -130,8 +123,21 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
     controls.maxPolarAngle = 1.32; // never below the horizon
     controls.target.set(0, 0, 0);
 
-    const state = { scene, camera, renderer, controls, markers, centre, radius, layers };
+    const state = {
+      scene,
+      camera,
+      renderer,
+      controls,
+      markers,
+      landmarks,
+      labelTops,
+      centre,
+      radius,
+      layers,
+    };
     sceneRef.current = state;
+    // A handle for checking the map while developing (npm run dev only).
+    if (import.meta.env.DEV) globalThis.__jalanklMap = state;
 
     /** Moves the floating names to wherever their landmark now is on screen. */
     const placeLabels = () => {
@@ -147,7 +153,8 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
         element.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px) translate(-50%, -100%)`;
       };
       for (const [id, marker] of Object.entries(markers)) {
-        put(labelsRef.current[id], new Vector3(marker.position.x, 88, marker.position.z));
+        const above = labelTops[id] ?? 88;
+        put(labelsRef.current[id], new Vector3(marker.position.x, above, marker.position.z));
       }
       if (state.you) put(youRef.current, state.you);
     };
@@ -201,8 +208,10 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
         layer.material.dispose();
       });
       Object.values(markers).forEach((marker) => {
-        marker.children.forEach((child) => child.geometry.dispose());
-        marker.userData.material.dispose();
+        // A landmark shape can be a group of groups (the Twin Towers are two
+        // towers and a bridge), so walk the whole thing.
+        marker.traverse((piece) => piece.geometry?.dispose());
+        marker.userData.material?.dispose();
       });
       renderer.dispose();
       renderer.domElement.remove();
@@ -212,12 +221,21 @@ export default function CityMap3D({ places, stamps, justUnlocked, position, onSe
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Grey to gold, without rebuilding anything.
+  // Grey to gold, without rebuilding anything: the landmark's shape and its
+  // building both change together.
   useEffect(() => {
     const state = sceneRef.current;
     if (!state) return;
     for (const [id, marker] of Object.entries(state.markers)) {
-      marker.userData.material.color.setHex(isCollected(stamps[id]) ? MARKER_GOLD : MARKER_GREY);
+      const colour = isCollected(stamps[id]) ? MARKER_GOLD : MARKER_GREY;
+      // An empty marker means the real building stands there instead.
+      marker.userData.material?.color.setHex(colour);
+      const building = state.landmarks[id];
+      if (building) {
+        building.material.color.setHex(
+          isCollected(stamps[id]) ? MARKER_GOLD : COLOURS.landmarkGrey,
+        );
+      }
     }
     state.draw?.();
   }, [stamps]);

@@ -25,6 +25,7 @@ import { getPrefs } from '@/core/settings';
 import FlatMap from './components/FlatMap';
 import MapErrorBoundary from './components/MapErrorBoundary';
 import MapAttribution from './components/MapAttribution';
+import MapLegend from './components/MapLegend';
 import { canRender3D, detectMapEnv } from './mapCapability';
 import { newlyGold } from './placeList';
 
@@ -117,28 +118,7 @@ export default function MapScreen() {
         )}
       </div>
 
-      <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-600">
-        <li className="flex items-center gap-2">
-          <span
-            aria-hidden="true"
-            className="size-3 rounded-full border border-slate-400 bg-white"
-          />
-          {t('map.legendGrey', 'Not collected yet')}
-        </li>
-        <li className="flex items-center gap-2">
-          <span
-            aria-hidden="true"
-            className="size-3 rounded-full border border-amber-600 bg-amber-400"
-          />
-          {t('map.legendColour', 'Gold stamp collected')}
-        </li>
-        {position ? (
-          <li className="flex items-center gap-2">
-            <span aria-hidden="true" className="size-3 rounded-full bg-teal-600" />
-            {t('map.you', 'You are here')}
-          </li>
-        ) : null}
-      </ul>
+      <MapLegend showCity={Boolean(use3D)} showYou={Boolean(position)} />
 
       {locationOn ? null : (
         <p role="status" className="mt-3 text-sm text-slate-500">

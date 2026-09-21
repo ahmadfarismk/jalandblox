@@ -21,21 +21,10 @@ import {
 } from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { buildingToScene, ribbon, toScene } from './scene';
+import { matchFootprints } from './footprints';
+import { COLOURS } from './mapColours';
 
-/** The map's colours: a paper map, not a video game. */
-export const COLOURS = {
-  sky: 0xe9eef3,
-  // The ground is a shade darker than the roads on purpose: white streets on
-  // a white background are invisible, which is what the first version looked like.
-  ground: 0xdfd9cd,
-  green: 0xbcd7a8,
-  water: 0x8fc2df,
-  road: 0xfbf9f5,
-  roadBig: 0xf3d38a, // main roads, the way paper maps pick them out
-  buildingLow: 0xd3d7dd,
-  buildingMid: 0xc2c9d3,
-  buildingTall: 0xb0b9c6,
-};
+export { COLOURS };
 
 /** How high each flat layer sits, so they stack instead of flickering. */
 const Y = { green: 0.3, water: 0.6, road: 0.9, roadBig: 1.0 };
@@ -93,10 +82,23 @@ function buildingColour(height) {
   return COLOURS.buildingLow;
 }
 
-/** Every building as one mesh, coloured per building. */
-function buildingsMesh(buildings, centre) {
+/** One building, pushed up from its outline. */
+function buildingGeometry(building, centre) {
+  const shaped = buildingToScene(building, centre);
+  if (!shaped) return null;
+  const outline = new Shape();
+  shaped.points.forEach(({ x, z }, i) => (i === 0 ? outline.moveTo(x, -z) : outline.lineTo(x, -z)));
+  outline.closePath();
+  const geometry = new ExtrudeGeometry(outline, { depth: shaped.height, bevelEnabled: false });
+  geometry.rotateX(-Math.PI / 2);
+  return { geometry, height: shaped.height };
+}
+
+/** Every ordinary building as one mesh, coloured per building. */
+function buildingsMesh(buildings, centre, skip = new Set()) {
   const parts = [];
-  for (const building of buildings ?? []) {
+  for (const [index, building] of (buildings ?? []).entries()) {
+    if (skip.has(index)) continue; // a landmark: it gets its own mesh
     const shaped = buildingToScene(building, centre);
     if (!shaped) continue;
     const outline = new Shape();
@@ -127,12 +129,18 @@ function buildingsMesh(buildings, centre) {
 
 /**
  * Everything that makes up the city, ready to add to the scene.
+ *
+ * Landmark buildings come back separately: each has its own material, so the
+ * map can turn Petronas gold the moment its stamp is earned, while the rest
+ * of the city stays grey.
+ *
  * @param {object} city   the imported citymap.json
  * @param {[number, number]} centre
  * @param {number} radius metres from the centre to the furthest landmark
- * @returns {import('three').Mesh[]}
+ * @param {{id: string, coords: [number, number]|null}[]} [places]
+ * @returns {{layers: import('three').Mesh[], landmarks: Record<string, import('three').Mesh>}}
  */
-export function buildCity(city, centre, radius) {
+export function buildCity(city, centre, radius, places = []) {
   const ground = new Mesh(
     new PlaneGeometry(radius * 8, radius * 8),
     new MeshLambertMaterial({ color: COLOURS.ground }),
@@ -142,13 +150,31 @@ export function buildCity(city, centre, radius) {
   const bigRoads = (city.roads ?? []).filter((road) => road.w >= 13);
   const smallRoads = (city.roads ?? []).filter((road) => road.w < 13);
 
-  return [
+  // Which building belongs to which landmark, so those can be coloured in.
+  const matched = matchFootprints(places, city.buildings);
+  const landmarks = {};
+  for (const [placeId, index] of Object.entries(matched)) {
+    const built = buildingGeometry(city.buildings[index], centre);
+    if (!built) continue;
+    const mesh = new Mesh(built.geometry, new MeshLambertMaterial({ color: COLOURS.landmarkGrey }));
+    mesh.userData.material = mesh.material;
+    // How tall the real building is, so the map knows whether OpenStreetMap
+    // already has the tower (Merdeka 118 is in there at its full 679 m) or
+    // whether one needs drawing (the Twin Towers are only a low podium).
+    mesh.userData.height = built.height;
+    landmarks[placeId] = mesh;
+  }
+
+  const layers = [
     ground,
     areaMesh(city.green, centre, COLOURS.green, Y.green),
     areaMesh(city.water, centre, COLOURS.water, Y.water),
     lineMesh(city.waterways, centre, COLOURS.water, Y.water),
     lineMesh(smallRoads, centre, COLOURS.road, Y.road),
     lineMesh(bigRoads, centre, COLOURS.roadBig, Y.roadBig),
-    buildingsMesh(city.buildings, centre),
+    buildingsMesh(city.buildings, centre, new Set(Object.values(matched))),
+    ...Object.values(landmarks),
   ].filter(Boolean);
+
+  return { layers, landmarks };
 }

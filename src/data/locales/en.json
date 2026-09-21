@@ -125,7 +125,12 @@
     "you": "You are here",
     "legendGrey": "Not collected yet",
     "legendColour": "Gold stamp collected",
-    "locationOff": "Location is off, so we can't show where you are."
+    "locationOff": "Location is off, so we can't show where you are.",
+    "legendPark": "Park",
+    "legendWater": "River or lake",
+    "legendRoad": "Main road",
+    "legendBuilding": "Building",
+    "legendLandmarkGold": "Landmark you have stamped"
   },
   "learn": {
     "title": "Learn the basics",
